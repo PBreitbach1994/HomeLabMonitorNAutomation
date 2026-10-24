@@ -1,0 +1,9 @@
+[
+  { "label": "acpitz 0", "value": 27, "warning": null, "critical": null, "unit": "C", "type": "temperature_core", "key": "label" },
+  { "label": "Package id 0", "value": 52, "warning": 84, "critical": 100, "unit": "C", "type": "temperature_core", "key": "label" },
+  { "label": "Core 0", "value": 49, "warning": 84, "critical": 100, "unit": "C", "type": "temperature_core", "key": "label" },
+  { "label": "Core 1", "value": 54, "warning": 84, "critical": 100, "unit": "C", "type": "temperature_core", "key": "label" },
+  { "label": "Composite", "value": 61, "warning": 84, "critical": 89, "unit": "C", "type": "temperature_core", "key": "label" },
+  { "label": "nvme0n1", "value": 38, "warning": null, "critical": null, "unit": "C", "type": "temperature_hdd", "key": "label" },
+  { "label": "fan1", "value": 1180, "warning": null, "critical": null, "unit": "R", "type": "fan_speed", "key": "label" }
+]

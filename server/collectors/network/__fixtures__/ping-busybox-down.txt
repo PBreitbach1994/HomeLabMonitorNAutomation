@@ -1,0 +1,4 @@
+PING 192.168.4.250 (192.168.4.250): 56 data bytes
+
+--- 192.168.4.250 ping statistics ---
+3 packets transmitted, 0 packets received, 100% packet loss

@@ -1,0 +1,132 @@
+[
+  {
+    "Id": "8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b",
+    "Names": ["/gluetun"],
+    "Image": "qmcgaw/gluetun:v3.40.0",
+    "ImageID": "sha256:4b2f1c5e0d7a9b8c6e3f2a1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b",
+    "Command": "/gluetun-entrypoint",
+    "Created": 1760700000,
+    "Ports": [
+      { "IP": "0.0.0.0", "PrivatePort": 8000, "PublicPort": 8000, "Type": "tcp" },
+      { "IP": "0.0.0.0", "PrivatePort": 8080, "PublicPort": 8080, "Type": "tcp" }
+    ],
+    "Labels": { "com.docker.compose.project": "media", "com.docker.compose.service": "gluetun" },
+    "State": "running",
+    "Status": "Up 6 days (healthy)",
+    "HostConfig": { "NetworkMode": "media_default" },
+    "NetworkSettings": { "Networks": { "media_default": { "IPAddress": "172.20.0.2" } } },
+    "Mounts": []
+  },
+  {
+    "Id": "1a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f809",
+    "Names": ["/sonarr"],
+    "Image": "lscr.io/linuxserver/sonarr:latest",
+    "ImageID": "sha256:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b",
+    "Command": "/init",
+    "Created": 1760700100,
+    "Ports": [],
+    "Labels": { "com.docker.compose.project": "media", "com.docker.compose.service": "sonarr" },
+    "State": "running",
+    "Status": "Up 6 days (healthy)",
+    "HostConfig": { "NetworkMode": "container:8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b" },
+    "NetworkSettings": { "Networks": {} },
+    "Mounts": [{ "Type": "bind", "Source": "/srv/media/sonarr", "Destination": "/config", "Mode": "", "RW": true, "Propagation": "rprivate" }]
+  },
+  {
+    "Id": "2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a",
+    "Names": ["/sabnzbd"],
+    "Image": "lscr.io/linuxserver/sabnzbd:latest",
+    "Command": "/init",
+    "Created": 1761310000,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 12 seconds (health: starting)",
+    "HostConfig": { "NetworkMode": "container:8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b" }
+  },
+  {
+    "Id": "3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b",
+    "Names": ["/tdarr"],
+    "Image": "ghcr.io/haveagitgat/tdarr:latest",
+    "Command": "/init",
+    "Created": 1760700200,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 2 hours (unhealthy)",
+    "HostConfig": { "NetworkMode": "container:8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b" }
+  },
+  {
+    "Id": "4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c",
+    "Names": ["/bazarr"],
+    "Image": "lscr.io/linuxserver/bazarr:latest",
+    "Command": "/init",
+    "Created": 1760700300,
+    "Ports": [],
+    "Labels": {},
+    "State": "exited",
+    "Status": "Exited (0) 3 days ago",
+    "HostConfig": { "NetworkMode": "container:8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b" }
+  },
+  {
+    "Id": "5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d",
+    "Names": ["/qbittorrent"],
+    "Image": "lscr.io/linuxserver/qbittorrent:latest",
+    "Command": "/init",
+    "Created": 1760700400,
+    "Ports": [],
+    "Labels": {},
+    "State": "paused",
+    "Status": "Up 6 days (Paused)",
+    "HostConfig": { "NetworkMode": "container:8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b" }
+  },
+  {
+    "Id": "6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e",
+    "Names": ["/prowlarr"],
+    "Image": "lscr.io/linuxserver/prowlarr:latest",
+    "Command": "/init",
+    "Created": 1760700500,
+    "Ports": [],
+    "Labels": {},
+    "State": "restarting",
+    "Status": "Restarting (1) 4 seconds ago",
+    "HostConfig": { "NetworkMode": "container:8dfafdbc3a40a2b1f0e1c9d3b4a5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b" }
+  },
+  {
+    "Id": "708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f",
+    "Names": ["/hearr"],
+    "Image": "ghcr.io/example/hearr:0.4.1",
+    "Command": "node server.js",
+    "Created": 1761311000,
+    "Ports": [],
+    "Labels": {},
+    "State": "created",
+    "Status": "Created",
+    "HostConfig": { "NetworkMode": "bridge" }
+  },
+  {
+    "Id": "8192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f70",
+    "Names": ["/web/db", "/postgres"],
+    "Image": "postgres:16",
+    "Command": "docker-entrypoint.sh postgres",
+    "Created": 1760000000,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 9 days",
+    "HostConfig": { "NetworkMode": "bridge" }
+  },
+  {
+    "Id": "92a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f7081",
+    "Names": ["/audiobookshelf"],
+    "Image": "ghcr.io/advplyr/audiobookshelf:latest",
+    "Command": "tini -- node index.js",
+    "Created": 1761000000,
+    "Ports": [],
+    "Labels": {},
+    "State": "running",
+    "Status": "Up 3 days (healthy)",
+    "Health": { "Status": "healthy", "FailingStreak": 0 },
+    "HostConfig": { "NetworkMode": "bridge" }
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "Version": "1.76.6-t2e3f4a5b6-g7c8d9e0f1",
+  "TUN": true,
+  "BackendState": "Running",
+  "HaveNodeKey": true,
+  "AuthURL": "",
+  "TailscaleIPs": ["100.101.102.10", "fd7a:115c:a1e0::a01:660a"],
+  "Self": {
+    "ID": "nSelf123CNTRL",
+    "PublicKey": "nodekey:1111111111111111111111111111111111111111111111111111111111111111",
+    "HostName": "foundry",
+    "DNSName": "foundry.tail1234.ts.net.",
+    "OS": "linux",
+    "UserID": 1234567890,
+    "TailscaleIPs": ["100.101.102.10", "fd7a:115c:a1e0::a01:660a"],
+    "Addrs": ["192.168.4.40:41641"],
+    "CurAddr": "",
+    "Relay": "sea",
+    "RxBytes": 0,
+    "TxBytes": 0,
+    "Created": "2024-03-02T18:21:09.123456789Z",
+    "LastWrite": "0001-01-01T00:00:00Z",
+    "LastSeen": "0001-01-01T00:00:00Z",
+    "LastHandshake": "0001-01-01T00:00:00Z",
+    "Online": true,
+    "ExitNode": false,
+    "ExitNodeOption": false,
+    "Active": false,
+    "PeerAPIURL": ["http://100.101.102.10:44321"],
+    "InNetworkMap": true,
+    "InMagicSock": false,
+    "InEngine": false
+  },
+  "Health": [],
+  "MagicDNSSuffix": "tail1234.ts.net",
+  "CurrentTailnet": { "Name": "someone@example.com", "MagicDNSSuffix": "tail1234.ts.net", "MagicDNSEnabled": true },
+  "CertDomains": null,
+  "Peer": {
+    "nodekey:2222222222222222222222222222222222222222222222222222222222222222": {
+      "ID": "nPeerA1CNTRL", "HostName": "switchyard", "DNSName": "switchyard.tail1234.ts.net.", "OS": "linux",
+      "TailscaleIPs": ["100.101.102.11"], "CurAddr": "192.168.4.41:41641", "Relay": "sea",
+      "RxBytes": 1203344, "TxBytes": 889212, "LastSeen": "2026-10-24T17:59:01Z", "Online": true,
+      "ExitNode": false, "ExitNodeOption": false, "Active": true, "InNetworkMap": true, "InMagicSock": true, "InEngine": true
+    },
+    "nodekey:3333333333333333333333333333333333333333333333333333333333333333": {
+      "ID": "nPeerB2CNTRL", "HostName": "MacBook-Pro-2", "DNSName": "macbook-pro-2.tail1234.ts.net.", "OS": "macOS",
+      "TailscaleIPs": ["100.101.102.12"], "CurAddr": "", "Relay": "sea",
+      "RxBytes": 0, "TxBytes": 0, "LastSeen": "2026-10-24T17:58:40Z", "Online": true,
+      "ExitNode": false, "ExitNodeOption": false, "Active": false, "InNetworkMap": true, "InMagicSock": true, "InEngine": false
+    },
+    "nodekey:4444444444444444444444444444444444444444444444444444444444444444": {
+      "ID": "nPeerC3CNTRL", "HostName": "iPhone", "DNSName": "iphone.tail1234.ts.net.", "OS": "iOS",
+      "TailscaleIPs": ["100.101.102.13"], "CurAddr": "", "Relay": "sea",
+      "RxBytes": 0, "TxBytes": 0, "LastSeen": "2026-10-20T08:12:03Z", "Online": false,
+      "ExitNode": false, "ExitNodeOption": false, "Active": false, "InNetworkMap": true, "InMagicSock": false, "InEngine": false
+    },
+    "nodekey:5555555555555555555555555555555555555555555555555555555555555555": {
+      "ID": "nPeerD4CNTRL", "HostName": "nichnas", "DNSName": "nichnas.tail1234.ts.net.", "OS": "linux",
+      "TailscaleIPs": ["100.101.102.14"], "CurAddr": "192.168.4.79:41641", "Relay": "sea",
+      "RxBytes": 44120, "TxBytes": 39200, "LastSeen": "2026-10-24T17:59:00Z", "Online": true,
+      "ExitNode": false, "ExitNodeOption": true, "Active": true, "InNetworkMap": true, "InMagicSock": true, "InEngine": true
+    }
+  },
+  "User": {
+    "1234567890": { "ID": 1234567890, "LoginName": "someone@example.com", "DisplayName": "Someone", "ProfilePicURL": "", "Roles": [] }
+  },
+  "ClientVersion": { "RunningLatest": true }
+}
