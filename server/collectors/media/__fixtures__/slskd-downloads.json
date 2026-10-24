@@ -1,0 +1,121 @@
+[
+  {
+    "username": "vinylhoarder",
+    "directories": [
+      {
+        "directory": "@@kqcpv\\Music\\Radiohead\\2007 - In Rainbows",
+        "fileCount": 4,
+        "files": [
+          {
+            "id": "6f1c1f4e-2f0b-4a5e-9a0e-2f7f3c3b1a01",
+            "username": "vinylhoarder",
+            "direction": "Download",
+            "filename": "@@kqcpv\\Music\\Radiohead\\2007 - In Rainbows\\01 - 15 Step.flac",
+            "size": 26214400,
+            "startOffset": 0,
+            "state": "Completed, Succeeded",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": "2025-10-24T15:40:01.0000000",
+            "startedAt": "2025-10-24T15:40:02.0000000",
+            "endedAt": "2025-10-24T15:41:10.0000000",
+            "bytesTransferred": 26214400,
+            "averageSpeed": 385505.8,
+            "bytesRemaining": 0,
+            "elapsedTime": "00:01:08",
+            "percentComplete": 100,
+            "remainingTime": null
+          },
+          {
+            "id": "6f1c1f4e-2f0b-4a5e-9a0e-2f7f3c3b1a02",
+            "username": "vinylhoarder",
+            "direction": "Download",
+            "filename": "@@kqcpv\\Music\\Radiohead\\2007 - In Rainbows\\02 - Bodysnatchers.flac",
+            "size": 31457280,
+            "startOffset": 0,
+            "state": "InProgress",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": "2025-10-24T15:41:10.5000000",
+            "startedAt": "2025-10-24T15:41:11.0000000",
+            "endedAt": null,
+            "bytesTransferred": 13054771,
+            "averageSpeed": 524288,
+            "bytesRemaining": 18402509,
+            "elapsedTime": "00:00:25",
+            "percentComplete": 41.5,
+            "remainingTime": "00:00:35"
+          },
+          {
+            "id": "6f1c1f4e-2f0b-4a5e-9a0e-2f7f3c3b1a03",
+            "username": "vinylhoarder",
+            "direction": "Download",
+            "filename": "@@kqcpv\\Music\\Radiohead\\2007 - In Rainbows\\03 - Nude.flac",
+            "size": 28311552,
+            "startOffset": 0,
+            "state": "Queued, Remotely",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": "2025-10-24T15:40:01.2000000",
+            "startedAt": null,
+            "endedAt": null,
+            "bytesTransferred": 0,
+            "averageSpeed": 0,
+            "bytesRemaining": 28311552,
+            "elapsedTime": null,
+            "percentComplete": 0,
+            "remainingTime": null,
+            "placeInQueue": 3
+          },
+          {
+            "id": "6f1c1f4e-2f0b-4a5e-9a0e-2f7f3c3b1a04",
+            "username": "vinylhoarder",
+            "direction": "Download",
+            "filename": "@@kqcpv\\Music\\Radiohead\\2007 - In Rainbows\\04 - Weird Fishes.flac",
+            "size": 33554432,
+            "startOffset": 0,
+            "state": "Completed, Errored",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": "2025-10-24T15:40:01.3000000",
+            "startedAt": "2025-10-24T15:39:00.0000000",
+            "endedAt": "2025-10-24T15:39:30.0000000",
+            "bytesTransferred": 1048576,
+            "averageSpeed": 34952.5,
+            "bytesRemaining": 0,
+            "elapsedTime": null,
+            "percentComplete": 3.125,
+            "remainingTime": null,
+            "exception": "Remote connection closed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "flacfan",
+    "directories": [
+      {
+        "directory": "@@zzz\\Shared\\Portishead - Dummy",
+        "fileCount": 1,
+        "files": [
+          {
+            "id": "7a2d2f5f-3a1c-4b6f-8b1f-3a8a4d4c2b01",
+            "username": "flacfan",
+            "direction": "Download",
+            "filename": "@@zzz\\Shared\\Portishead - Dummy\\01 Mysterons.flac",
+            "size": 30000000,
+            "startOffset": 0,
+            "state": "InProgress",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": "2025-10-24T15:55:00.0000000",
+            "startedAt": "2025-10-24T15:55:01.0000000",
+            "endedAt": null,
+            "bytesTransferred": 6000000,
+            "averageSpeed": 262144,
+            "bytesRemaining": 0,
+            "elapsedTime": null,
+            "percentComplete": 20,
+            "remainingTime": null
+          }
+        ]
+      }
+    ]
+  }
+]

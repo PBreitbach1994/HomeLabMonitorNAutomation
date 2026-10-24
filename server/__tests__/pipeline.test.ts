@@ -45,6 +45,12 @@ describe('media pipeline correlation', () => {
     expect(item.status).toBe('In Plex');
   });
 
+  it('does not count a declined request as requested', () => {
+    const f = store({ history: [grabbed('n2')] });
+    f.requests = [{ mediaKey: 'tv:tvdb:100', title: 'Show', requestedAt: NOW - 3600_000, status: 'declined' }];
+    expect(correlate(f, NOW).items[0].stages.requested).toBe('inferred');
+  });
+
   it('marks failures and import blocks', () => {
     const f = store({
       history: [grabbed('bad'), { ...grabbed('bad'), eventType: 'failed', date: NOW - 30_000 }, grabbed('stuck', NOW - 90_000, 'tv:tvdb:200:s01e01')],

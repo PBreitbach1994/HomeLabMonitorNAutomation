@@ -242,45 +242,76 @@ collectors:
     # password: ${GLANCES_PASS}
     interval: 10
 
+  # --- Media stack. Download clients need `host` (the node they run on) so their traffic is
+  # attributed on the network map; without it the service with the same `app` is used.
   - id: sabnzbd
     kind: sabnzbd
     enabled: false
     host: switchyard
-    url: http://switchyard:8080
-    apiKey: ${SABNZBD_API_KEY}
+    url: http://switchyard:8080 # include the URL base if SABnzbd runs under one, e.g. http://host:8080/sabnzbd
+    apiKey: ${SABNZBD_API_KEY} # Config → General → API Key (the full key, not the NZB key)
+    # historyLimit: 50
     interval: 5
 
   - id: qbittorrent
     kind: qbittorrent
     enabled: false
     host: switchyard
-    url: http://switchyard:8081
-    username: ${QBIT_USER:-admin}
+    url: http://switchyard:8081 # WebUI address
+    username: ${QBIT_USER:-admin} # omit username + password if the WebUI bypasses auth for this host's subnet
     password: ${QBIT_PASS}
+    # historyLimit: 50 # completed torrents kept (newest completion first)
     interval: 5
 
   - id: sonarr
-    kind: sonarr
+    kind: sonarr # API v3 (Sonarr v3/v4)
     enabled: false
     url: http://switchyard:8989
-    apiKey: ${SONARR_API_KEY}
+    apiKey: ${SONARR_API_KEY} # Settings → General → API Key; sent as X-Api-Key
+    # label: Sonarr # name used in incidents; set it when running several (e.g. "Sonarr 4K")
     interval: 15
 
   - id: radarr
-    kind: radarr
+    kind: radarr # API v3 (Radarr v3–v5)
     enabled: false
     url: http://switchyard:7878
     apiKey: ${RADARR_API_KEY}
     interval: 15
+
+  - id: lidarr
+    kind: lidarr # API v1
+    enabled: false
+    url: http://switchyard:8686
+    apiKey: ${LIDARR_API_KEY}
+    interval: 30
 
   - id: plex
     kind: plex
     enabled: false
     host: nichnas
     url: http://192.168.4.79:32400
-    token: ${PLEX_TOKEN}
-    clients: {} # player IP -> node id, e.g. "192.168.4.120": livingroom
+    token: ${PLEX_TOKEN} # server owner's X-Plex-Token; sent as a header
+    # Player → node id, so a stream is drawn to the right place. Keys may be the player's IP
+    # (Player.address), its machineIdentifier, or its name. Unmapped remote players go to the
+    # internet node; unmapped local ones to the Plex host's switch.
+    clients: {} # e.g. "192.168.4.120": livingroom
     interval: 10
+
+  - id: seerr
+    kind: seerr # Overseerr / Jellyseerr / Seerr (aliases: overseerr, jellyseerr)
+    enabled: false
+    url: http://switchyard:5055
+    apiKey: ${SEERR_API_KEY} # Settings → General → API Key
+    # take: 50 # most recent requests to read
+    interval: 60
+
+  - id: slskd
+    kind: slskd
+    enabled: false
+    host: switchyard
+    url: http://switchyard:5030
+    apiKey: ${SLSKD_API_KEY} # slskd.yml → web.authentication.api_keys; sent as X-API-Key
+    interval: 5
 
   - id: gluetun
     kind: gluetun
@@ -290,3 +321,9 @@ collectors:
     apiKey: ${GLUETUN_API_KEY:-} # sent as X-API-Key; or username/password for basic auth
     # provider: Mullvad # label shown on the VPN tile; defaults to the exit IP's organization
     interval: 15
+
+  - id: tailscale
+    kind: tailscale
+    enabled: false
+    socket: /var/run/tailscale/tailscaled.sock # mount it into the container; or set `bin` to use the CLI
+    interval: 30

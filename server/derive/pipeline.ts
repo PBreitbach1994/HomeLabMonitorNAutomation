@@ -72,7 +72,7 @@ export function correlate(facts: FactStore, now: number): { items: PipelineItem[
   }
 
   // Requests are usually show- or movie-level, so a request key matches any episode under it.
-  const requestKeys = facts.requests.map((q) => q.mediaKey);
+  const requestKeys = facts.requests.filter((q) => q.status !== 'declined').map((q) => q.mediaKey);
   const isRequested = (key?: string) => !!key && requestKeys.some((k) => key === k || key.startsWith(`${k}:`));
   const available = new Map<string, number>();
   for (const a of facts.plex?.recentlyAdded ?? []) {

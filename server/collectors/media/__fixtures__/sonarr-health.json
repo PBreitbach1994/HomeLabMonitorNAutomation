@@ -1,0 +1,20 @@
+[
+  {
+    "source": "IndexerStatusCheck",
+    "type": "warning",
+    "message": "Indexers unavailable due to failures: NZBgeek (Prowlarr)",
+    "wikiUrl": "https://wiki.servarr.com/sonarr/system#indexers-are-unavailable-due-to-failures"
+  },
+  {
+    "source": "DownloadClientCheck",
+    "type": "error",
+    "message": "Unable to communicate with qBittorrent. Connection refused (switchyard:8081)",
+    "wikiUrl": "https://wiki.servarr.com/sonarr/system#unable-to-communicate-with-download-client"
+  },
+  {
+    "source": "UpdateCheck",
+    "type": "notice",
+    "message": "New update is available",
+    "wikiUrl": "https://wiki.servarr.com/sonarr/system#update"
+  }
+]

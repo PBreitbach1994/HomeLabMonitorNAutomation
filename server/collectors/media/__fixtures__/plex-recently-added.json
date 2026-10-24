@@ -1,0 +1,200 @@
+{
+  "MediaContainer": {
+    "size": 6,
+    "allowSync": false,
+    "identifier": "com.plexapp.plugins.library",
+    "mediaTagPrefix": "/system/bundle/media/flags/",
+    "mediaTagVersion": 1760000000,
+    "mixedParents": true,
+    "Metadata": [
+      {
+        "allowSync": true,
+        "librarySectionID": 3,
+        "librarySectionTitle": "TV Shows",
+        "librarySectionUUID": "b2c3d4",
+        "ratingKey": "2004",
+        "key": "/library/metadata/2004/children",
+        "parentRatingKey": "2001",
+        "guid": "plex://season/5d9c09a6ba6eb9001f4f1c5b",
+        "parentGuid": "plex://show/5d9c08fe8a35b8001f69d1ab",
+        "parentStudio": "Apple TV+",
+        "type": "season",
+        "title": "Season 2",
+        "parentKey": "/library/metadata/2001",
+        "parentTitle": "Shrinking",
+        "summary": "",
+        "index": 2,
+        "parentIndex": 1,
+        "parentYear": 2023,
+        "thumb": "/library/metadata/2004/thumb/1761321000",
+        "parentThumb": "/library/metadata/2001/thumb/1761321000",
+        "leafCount": 3,
+        "viewedLeafCount": 0,
+        "addedAt": 1761321000,
+        "updatedAt": 1761321000,
+        "Guid": [
+          {
+            "id": "tvdb://1054321"
+          }
+        ]
+      },
+      {
+        "allowSync": true,
+        "librarySectionID": 1,
+        "librarySectionTitle": "Movies",
+        "librarySectionUUID": "a1b2c3",
+        "ratingKey": "3100",
+        "key": "/library/metadata/3100",
+        "guid": "plex://movie/5f3f6c3c7a5b2c003f4f0b7a",
+        "studio": "Legendary Pictures",
+        "type": "movie",
+        "title": "Dune: Part Two",
+        "contentRating": "PG-13",
+        "summary": "…",
+        "audienceRating": 8.6,
+        "year": 2024,
+        "thumb": "/library/metadata/3100/thumb/1761311100",
+        "duration": 9960000,
+        "originallyAvailableAt": "2024-02-27",
+        "addedAt": 1761311100,
+        "updatedAt": 1761311200,
+        "Media": [
+          {
+            "id": 7701,
+            "duration": 9960000,
+            "bitrate": 39000,
+            "width": 3840,
+            "height": 2160,
+            "videoResolution": "4k",
+            "Part": []
+          }
+        ],
+        "Genre": [
+          {
+            "tag": "Science Fiction"
+          }
+        ],
+        "Guid": [
+          {
+            "id": "imdb://tt15239678"
+          },
+          {
+            "id": "tmdb://693134"
+          },
+          {
+            "id": "tvdb://356211"
+          }
+        ]
+      },
+      {
+        "allowSync": true,
+        "librarySectionID": 2,
+        "librarySectionTitle": "TV Shows",
+        "ratingKey": "1203",
+        "key": "/library/metadata/1203",
+        "parentRatingKey": "1002",
+        "grandparentRatingKey": "1001",
+        "guid": "plex://episode/6790c3b1d1f0a2c1d34e9f10",
+        "parentGuid": "plex://season/602e67e61d3358002c4120f7",
+        "grandparentGuid": "plex://show/5d9c086c46115600200aa2fe",
+        "type": "episode",
+        "title": "Who Is Alive?",
+        "grandparentKey": "/library/metadata/1001",
+        "parentKey": "/library/metadata/1002",
+        "grandparentTitle": "Severance",
+        "parentTitle": "Season 2",
+        "contentRating": "TV-MA",
+        "summary": "…",
+        "index": 3,
+        "parentIndex": 2,
+        "year": 2025,
+        "thumb": "/library/metadata/1203/thumb/1761318500",
+        "duration": 3240000,
+        "originallyAvailableAt": "2025-01-31",
+        "addedAt": 1761318500,
+        "updatedAt": 1761318510,
+        "Media": [
+          {
+            "id": 5501,
+            "duration": 3240000,
+            "bitrate": 8452,
+            "width": 1920,
+            "height": 1080,
+            "videoResolution": "1080",
+            "Part": []
+          }
+        ],
+        "Guid": [
+          {
+            "id": "imdb://tt14913052"
+          },
+          {
+            "id": "tmdb://5118032"
+          },
+          {
+            "id": "tvdb://10440003"
+          }
+        ]
+      },
+      {
+        "allowSync": true,
+        "librarySectionID": 4,
+        "librarySectionTitle": "Music",
+        "ratingKey": "5340",
+        "key": "/library/metadata/5340/children",
+        "parentRatingKey": "5012",
+        "guid": "plex://album/5d07c1d7403c640290b47a12",
+        "parentGuid": "plex://artist/5d07bbfc403c6402904a5ec8",
+        "studio": "XL Recordings",
+        "type": "album",
+        "title": "In Rainbows",
+        "parentKey": "/library/metadata/5012",
+        "parentTitle": "Radiohead",
+        "summary": "",
+        "index": 1,
+        "rating": 9.2,
+        "year": 2007,
+        "thumb": "/library/metadata/5340/thumb/1761319300",
+        "originallyAvailableAt": "2007-10-10",
+        "leafCount": 10,
+        "addedAt": 1761319300,
+        "updatedAt": 1761319300,
+        "Guid": [
+          {
+            "id": "mbid://6e335887-60ba-38f0-95af-fae7774336bf"
+          }
+        ]
+      },
+      {
+        "librarySectionID": 5,
+        "librarySectionTitle": "Old TV",
+        "ratingKey": "9516",
+        "key": "/library/metadata/9516",
+        "parentRatingKey": "9505",
+        "grandparentRatingKey": "9500",
+        "guid": "com.plexapp.agents.thetvdb://81189/5/16?lang=en",
+        "type": "episode",
+        "title": "Felina",
+        "grandparentTitle": "Breaking Bad",
+        "parentTitle": "Season 5",
+        "index": 16,
+        "parentIndex": 5,
+        "year": 2013,
+        "addedAt": 1761200000,
+        "updatedAt": 1761200000
+      },
+      {
+        "librarySectionID": 6,
+        "librarySectionTitle": "Old Movies",
+        "ratingKey": "9600",
+        "key": "/library/metadata/9600",
+        "guid": "com.plexapp.agents.imdb://tt0062622?lang=en",
+        "type": "movie",
+        "title": "2001: A Space Odyssey",
+        "year": 1968,
+        "addedAt": 1761100000,
+        "updatedAt": 1761100000
+      }
+    ]
+  }
+}

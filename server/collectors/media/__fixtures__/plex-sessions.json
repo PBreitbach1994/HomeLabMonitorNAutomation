@@ -1,0 +1,266 @@
+{
+  "MediaContainer": {
+    "size": 3,
+    "Metadata": [
+      {
+        "addedAt": 1761318500,
+        "art": "/library/metadata/1001/art/1761318500",
+        "duration": 3240000,
+        "grandparentArt": "/library/metadata/1001/art/1761318500",
+        "grandparentGuid": "plex://show/5d9c086c46115600200aa2fe",
+        "grandparentKey": "/library/metadata/1001",
+        "grandparentRatingKey": "1001",
+        "grandparentThumb": "/library/metadata/1001/thumb/1761318500",
+        "grandparentTitle": "Severance",
+        "guid": "plex://episode/6790c3b1d1f0a2c1d34e9f10",
+        "index": 3,
+        "key": "/library/metadata/1203",
+        "librarySectionID": "2",
+        "librarySectionKey": "/library/sections/2",
+        "librarySectionTitle": "TV Shows",
+        "originallyAvailableAt": "2025-01-31",
+        "parentGuid": "plex://season/602e67e61d3358002c4120f7",
+        "parentIndex": 2,
+        "parentKey": "/library/metadata/1002",
+        "parentRatingKey": "1002",
+        "parentThumb": "/library/metadata/1002/thumb/1761318500",
+        "parentTitle": "Season 2",
+        "ratingKey": "1203",
+        "sessionKey": "45",
+        "summary": "…",
+        "thumb": "/library/metadata/1203/thumb/1761318500",
+        "title": "Who Is Alive?",
+        "type": "episode",
+        "updatedAt": 1761318510,
+        "viewOffset": 1203000,
+        "year": 2025,
+        "Media": [
+          {
+            "audioChannels": 6,
+            "audioCodec": "eac3",
+            "bitrate": 8452,
+            "container": "mkv",
+            "duration": 3240000,
+            "height": 1080,
+            "id": "5501",
+            "videoCodec": "h264",
+            "videoFrameRate": "24p",
+            "videoProfile": "high",
+            "videoResolution": "1080",
+            "width": 1920,
+            "selected": true,
+            "Part": [
+              {
+                "id": "6601",
+                "key": "/library/parts/6601/1761318500/file.mkv",
+                "duration": 3240000,
+                "file": "/tv/Severance/Season 02/Severance - S02E03.mkv",
+                "size": 3328599654,
+                "container": "mkv",
+                "videoProfile": "high",
+                "decision": "directplay",
+                "selected": true
+              }
+            ]
+          }
+        ],
+        "User": {
+          "id": "1",
+          "thumb": "https://plex.tv/users/0a1b2c3d4e5f/avatar?c=1761000000",
+          "title": "householder"
+        },
+        "Player": {
+          "address": "192.168.4.120",
+          "device": "Roku Ultra",
+          "machineIdentifier": "c1a2b3d4e5f60718",
+          "model": "4850X",
+          "platform": "Roku",
+          "platformVersion": "12.5.0",
+          "product": "Plex for Roku",
+          "profile": "Roku",
+          "remotePublicAddress": "203.0.113.10",
+          "state": "playing",
+          "title": "Living Room TV",
+          "vendor": "Roku",
+          "version": "8.4.0.1234",
+          "local": true,
+          "relayed": false,
+          "secure": true,
+          "userID": 1
+        },
+        "Session": {
+          "id": "a8e1b9c7d2f34e5a9b0c1d2e",
+          "bandwidth": 9480,
+          "location": "lan"
+        }
+      },
+      {
+        "addedAt": 1761311100,
+        "art": "/library/metadata/3100/art/1761311100",
+        "audienceRating": 8.6,
+        "contentRating": "PG-13",
+        "duration": 9960000,
+        "guid": "plex://movie/5f3f6c3c7a5b2c003f4f0b7a",
+        "key": "/library/metadata/3100",
+        "librarySectionID": "1",
+        "librarySectionKey": "/library/sections/1",
+        "librarySectionTitle": "Movies",
+        "ratingKey": "3100",
+        "sessionKey": "46",
+        "studio": "Legendary Pictures",
+        "summary": "…",
+        "thumb": "/library/metadata/3100/thumb/1761311100",
+        "title": "Dune: Part Two",
+        "type": "movie",
+        "updatedAt": 1761311200,
+        "viewOffset": 4200000,
+        "year": 2024,
+        "Media": [
+          {
+            "audioChannels": 2,
+            "audioCodec": "aac",
+            "bitrate": 6800,
+            "container": "mkv",
+            "duration": 9960000,
+            "height": 1080,
+            "id": "7701",
+            "videoCodec": "h264",
+            "videoResolution": "1080",
+            "width": 1920,
+            "selected": true,
+            "Part": [
+              {
+                "id": "8801",
+                "key": "/library/parts/8801/1761318500/file.mkv",
+                "duration": 3240000,
+                "file": "/movies/Dune Part Two (2024)/Dune Part Two (2024).mkv",
+                "size": 22977632256,
+                "container": "mkv",
+                "videoProfile": "high",
+                "decision": "directplay",
+                "selected": true
+              }
+            ]
+          }
+        ],
+        "User": {
+          "id": "2001",
+          "thumb": "https://plex.tv/users/9f8e7d6c5b4a/avatar?c=1761000000",
+          "title": "remote-friend"
+        },
+        "Player": {
+          "address": "198.51.100.23",
+          "device": "Apple TV",
+          "machineIdentifier": "f0e1d2c3b4a59687",
+          "model": "AppleTV14,1",
+          "platform": "tvOS",
+          "platformVersion": "18.1",
+          "product": "Plex for Apple TV",
+          "profile": "tvOS",
+          "remotePublicAddress": "198.51.100.23",
+          "state": "playing",
+          "title": "Den Apple TV",
+          "vendor": "Apple",
+          "version": "8.45",
+          "local": false,
+          "relayed": false,
+          "secure": true,
+          "userID": 2001
+        },
+        "Session": {
+          "id": "b7c6d5e4f3a2b1c0d9e8f7a6",
+          "bandwidth": 7200,
+          "location": "wan"
+        },
+        "TranscodeSession": {
+          "key": "/transcode/sessions/x1",
+          "throttled": false,
+          "complete": false,
+          "progress": 62.1,
+          "size": -22,
+          "speed": 3.1,
+          "error": false,
+          "duration": 9960000,
+          "remaining": 300,
+          "context": "streaming",
+          "sourceVideoCodec": "hevc",
+          "sourceAudioCodec": "truehd",
+          "videoDecision": "transcode",
+          "audioDecision": "transcode",
+          "protocol": "hls",
+          "container": "mpegts",
+          "videoCodec": "h264",
+          "audioCodec": "aac",
+          "audioChannels": 2,
+          "transcodeHwRequested": true,
+          "timeStamp": 1761321500.12,
+          "maxOffsetAvailable": 4500.2,
+          "minOffsetAvailable": 4100.1
+        }
+      },
+      {
+        "addedAt": 1761319300,
+        "duration": 237000,
+        "grandparentGuid": "plex://artist/5d07bbfc403c6402904a5ec8",
+        "grandparentKey": "/library/metadata/5012",
+        "grandparentRatingKey": "5012",
+        "grandparentTitle": "Radiohead",
+        "guid": "plex://track/5d07cdbe403c640290f5b6a1",
+        "index": 1,
+        "key": "/library/metadata/5341",
+        "librarySectionID": "4",
+        "librarySectionTitle": "Music",
+        "parentGuid": "plex://album/5d07c1d7403c640290b47a12",
+        "parentIndex": 1,
+        "parentKey": "/library/metadata/5340",
+        "parentRatingKey": "5340",
+        "parentTitle": "In Rainbows",
+        "ratingKey": "5341",
+        "sessionKey": "47",
+        "title": "15 Step",
+        "type": "track",
+        "viewOffset": 61000,
+        "Media": [
+          {
+            "audioChannels": 2,
+            "audioCodec": "flac",
+            "bitrate": 1011,
+            "container": "flac",
+            "duration": 237000,
+            "id": "9901",
+            "selected": true
+          }
+        ],
+        "User": {
+          "id": "1",
+          "thumb": "https://plex.tv/users/0a1b2c3d4e5f/avatar?c=1761000000",
+          "title": "householder"
+        },
+        "Player": {
+          "address": "192.168.4.150",
+          "device": "iPhone",
+          "machineIdentifier": "plexamp-0011223344",
+          "model": "15,2",
+          "platform": "iOS",
+          "platformVersion": "18.1",
+          "product": "Plexamp",
+          "profile": "Plexamp",
+          "remotePublicAddress": "203.0.113.10",
+          "state": "playing",
+          "title": "iPhone",
+          "vendor": "Apple",
+          "version": "4.11.2",
+          "local": true,
+          "relayed": false,
+          "secure": true,
+          "userID": 1
+        },
+        "Session": {
+          "id": "c1d2e3f4a5b6c7d8e9f0a1b2",
+          "bandwidth": 1411,
+          "location": "lan"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "adult": false,
+  "backdropPath": "/x.jpg",
+  "budget": 190000000,
+  "genres": [
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    }
+  ],
+  "id": 693134,
+  "imdbId": "tt15239678",
+  "originalLanguage": "en",
+  "originalTitle": "Dune: Part Two",
+  "overview": "…",
+  "popularity": 300.1,
+  "posterPath": "/p.jpg",
+  "releaseDate": "2024-02-27",
+  "runtime": 167,
+  "status": "Released",
+  "title": "Dune: Part Two",
+  "voteAverage": 8.2,
+  "voteCount": 6000,
+  "mediaInfo": {
+    "id": 210,
+    "tmdbId": 693134,
+    "status": 5
+  }
+}

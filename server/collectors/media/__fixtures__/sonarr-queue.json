@@ -1,0 +1,745 @@
+{
+  "page": 1,
+  "pageSize": 100,
+  "sortKey": "timeleft",
+  "sortDirection": "ascending",
+  "totalRecords": 6,
+  "records": [
+    {
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "WEBDL-1080p",
+          "source": "web",
+          "resolution": 1080
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "timeleft": "00:02:29",
+      "estimatedCompletionTime": "2025-10-24T16:00:00Z",
+      "added": "2025-10-24T14:10:00Z",
+      "statusMessages": [],
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "NZBgeek (Prowlarr)",
+      "episodeHasFile": false,
+      "seriesId": 41,
+      "episodeId": 3302,
+      "seasonNumber": 2,
+      "series": {
+        "title": "The Last of Us",
+        "sortTitle": "last of us",
+        "status": "continuing",
+        "ended": false,
+        "overview": "…",
+        "network": "Apple TV+",
+        "airTime": "21:00",
+        "images": [
+          {
+            "coverType": "poster",
+            "url": "/MediaCover/41/poster.jpg",
+            "remoteUrl": "https://artworks.thetvdb.com/x.jpg"
+          }
+        ],
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "seasons": [
+          {
+            "seasonNumber": 1,
+            "monitored": true
+          },
+          {
+            "seasonNumber": 2,
+            "monitored": true
+          }
+        ],
+        "year": 2023,
+        "path": "/tv/The Last of Us",
+        "qualityProfileId": 4,
+        "seasonFolder": true,
+        "monitored": true,
+        "monitorNewItems": "all",
+        "useSceneNumbering": false,
+        "runtime": 55,
+        "tvdbId": 392256,
+        "tvRageId": 0,
+        "tvMazeId": 1041,
+        "tmdbId": 100088,
+        "firstAired": "2023-02-18T00:00:00Z",
+        "seriesType": "standard",
+        "cleanTitle": "thelastofus",
+        "imdbId": "tt3581920",
+        "titleSlug": "the-last-of-us",
+        "certification": "TV-MA",
+        "genres": [
+          "Drama"
+        ],
+        "tags": [],
+        "added": "2024-01-10T00:00:00Z",
+        "ratings": {
+          "votes": 1234,
+          "value": 8.7
+        },
+        "languageProfileId": 1,
+        "id": 41
+      },
+      "episode": {
+        "seriesId": 41,
+        "tvdbId": 10560135,
+        "episodeFileId": 0,
+        "seasonNumber": 2,
+        "episodeNumber": 4,
+        "title": "Day One",
+        "airDate": "2025-01-31",
+        "airDateUtc": "2025-02-01T02:00:00Z",
+        "runtime": 52,
+        "overview": "…",
+        "hasFile": false,
+        "monitored": true,
+        "absoluteEpisodeNumber": 4,
+        "unverifiedSceneNumbering": false,
+        "id": 3302
+      },
+      "size": 4915029196,
+      "title": "The.Last.of.Us.S02E04.1080p.WEB.H264-SuccessfulCrab",
+      "sizeleft": 1965176356,
+      "status": "downloading",
+      "trackedDownloadStatus": "ok",
+      "trackedDownloadState": "downloading",
+      "downloadId": "SABnzbd_nzo_tlou0204",
+      "protocol": "usenet",
+      "downloadClient": "SABnzbd",
+      "outputPath": "/downloads/incomplete/The.Last.of.Us.S02E04.1080p.WEB.H264-SuccessfulCrab",
+      "id": 1850123434
+    },
+    {
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "WEBDL-1080p",
+          "source": "web",
+          "resolution": 1080
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "timeleft": "00:00:00",
+      "estimatedCompletionTime": "2025-10-24T16:00:00Z",
+      "added": "2025-10-24T14:10:00Z",
+      "statusMessages": [],
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "NZBgeek (Prowlarr)",
+      "episodeHasFile": false,
+      "seriesId": 41,
+      "episodeId": 3301,
+      "seasonNumber": 2,
+      "series": {
+        "title": "The Last of Us",
+        "sortTitle": "last of us",
+        "status": "continuing",
+        "ended": false,
+        "overview": "…",
+        "network": "Apple TV+",
+        "airTime": "21:00",
+        "images": [
+          {
+            "coverType": "poster",
+            "url": "/MediaCover/41/poster.jpg",
+            "remoteUrl": "https://artworks.thetvdb.com/x.jpg"
+          }
+        ],
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "seasons": [
+          {
+            "seasonNumber": 1,
+            "monitored": true
+          },
+          {
+            "seasonNumber": 2,
+            "monitored": true
+          }
+        ],
+        "year": 2023,
+        "path": "/tv/The Last of Us",
+        "qualityProfileId": 4,
+        "seasonFolder": true,
+        "monitored": true,
+        "monitorNewItems": "all",
+        "useSceneNumbering": false,
+        "runtime": 55,
+        "tvdbId": 392256,
+        "tvRageId": 0,
+        "tvMazeId": 1041,
+        "tmdbId": 100088,
+        "firstAired": "2023-02-18T00:00:00Z",
+        "seriesType": "standard",
+        "cleanTitle": "thelastofus",
+        "imdbId": "tt3581920",
+        "titleSlug": "the-last-of-us",
+        "certification": "TV-MA",
+        "genres": [
+          "Drama"
+        ],
+        "tags": [],
+        "added": "2024-01-10T00:00:00Z",
+        "ratings": {
+          "votes": 1234,
+          "value": 8.7
+        },
+        "languageProfileId": 1,
+        "id": 41
+      },
+      "episode": {
+        "seriesId": 41,
+        "tvdbId": 10560134,
+        "episodeFileId": 0,
+        "seasonNumber": 2,
+        "episodeNumber": 3,
+        "title": "The Path",
+        "airDate": "2025-01-31",
+        "airDateUtc": "2025-02-01T02:00:00Z",
+        "runtime": 52,
+        "overview": "…",
+        "hasFile": false,
+        "monitored": true,
+        "absoluteEpisodeNumber": 3,
+        "unverifiedSceneNumbering": false,
+        "id": 3301
+      },
+      "size": 4831838208,
+      "title": "The.Last.of.Us.S02E03.1080p.WEB.H264-SuccessfulCrab",
+      "sizeleft": 0,
+      "status": "downloading",
+      "trackedDownloadStatus": "ok",
+      "trackedDownloadState": "downloading",
+      "downloadId": "SABnzbd_nzo_tlou0203",
+      "protocol": "usenet",
+      "downloadClient": "SABnzbd",
+      "outputPath": "/downloads/incomplete/The.Last.of.Us.S02E03.1080p.WEB.H264-SuccessfulCrab",
+      "id": 1850123433
+    },
+    {
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "WEBDL-1080p",
+          "source": "web",
+          "resolution": 1080
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "timeleft": "00:00:00",
+      "estimatedCompletionTime": "2025-10-24T16:00:00Z",
+      "added": "2025-10-24T14:10:00Z",
+      "statusMessages": [
+        {
+          "title": "Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+          "messages": [
+            "Found matching series via grab history, but release was matched to series by ID. Automatic import is not possible. See the FAQ for details."
+          ]
+        }
+      ],
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "TorrentLeech (Prowlarr)",
+      "episodeHasFile": false,
+      "seriesId": 43,
+      "episodeId": 4401,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Slow Horses",
+        "sortTitle": "slow horses",
+        "status": "continuing",
+        "ended": false,
+        "overview": "…",
+        "network": "Apple TV+",
+        "airTime": "21:00",
+        "images": [
+          {
+            "coverType": "poster",
+            "url": "/MediaCover/43/poster.jpg",
+            "remoteUrl": "https://artworks.thetvdb.com/x.jpg"
+          }
+        ],
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "seasons": [
+          {
+            "seasonNumber": 1,
+            "monitored": true
+          },
+          {
+            "seasonNumber": 2,
+            "monitored": true
+          }
+        ],
+        "year": 2022,
+        "path": "/tv/Slow Horses",
+        "qualityProfileId": 4,
+        "seasonFolder": true,
+        "monitored": true,
+        "monitorNewItems": "all",
+        "useSceneNumbering": false,
+        "runtime": 55,
+        "tvdbId": 359543,
+        "tvRageId": 0,
+        "tvMazeId": 1043,
+        "tmdbId": 95480,
+        "firstAired": "2022-02-18T00:00:00Z",
+        "seriesType": "standard",
+        "cleanTitle": "slowhorses",
+        "imdbId": "tt5875444",
+        "titleSlug": "slow-horses",
+        "certification": "TV-MA",
+        "genres": [
+          "Drama"
+        ],
+        "tags": [],
+        "added": "2024-01-10T00:00:00Z",
+        "ratings": {
+          "votes": 1234,
+          "value": 8.7
+        },
+        "languageProfileId": 1,
+        "id": 43
+      },
+      "episode": {
+        "seriesId": 43,
+        "tvdbId": 9000001,
+        "episodeFileId": 0,
+        "seasonNumber": 4,
+        "episodeNumber": 1,
+        "title": "Episode 1",
+        "airDate": "2025-01-31",
+        "airDateUtc": "2025-02-01T02:00:00Z",
+        "runtime": 52,
+        "overview": "…",
+        "hasFile": false,
+        "monitored": true,
+        "absoluteEpisodeNumber": 1,
+        "unverifiedSceneNumbering": false,
+        "id": 4401
+      },
+      "size": 14495514624,
+      "title": "Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+      "sizeleft": 0,
+      "status": "completed",
+      "trackedDownloadStatus": "warning",
+      "trackedDownloadState": "importBlocked",
+      "downloadId": "8C212779B4ABDE7C6BC608063A0D008B7E40CE32",
+      "protocol": "torrent",
+      "downloadClient": "qBittorrent",
+      "outputPath": "/downloads/torrents/Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+      "id": 1850120001
+    },
+    {
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "WEBDL-1080p",
+          "source": "web",
+          "resolution": 1080
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "timeleft": "00:00:00",
+      "estimatedCompletionTime": "2025-10-24T16:00:00Z",
+      "added": "2025-10-24T14:10:00Z",
+      "statusMessages": [
+        {
+          "title": "Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+          "messages": [
+            "Found matching series via grab history, but release was matched to series by ID. Automatic import is not possible. See the FAQ for details."
+          ]
+        }
+      ],
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "TorrentLeech (Prowlarr)",
+      "episodeHasFile": false,
+      "seriesId": 43,
+      "episodeId": 4402,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Slow Horses",
+        "sortTitle": "slow horses",
+        "status": "continuing",
+        "ended": false,
+        "overview": "…",
+        "network": "Apple TV+",
+        "airTime": "21:00",
+        "images": [
+          {
+            "coverType": "poster",
+            "url": "/MediaCover/43/poster.jpg",
+            "remoteUrl": "https://artworks.thetvdb.com/x.jpg"
+          }
+        ],
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "seasons": [
+          {
+            "seasonNumber": 1,
+            "monitored": true
+          },
+          {
+            "seasonNumber": 2,
+            "monitored": true
+          }
+        ],
+        "year": 2022,
+        "path": "/tv/Slow Horses",
+        "qualityProfileId": 4,
+        "seasonFolder": true,
+        "monitored": true,
+        "monitorNewItems": "all",
+        "useSceneNumbering": false,
+        "runtime": 55,
+        "tvdbId": 359543,
+        "tvRageId": 0,
+        "tvMazeId": 1043,
+        "tmdbId": 95480,
+        "firstAired": "2022-02-18T00:00:00Z",
+        "seriesType": "standard",
+        "cleanTitle": "slowhorses",
+        "imdbId": "tt5875444",
+        "titleSlug": "slow-horses",
+        "certification": "TV-MA",
+        "genres": [
+          "Drama"
+        ],
+        "tags": [],
+        "added": "2024-01-10T00:00:00Z",
+        "ratings": {
+          "votes": 1234,
+          "value": 8.7
+        },
+        "languageProfileId": 1,
+        "id": 43
+      },
+      "episode": {
+        "seriesId": 43,
+        "tvdbId": 9000002,
+        "episodeFileId": 0,
+        "seasonNumber": 4,
+        "episodeNumber": 2,
+        "title": "Episode 2",
+        "airDate": "2025-01-31",
+        "airDateUtc": "2025-02-01T02:00:00Z",
+        "runtime": 52,
+        "overview": "…",
+        "hasFile": false,
+        "monitored": true,
+        "absoluteEpisodeNumber": 2,
+        "unverifiedSceneNumbering": false,
+        "id": 4402
+      },
+      "size": 14495514624,
+      "title": "Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+      "sizeleft": 0,
+      "status": "completed",
+      "trackedDownloadStatus": "warning",
+      "trackedDownloadState": "importBlocked",
+      "downloadId": "8C212779B4ABDE7C6BC608063A0D008B7E40CE32",
+      "protocol": "torrent",
+      "downloadClient": "qBittorrent",
+      "outputPath": "/downloads/torrents/Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+      "id": 1850120002
+    },
+    {
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "WEBDL-1080p",
+          "source": "web",
+          "resolution": 1080
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "timeleft": "00:00:00",
+      "estimatedCompletionTime": "2025-10-24T16:00:00Z",
+      "added": "2025-10-24T14:10:00Z",
+      "statusMessages": [
+        {
+          "title": "Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+          "messages": [
+            "Found matching series via grab history, but release was matched to series by ID. Automatic import is not possible. See the FAQ for details."
+          ]
+        }
+      ],
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "TorrentLeech (Prowlarr)",
+      "episodeHasFile": false,
+      "seriesId": 43,
+      "episodeId": 4403,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Slow Horses",
+        "sortTitle": "slow horses",
+        "status": "continuing",
+        "ended": false,
+        "overview": "…",
+        "network": "Apple TV+",
+        "airTime": "21:00",
+        "images": [
+          {
+            "coverType": "poster",
+            "url": "/MediaCover/43/poster.jpg",
+            "remoteUrl": "https://artworks.thetvdb.com/x.jpg"
+          }
+        ],
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "seasons": [
+          {
+            "seasonNumber": 1,
+            "monitored": true
+          },
+          {
+            "seasonNumber": 2,
+            "monitored": true
+          }
+        ],
+        "year": 2022,
+        "path": "/tv/Slow Horses",
+        "qualityProfileId": 4,
+        "seasonFolder": true,
+        "monitored": true,
+        "monitorNewItems": "all",
+        "useSceneNumbering": false,
+        "runtime": 55,
+        "tvdbId": 359543,
+        "tvRageId": 0,
+        "tvMazeId": 1043,
+        "tmdbId": 95480,
+        "firstAired": "2022-02-18T00:00:00Z",
+        "seriesType": "standard",
+        "cleanTitle": "slowhorses",
+        "imdbId": "tt5875444",
+        "titleSlug": "slow-horses",
+        "certification": "TV-MA",
+        "genres": [
+          "Drama"
+        ],
+        "tags": [],
+        "added": "2024-01-10T00:00:00Z",
+        "ratings": {
+          "votes": 1234,
+          "value": 8.7
+        },
+        "languageProfileId": 1,
+        "id": 43
+      },
+      "episode": {
+        "seriesId": 43,
+        "tvdbId": 9000003,
+        "episodeFileId": 0,
+        "seasonNumber": 4,
+        "episodeNumber": 3,
+        "title": "Episode 3",
+        "airDate": "2025-01-31",
+        "airDateUtc": "2025-02-01T02:00:00Z",
+        "runtime": 52,
+        "overview": "…",
+        "hasFile": false,
+        "monitored": true,
+        "absoluteEpisodeNumber": 3,
+        "unverifiedSceneNumbering": false,
+        "id": 4403
+      },
+      "size": 14495514624,
+      "title": "Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+      "sizeleft": 0,
+      "status": "completed",
+      "trackedDownloadStatus": "warning",
+      "trackedDownloadState": "importBlocked",
+      "downloadId": "8C212779B4ABDE7C6BC608063A0D008B7E40CE32",
+      "protocol": "torrent",
+      "downloadClient": "qBittorrent",
+      "outputPath": "/downloads/torrents/Slow.Horses.S04.1080p.ATVP.WEB-DL.DDP5.1.H.264-NTb",
+      "id": 1850120003
+    },
+    {
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "WEBDL-1080p",
+          "source": "web",
+          "resolution": 1080
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "timeleft": "00:45:00",
+      "estimatedCompletionTime": "2025-10-24T16:00:00Z",
+      "added": "2025-10-24T14:10:00Z",
+      "statusMessages": [],
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "NZBgeek (Prowlarr)",
+      "episodeHasFile": false,
+      "seriesId": 44,
+      "episodeId": 5502,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Andor",
+        "sortTitle": "andor",
+        "status": "continuing",
+        "ended": false,
+        "overview": "…",
+        "network": "Apple TV+",
+        "airTime": "21:00",
+        "images": [
+          {
+            "coverType": "poster",
+            "url": "/MediaCover/44/poster.jpg",
+            "remoteUrl": "https://artworks.thetvdb.com/x.jpg"
+          }
+        ],
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "seasons": [
+          {
+            "seasonNumber": 1,
+            "monitored": true
+          },
+          {
+            "seasonNumber": 2,
+            "monitored": true
+          }
+        ],
+        "year": 2022,
+        "path": "/tv/Andor",
+        "qualityProfileId": 4,
+        "seasonFolder": true,
+        "monitored": true,
+        "monitorNewItems": "all",
+        "useSceneNumbering": false,
+        "runtime": 55,
+        "tvdbId": 393189,
+        "tvRageId": 0,
+        "tvMazeId": 1044,
+        "tmdbId": 83867,
+        "firstAired": "2022-02-18T00:00:00Z",
+        "seriesType": "standard",
+        "cleanTitle": "andor",
+        "imdbId": "tt9253284",
+        "titleSlug": "andor",
+        "certification": "TV-MA",
+        "genres": [
+          "Drama"
+        ],
+        "tags": [],
+        "added": "2024-01-10T00:00:00Z",
+        "ratings": {
+          "votes": 1234,
+          "value": 8.7
+        },
+        "languageProfileId": 1,
+        "id": 44
+      },
+      "episode": {
+        "seriesId": 44,
+        "tvdbId": 10600002,
+        "episodeFileId": 0,
+        "seasonNumber": 2,
+        "episodeNumber": 2,
+        "title": "Sagrona Teema",
+        "airDate": "2025-01-31",
+        "airDateUtc": "2025-02-01T02:00:00Z",
+        "runtime": 52,
+        "overview": "…",
+        "hasFile": false,
+        "monitored": true,
+        "absoluteEpisodeNumber": 2,
+        "unverifiedSceneNumbering": false,
+        "id": 5502
+      },
+      "size": 3221225472,
+      "title": "Andor.S02E02.1080p.DSNP.WEB-DL.DDP5.1.H.264-FLUX",
+      "sizeleft": 3221225472,
+      "status": "delay",
+      "protocol": "usenet",
+      "id": 1850125502
+    }
+  ]
+}

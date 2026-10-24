@@ -1,0 +1,194 @@
+[
+  {
+    "languages": [
+      {
+        "id": 1,
+        "name": "English"
+      }
+    ],
+    "quality": {
+      "quality": {
+        "id": 3,
+        "name": "WEBDL-1080p",
+        "source": "webdl",
+        "resolution": 1080
+      },
+      "revision": {
+        "version": 1,
+        "real": 0,
+        "isRepack": false
+      }
+    },
+    "customFormats": [],
+    "customFormatScore": 0,
+    "timeleft": "00:18:47",
+    "estimatedCompletionTime": "2025-10-24T16:18:47Z",
+    "added": "2025-10-24T15:30:00Z",
+    "statusMessages": [],
+    "downloadClientHasPostImportCategory": false,
+    "indexer": "TorrentLeech (Prowlarr)",
+    "movieId": 302,
+    "movie": {
+      "title": "Furiosa: A Mad Max Saga",
+      "originalTitle": "Furiosa: A Mad Max Saga",
+      "originalLanguage": {
+        "id": 1,
+        "name": "English"
+      },
+      "sortTitle": "furiosa: a mad max saga",
+      "sizeOnDisk": 0,
+      "status": "released",
+      "overview": "…",
+      "inCinemas": "2024-03-01T00:00:00Z",
+      "physicalRelease": "2024-05-14T00:00:00Z",
+      "digitalRelease": "2024-04-16T00:00:00Z",
+      "images": [],
+      "website": "",
+      "year": 2024,
+      "youTubeTrailerId": "",
+      "studio": "Studio",
+      "path": "/movies/Furiosa: A Mad Max Saga (2024)",
+      "qualityProfileId": 4,
+      "hasFile": false,
+      "movieFileId": 0,
+      "monitored": true,
+      "minimumAvailability": "released",
+      "isAvailable": true,
+      "folderName": "/movies/Furiosa: A Mad Max Saga (2024)",
+      "runtime": 166,
+      "cleanTitle": "furiosaamadmaxsaga",
+      "imdbId": "tt12037194",
+      "tmdbId": 786892,
+      "titleSlug": "786892",
+      "certification": "PG-13",
+      "genres": [
+        "Science Fiction"
+      ],
+      "tags": [],
+      "added": "2024-01-01T00:00:00Z",
+      "ratings": {
+        "imdb": {
+          "votes": 1,
+          "value": 8.5,
+          "type": "user"
+        }
+      },
+      "popularity": 100,
+      "id": 302
+    },
+    "size": 7516192768,
+    "title": "Furiosa.A.Mad.Max.Saga.2024.1080p.WEB-DL.DDP5.1.Atmos.H.264-FLUX",
+    "sizeleft": 4726128435,
+    "status": "downloading",
+    "trackedDownloadStatus": "ok",
+    "trackedDownloadState": "downloading",
+    "downloadId": "A1B2C3D4E5F60718293A4B5C6D7E8F9012345678",
+    "protocol": "torrent",
+    "downloadClient": "qBittorrent",
+    "outputPath": "/downloads/torrents/Furiosa.A.Mad.Max.Saga.2024.1080p.WEB-DL.DDP5.1.Atmos.H.264-FLUX",
+    "id": 77001
+  },
+  {
+    "languages": [
+      {
+        "id": 1,
+        "name": "English"
+      }
+    ],
+    "quality": {
+      "quality": {
+        "id": 3,
+        "name": "WEBDL-1080p",
+        "source": "webdl",
+        "resolution": 1080
+      },
+      "revision": {
+        "version": 1,
+        "real": 0,
+        "isRepack": false
+      }
+    },
+    "customFormats": [],
+    "customFormatScore": 0,
+    "timeleft": "00:00:00",
+    "estimatedCompletionTime": "2025-10-24T16:18:47Z",
+    "added": "2025-10-24T15:30:00Z",
+    "statusMessages": [
+      {
+        "title": "Paused.Movie.2019.1080p.BluRay.x264-GRP.mkv",
+        "messages": [
+          "Not an upgrade for existing movie file. Existing quality: Bluray-1080p. New Quality Bluray-1080p."
+        ]
+      },
+      {
+        "title": "sample.mkv",
+        "messages": [
+          "Sample"
+        ]
+      }
+    ],
+    "downloadClientHasPostImportCategory": false,
+    "indexer": "TorrentLeech (Prowlarr)",
+    "movieId": 303,
+    "movie": {
+      "title": "Paused Movie",
+      "originalTitle": "Paused Movie",
+      "originalLanguage": {
+        "id": 1,
+        "name": "English"
+      },
+      "sortTitle": "paused movie",
+      "sizeOnDisk": 0,
+      "status": "released",
+      "overview": "…",
+      "inCinemas": "2019-03-01T00:00:00Z",
+      "physicalRelease": "2019-05-14T00:00:00Z",
+      "digitalRelease": "2019-04-16T00:00:00Z",
+      "images": [],
+      "website": "",
+      "year": 2019,
+      "youTubeTrailerId": "",
+      "studio": "Studio",
+      "path": "/movies/Paused Movie (2019)",
+      "qualityProfileId": 4,
+      "hasFile": false,
+      "movieFileId": 0,
+      "monitored": true,
+      "minimumAvailability": "released",
+      "isAvailable": true,
+      "folderName": "/movies/Paused Movie (2019)",
+      "runtime": 166,
+      "cleanTitle": "pausedmovie",
+      "imdbId": "tt0000001",
+      "tmdbId": 999001,
+      "titleSlug": "999001",
+      "certification": "PG-13",
+      "genres": [
+        "Science Fiction"
+      ],
+      "tags": [],
+      "added": "2024-01-01T00:00:00Z",
+      "ratings": {
+        "imdb": {
+          "votes": 1,
+          "value": 8.5,
+          "type": "user"
+        }
+      },
+      "popularity": 100,
+      "id": 303
+    },
+    "size": 8589934592,
+    "title": "Paused.Movie.2019.1080p.BluRay.x264-GRP",
+    "sizeleft": 0,
+    "status": "Completed",
+    "trackedDownloadStatus": "Warning",
+    "trackedDownloadState": "ImportPending",
+    "errorMessage": "",
+    "downloadId": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+    "protocol": "torrent",
+    "downloadClient": "qBittorrent",
+    "outputPath": "/downloads/torrents/Paused.Movie.2019",
+    "id": 77002
+  }
+]

@@ -1,0 +1,326 @@
+{
+  "page": 1,
+  "pageSize": 100,
+  "sortKey": "date",
+  "sortDirection": "descending",
+  "totalRecords": 5,
+  "records": [
+    {
+      "artistId": 12,
+      "albumId": 340,
+      "quality": {
+        "quality": {
+          "id": 6,
+          "name": "FLAC"
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "qualityCutoffNotMet": false,
+      "album": {
+        "title": "In Rainbows",
+        "disambiguation": "",
+        "overview": "",
+        "artistId": 12,
+        "foreignAlbumId": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "monitored": true,
+        "anyReleaseOk": true,
+        "profileId": 1,
+        "duration": 2546000,
+        "albumType": "Album",
+        "secondaryTypes": [],
+        "mediumCount": 1,
+        "releaseDate": "2007-10-10T00:00:00Z",
+        "genres": [],
+        "media": [],
+        "id": 340
+      },
+      "artist": {
+        "artistName": "Radiohead",
+        "foreignArtistId": "a74b1b7f-71a5-4011-9441-d0b5e4122711",
+        "status": "continuing",
+        "ended": false,
+        "artistType": "Group",
+        "path": "/music/Radiohead",
+        "qualityProfileId": 1,
+        "metadataProfileId": 1,
+        "monitored": true,
+        "genres": [
+          "Alternative Rock"
+        ],
+        "cleanName": "radiohead",
+        "sortName": "radiohead",
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "id": 12
+      },
+      "trackId": 0,
+      "sourceTitle": "Radiohead - In Rainbows (2007) [FLAC]",
+      "date": "2025-10-24T15:20:09Z",
+      "downloadId": "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33",
+      "eventType": "downloadImported",
+      "data": {
+        "downloadClient": "qBittorrent",
+        "downloadClientName": "qBittorrent"
+      },
+      "id": 7004
+    },
+    {
+      "artistId": 12,
+      "albumId": 340,
+      "quality": {
+        "quality": {
+          "id": 6,
+          "name": "FLAC"
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "qualityCutoffNotMet": false,
+      "album": {
+        "title": "In Rainbows",
+        "disambiguation": "",
+        "overview": "",
+        "artistId": 12,
+        "foreignAlbumId": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "monitored": true,
+        "anyReleaseOk": true,
+        "profileId": 1,
+        "duration": 2546000,
+        "albumType": "Album",
+        "secondaryTypes": [],
+        "mediumCount": 1,
+        "releaseDate": "2007-10-10T00:00:00Z",
+        "genres": [],
+        "media": [],
+        "id": 340
+      },
+      "artist": {
+        "artistName": "Radiohead",
+        "foreignArtistId": "a74b1b7f-71a5-4011-9441-d0b5e4122711",
+        "status": "continuing",
+        "ended": false,
+        "artistType": "Group",
+        "path": "/music/Radiohead",
+        "qualityProfileId": 1,
+        "metadataProfileId": 1,
+        "monitored": true,
+        "genres": [
+          "Alternative Rock"
+        ],
+        "cleanName": "radiohead",
+        "sortName": "radiohead",
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "id": 12
+      },
+      "trackId": 9002,
+      "sourceTitle": "/downloads/torrents/Radiohead - In Rainbows/02 - Bodysnatchers.flac",
+      "date": "2025-10-24T15:20:08Z",
+      "downloadId": "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33",
+      "eventType": "trackFileImported",
+      "data": {
+        "droppedPath": "/downloads/torrents/Radiohead - In Rainbows/02 - Bodysnatchers.flac",
+        "importedPath": "/music/Radiohead/In Rainbows (2007)/02 - Bodysnatchers.flac"
+      },
+      "id": 7003
+    },
+    {
+      "artistId": 12,
+      "albumId": 340,
+      "quality": {
+        "quality": {
+          "id": 6,
+          "name": "FLAC"
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "qualityCutoffNotMet": false,
+      "album": {
+        "title": "In Rainbows",
+        "disambiguation": "",
+        "overview": "",
+        "artistId": 12,
+        "foreignAlbumId": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "monitored": true,
+        "anyReleaseOk": true,
+        "profileId": 1,
+        "duration": 2546000,
+        "albumType": "Album",
+        "secondaryTypes": [],
+        "mediumCount": 1,
+        "releaseDate": "2007-10-10T00:00:00Z",
+        "genres": [],
+        "media": [],
+        "id": 340
+      },
+      "artist": {
+        "artistName": "Radiohead",
+        "foreignArtistId": "a74b1b7f-71a5-4011-9441-d0b5e4122711",
+        "status": "continuing",
+        "ended": false,
+        "artistType": "Group",
+        "path": "/music/Radiohead",
+        "qualityProfileId": 1,
+        "metadataProfileId": 1,
+        "monitored": true,
+        "genres": [
+          "Alternative Rock"
+        ],
+        "cleanName": "radiohead",
+        "sortName": "radiohead",
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "id": 12
+      },
+      "trackId": 9001,
+      "sourceTitle": "/downloads/torrents/Radiohead - In Rainbows/01 - 15 Step.flac",
+      "date": "2025-10-24T15:20:05Z",
+      "downloadId": "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33",
+      "eventType": "trackFileImported",
+      "data": {
+        "droppedPath": "/downloads/torrents/Radiohead - In Rainbows/01 - 15 Step.flac",
+        "importedPath": "/music/Radiohead/In Rainbows (2007)/01 - 15 Step.flac"
+      },
+      "id": 7002
+    },
+    {
+      "artistId": 12,
+      "albumId": 340,
+      "quality": {
+        "quality": {
+          "id": 6,
+          "name": "FLAC"
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "qualityCutoffNotMet": false,
+      "album": {
+        "title": "In Rainbows",
+        "disambiguation": "",
+        "overview": "",
+        "artistId": 12,
+        "foreignAlbumId": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "monitored": true,
+        "anyReleaseOk": true,
+        "profileId": 1,
+        "duration": 2546000,
+        "albumType": "Album",
+        "secondaryTypes": [],
+        "mediumCount": 1,
+        "releaseDate": "2007-10-10T00:00:00Z",
+        "genres": [],
+        "media": [],
+        "id": 340
+      },
+      "artist": {
+        "artistName": "Radiohead",
+        "foreignArtistId": "a74b1b7f-71a5-4011-9441-d0b5e4122711",
+        "status": "continuing",
+        "ended": false,
+        "artistType": "Group",
+        "path": "/music/Radiohead",
+        "qualityProfileId": 1,
+        "metadataProfileId": 1,
+        "monitored": true,
+        "genres": [
+          "Alternative Rock"
+        ],
+        "cleanName": "radiohead",
+        "sortName": "radiohead",
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "id": 12
+      },
+      "trackId": 0,
+      "sourceTitle": "Radiohead - In Rainbows (2007) [FLAC]",
+      "date": "2025-10-24T15:10:00Z",
+      "downloadId": "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33",
+      "eventType": "albumImportIncomplete",
+      "data": {
+        "statusMessages": "[]"
+      },
+      "id": 7001
+    },
+    {
+      "artistId": 12,
+      "albumId": 340,
+      "quality": {
+        "quality": {
+          "id": 6,
+          "name": "FLAC"
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "qualityCutoffNotMet": false,
+      "album": {
+        "title": "In Rainbows",
+        "disambiguation": "",
+        "overview": "",
+        "artistId": 12,
+        "foreignAlbumId": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "monitored": true,
+        "anyReleaseOk": true,
+        "profileId": 1,
+        "duration": 2546000,
+        "albumType": "Album",
+        "secondaryTypes": [],
+        "mediumCount": 1,
+        "releaseDate": "2007-10-10T00:00:00Z",
+        "genres": [],
+        "media": [],
+        "id": 340
+      },
+      "artist": {
+        "artistName": "Radiohead",
+        "foreignArtistId": "a74b1b7f-71a5-4011-9441-d0b5e4122711",
+        "status": "continuing",
+        "ended": false,
+        "artistType": "Group",
+        "path": "/music/Radiohead",
+        "qualityProfileId": 1,
+        "metadataProfileId": 1,
+        "monitored": true,
+        "genres": [
+          "Alternative Rock"
+        ],
+        "cleanName": "radiohead",
+        "sortName": "radiohead",
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "id": 12
+      },
+      "trackId": 0,
+      "sourceTitle": "Radiohead - In Rainbows (2007) [FLAC]",
+      "date": "2025-10-24T15:00:00Z",
+      "downloadId": "0BEEC7B5EA3F0FDBC95D0DD47F3C5BC275DA8A33",
+      "eventType": "grabbed",
+      "data": {
+        "indexer": "RED (Prowlarr)",
+        "releaseGroup": "",
+        "downloadClient": "qBittorrent",
+        "downloadClientName": "qBittorrent",
+        "protocol": "2"
+      },
+      "id": 7000
+    }
+  ]
+}

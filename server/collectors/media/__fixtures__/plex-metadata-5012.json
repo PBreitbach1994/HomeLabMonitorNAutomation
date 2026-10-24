@@ -1,0 +1,37 @@
+{
+  "MediaContainer": {
+    "size": 1,
+    "allowSync": false,
+    "identifier": "com.plexapp.plugins.library",
+    "mediaTagPrefix": "/system/bundle/media/flags/",
+    "mediaTagVersion": 1760000000,
+    "librarySectionID": 4,
+    "librarySectionTitle": "Music",
+    "Metadata": [
+      {
+        "ratingKey": "5012",
+        "key": "/library/metadata/5012/children",
+        "guid": "plex://artist/5d07bbfc403c6402904a5ec8",
+        "type": "artist",
+        "title": "Radiohead",
+        "librarySectionTitle": "Music",
+        "librarySectionID": 4,
+        "summary": "…",
+        "index": 1,
+        "thumb": "/library/metadata/5012/thumb/1761319300",
+        "addedAt": 1700000000,
+        "updatedAt": 1761319300,
+        "Genre": [
+          {
+            "tag": "Alternative"
+          }
+        ],
+        "Guid": [
+          {
+            "id": "mbid://a74b1b7f-71a5-4011-9441-d0b5e4122711"
+          }
+        ]
+      }
+    ]
+  }
+}

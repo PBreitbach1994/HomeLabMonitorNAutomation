@@ -1,0 +1,81 @@
+{
+  "page": 1,
+  "pageSize": 100,
+  "sortKey": "timeleft",
+  "sortDirection": "ascending",
+  "totalRecords": 1,
+  "records": [
+    {
+      "artistId": 12,
+      "albumId": 340,
+      "artist": {
+        "artistName": "Radiohead",
+        "foreignArtistId": "a74b1b7f-71a5-4011-9441-d0b5e4122711",
+        "status": "continuing",
+        "ended": false,
+        "artistType": "Group",
+        "path": "/music/Radiohead",
+        "qualityProfileId": 1,
+        "metadataProfileId": 1,
+        "monitored": true,
+        "genres": [
+          "Alternative Rock"
+        ],
+        "cleanName": "radiohead",
+        "sortName": "radiohead",
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "id": 12
+      },
+      "album": {
+        "title": "In Rainbows",
+        "disambiguation": "",
+        "overview": "",
+        "artistId": 12,
+        "foreignAlbumId": "6e335887-60ba-38f0-95af-fae7774336bf",
+        "monitored": true,
+        "anyReleaseOk": true,
+        "profileId": 1,
+        "duration": 2546000,
+        "albumType": "Album",
+        "secondaryTypes": [],
+        "mediumCount": 1,
+        "releaseDate": "2007-10-10T00:00:00Z",
+        "genres": [],
+        "media": [],
+        "id": 340
+      },
+      "quality": {
+        "quality": {
+          "id": 6,
+          "name": "FLAC"
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "size": 377487360,
+      "title": "Radiohead - In Rainbows (2007) [FLAC]",
+      "sizeleft": 188743680,
+      "timeleft": "00:01:30",
+      "estimatedCompletionTime": "2025-10-24T16:01:30Z",
+      "added": "2025-10-24T15:55:00Z",
+      "status": "downloading",
+      "trackedDownloadStatus": "ok",
+      "trackedDownloadState": "downloading",
+      "statusMessages": [],
+      "downloadId": "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B",
+      "protocol": "torrent",
+      "downloadClient": "qBittorrent",
+      "downloadClientHasPostImportCategory": false,
+      "indexer": "RED (Prowlarr)",
+      "outputPath": "/downloads/torrents/Radiohead - In Rainbows (2007) [FLAC]",
+      "downloadForced": false,
+      "id": 501
+    }
+  ]
+}

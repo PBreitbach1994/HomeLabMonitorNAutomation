@@ -1,0 +1,51 @@
+[
+  {
+    "username": "leecher42",
+    "directories": [
+      {
+        "directory": "@@music\\Boards of Canada\\Geogaddi",
+        "fileCount": 2,
+        "files": [
+          {
+            "id": "8b3e3a6a-4b2d-4c7a-9c2a-4b9b5e5d3c01",
+            "username": "leecher42",
+            "direction": "Upload",
+            "filename": "@@music\\Boards of Canada\\Geogaddi\\03 Music Is Math.flac",
+            "size": 40000000,
+            "startOffset": 0,
+            "state": "InProgress",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": null,
+            "startedAt": "2025-10-24T15:58:00.0000000",
+            "endedAt": null,
+            "bytesTransferred": 10000000,
+            "averageSpeed": 131072,
+            "bytesRemaining": 0,
+            "elapsedTime": null,
+            "percentComplete": 25,
+            "remainingTime": null
+          },
+          {
+            "id": "8b3e3a6a-4b2d-4c7a-9c2a-4b9b5e5d3c02",
+            "username": "leecher42",
+            "direction": "Upload",
+            "filename": "@@music\\Boards of Canada\\Geogaddi\\02 Gyroscope.flac",
+            "size": 20000000,
+            "startOffset": 0,
+            "state": "Completed, Succeeded",
+            "requestedAt": "2025-10-24T15:40:00.1234567",
+            "enqueuedAt": null,
+            "startedAt": null,
+            "endedAt": "2025-10-24T15:57:59.0000000",
+            "bytesTransferred": 20000000,
+            "averageSpeed": 200000,
+            "bytesRemaining": 0,
+            "elapsedTime": null,
+            "percentComplete": 100,
+            "remainingTime": null
+          }
+        ]
+      }
+    ]
+  }
+]

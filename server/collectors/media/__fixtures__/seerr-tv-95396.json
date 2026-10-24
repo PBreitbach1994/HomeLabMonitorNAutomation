@@ -1,0 +1,36 @@
+{
+  "backdropPath": "/y.jpg",
+  "episodeRunTime": [
+    55
+  ],
+  "firstAirDate": "2022-02-17",
+  "genres": [
+    {
+      "id": 18,
+      "name": "Drama"
+    }
+  ],
+  "id": 95396,
+  "inProduction": true,
+  "languages": [
+    "en"
+  ],
+  "lastAirDate": "2025-03-21",
+  "name": "Severance",
+  "numberOfEpisodes": 19,
+  "numberOfSeasons": 2,
+  "originalName": "Severance",
+  "overview": "…",
+  "seasons": [],
+  "status": "Returning Series",
+  "externalIds": {
+    "tvdbId": 371980,
+    "imdbId": "tt11280740"
+  },
+  "mediaInfo": {
+    "id": 211,
+    "tmdbId": 95396,
+    "tvdbId": 371980,
+    "status": 4
+  }
+}

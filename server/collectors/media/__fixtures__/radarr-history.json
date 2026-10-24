@@ -1,0 +1,347 @@
+{
+  "page": 1,
+  "pageSize": 100,
+  "sortKey": "date",
+  "sortDirection": "descending",
+  "totalRecords": 4,
+  "records": [
+    {
+      "movieId": 302,
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "Remux-2160p",
+          "source": "bluray",
+          "resolution": 2160
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "qualityCutoffNotMet": false,
+      "movie": {
+        "title": "Furiosa: A Mad Max Saga",
+        "originalTitle": "Furiosa: A Mad Max Saga",
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "sortTitle": "furiosa: a mad max saga",
+        "sizeOnDisk": 0,
+        "status": "released",
+        "overview": "…",
+        "inCinemas": "2024-03-01T00:00:00Z",
+        "physicalRelease": "2024-05-14T00:00:00Z",
+        "digitalRelease": "2024-04-16T00:00:00Z",
+        "images": [],
+        "website": "",
+        "year": 2024,
+        "youTubeTrailerId": "",
+        "studio": "Studio",
+        "path": "/movies/Furiosa: A Mad Max Saga (2024)",
+        "qualityProfileId": 4,
+        "hasFile": false,
+        "movieFileId": 0,
+        "monitored": true,
+        "minimumAvailability": "released",
+        "isAvailable": true,
+        "folderName": "/movies/Furiosa: A Mad Max Saga (2024)",
+        "runtime": 166,
+        "cleanTitle": "furiosaamadmaxsaga",
+        "imdbId": "tt12037194",
+        "tmdbId": 786892,
+        "titleSlug": "786892",
+        "certification": "PG-13",
+        "genres": [
+          "Science Fiction"
+        ],
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "ratings": {
+          "imdb": {
+            "votes": 1,
+            "value": 8.5,
+            "type": "user"
+          }
+        },
+        "popularity": 100,
+        "id": 302
+      },
+      "sourceTitle": "Furiosa.A.Mad.Max.Saga.2024.1080p.WEB-DL.DDP5.1.Atmos.H.264-FLUX",
+      "date": "2025-10-24T15:30:00Z",
+      "downloadId": "A1B2C3D4E5F60718293A4B5C6D7E8F9012345678",
+      "eventType": "grabbed",
+      "data": {
+        "indexer": "TorrentLeech (Prowlarr)",
+        "downloadClient": "qBittorrent",
+        "downloadClientName": "qBittorrent",
+        "releaseGroup": "FLUX",
+        "protocol": "2",
+        "tmdbId": "786892",
+        "imdbId": "tt12037194"
+      },
+      "id": 6003
+    },
+    {
+      "movieId": 301,
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "Remux-2160p",
+          "source": "bluray",
+          "resolution": 2160
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "qualityCutoffNotMet": false,
+      "movie": {
+        "title": "Dune: Part Two",
+        "originalTitle": "Dune: Part Two",
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "sortTitle": "dune: part two",
+        "sizeOnDisk": 0,
+        "status": "released",
+        "overview": "…",
+        "inCinemas": "2024-03-01T00:00:00Z",
+        "physicalRelease": "2024-05-14T00:00:00Z",
+        "digitalRelease": "2024-04-16T00:00:00Z",
+        "images": [],
+        "website": "",
+        "year": 2024,
+        "youTubeTrailerId": "",
+        "studio": "Studio",
+        "path": "/movies/Dune: Part Two (2024)",
+        "qualityProfileId": 4,
+        "hasFile": false,
+        "movieFileId": 0,
+        "monitored": true,
+        "minimumAvailability": "released",
+        "isAvailable": true,
+        "folderName": "/movies/Dune: Part Two (2024)",
+        "runtime": 166,
+        "cleanTitle": "duneparttwo",
+        "imdbId": "tt15239678",
+        "tmdbId": 693134,
+        "titleSlug": "693134",
+        "certification": "PG-13",
+        "genres": [
+          "Science Fiction"
+        ],
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "ratings": {
+          "imdb": {
+            "votes": 1,
+            "value": 8.5,
+            "type": "user"
+          }
+        },
+        "popularity": 100,
+        "id": 301
+      },
+      "sourceTitle": "Dune.Part.Two.2024.2160p.UHD.BluRay.x265-SURCODE",
+      "date": "2025-10-24T13:03:11Z",
+      "downloadId": "SABnzbd_nzo_dune2160",
+      "eventType": "downloadFolderImported",
+      "data": {
+        "fileId": "4410",
+        "droppedPath": "/downloads/complete/movies/Dune.Part.Two.2024.2160p.UHD.BluRay.x265-SURCODE/dune.mkv",
+        "importedPath": "/movies/Dune Part Two (2024)/Dune Part Two (2024).mkv",
+        "downloadClient": "SABnzbd",
+        "downloadClientName": "SABnzbd"
+      },
+      "id": 6002
+    },
+    {
+      "movieId": 301,
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "Remux-2160p",
+          "source": "bluray",
+          "resolution": 2160
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "qualityCutoffNotMet": false,
+      "movie": {
+        "title": "Dune: Part Two",
+        "originalTitle": "Dune: Part Two",
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "sortTitle": "dune: part two",
+        "sizeOnDisk": 0,
+        "status": "released",
+        "overview": "…",
+        "inCinemas": "2024-03-01T00:00:00Z",
+        "physicalRelease": "2024-05-14T00:00:00Z",
+        "digitalRelease": "2024-04-16T00:00:00Z",
+        "images": [],
+        "website": "",
+        "year": 2024,
+        "youTubeTrailerId": "",
+        "studio": "Studio",
+        "path": "/movies/Dune: Part Two (2024)",
+        "qualityProfileId": 4,
+        "hasFile": false,
+        "movieFileId": 0,
+        "monitored": true,
+        "minimumAvailability": "released",
+        "isAvailable": true,
+        "folderName": "/movies/Dune: Part Two (2024)",
+        "runtime": 166,
+        "cleanTitle": "duneparttwo",
+        "imdbId": "tt15239678",
+        "tmdbId": 693134,
+        "titleSlug": "693134",
+        "certification": "PG-13",
+        "genres": [
+          "Science Fiction"
+        ],
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "ratings": {
+          "imdb": {
+            "votes": 1,
+            "value": 8.5,
+            "type": "user"
+          }
+        },
+        "popularity": 100,
+        "id": 301
+      },
+      "sourceTitle": "Dune.Part.Two.2024.1080p.WEB-DL-OLD.mkv",
+      "date": "2025-10-24T13:03:10Z",
+      "eventType": "movieFileDeleted",
+      "data": {
+        "reason": "Upgrade"
+      },
+      "id": 6001
+    },
+    {
+      "movieId": 301,
+      "languages": [
+        {
+          "id": 1,
+          "name": "English"
+        }
+      ],
+      "quality": {
+        "quality": {
+          "id": 3,
+          "name": "Remux-2160p",
+          "source": "bluray",
+          "resolution": 2160
+        },
+        "revision": {
+          "version": 1,
+          "real": 0,
+          "isRepack": false
+        }
+      },
+      "customFormats": [],
+      "customFormatScore": 0,
+      "qualityCutoffNotMet": false,
+      "movie": {
+        "title": "Dune: Part Two",
+        "originalTitle": "Dune: Part Two",
+        "originalLanguage": {
+          "id": 1,
+          "name": "English"
+        },
+        "sortTitle": "dune: part two",
+        "sizeOnDisk": 0,
+        "status": "released",
+        "overview": "…",
+        "inCinemas": "2024-03-01T00:00:00Z",
+        "physicalRelease": "2024-05-14T00:00:00Z",
+        "digitalRelease": "2024-04-16T00:00:00Z",
+        "images": [],
+        "website": "",
+        "year": 2024,
+        "youTubeTrailerId": "",
+        "studio": "Studio",
+        "path": "/movies/Dune: Part Two (2024)",
+        "qualityProfileId": 4,
+        "hasFile": false,
+        "movieFileId": 0,
+        "monitored": true,
+        "minimumAvailability": "released",
+        "isAvailable": true,
+        "folderName": "/movies/Dune: Part Two (2024)",
+        "runtime": 166,
+        "cleanTitle": "duneparttwo",
+        "imdbId": "tt15239678",
+        "tmdbId": 693134,
+        "titleSlug": "693134",
+        "certification": "PG-13",
+        "genres": [
+          "Science Fiction"
+        ],
+        "tags": [],
+        "added": "2024-01-01T00:00:00Z",
+        "ratings": {
+          "imdb": {
+            "votes": 1,
+            "value": 8.5,
+            "type": "user"
+          }
+        },
+        "popularity": 100,
+        "id": 301
+      },
+      "sourceTitle": "Dune.Part.Two.2024.2160p.UHD.BluRay.x265-SURCODE",
+      "date": "2025-10-24T12:44:00Z",
+      "downloadId": "SABnzbd_nzo_dune2160",
+      "eventType": "grabbed",
+      "data": {
+        "indexer": "NZBgeek (Prowlarr)",
+        "downloadClient": "SABnzbd",
+        "downloadClientName": "SABnzbd",
+        "releaseGroup": "SURCODE",
+        "protocol": "1",
+        "tmdbId": "693134"
+      },
+      "id": 6000
+    }
+  ]
+}
