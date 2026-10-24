@@ -1,0 +1,292 @@
+# Home Lab Control — example config.
+# Copy to config/lab.yaml (git-ignored) and edit. Secrets come from env vars: ${NAME} or ${NAME:-default}.
+#
+# mode:
+#   demo  — only the simulator runs; it drives every panel over the topology below.
+#   live  — only the real collectors run.
+#   mixed — real collectors run, and the simulator fills in whatever domains they don't cover yet.
+mode: demo
+
+lab:
+  name: Home Lab Control
+  provider: Frontier Communications
+
+server:
+  port: 8787
+  host: 0.0.0.0
+
+# ---------------------------------------------------------------------------
+# Topology. Each node names its upstream `parent`; `link` describes the cable to it.
+# `measure` is the switch port whose counters measure that cable ("device/ifName").
+# Links without `measure` render dotted with no rate in live mode.
+# ---------------------------------------------------------------------------
+topology:
+  nodes:
+    - id: internet
+      kind: internet
+      label: Internet
+      sublabel: Frontier Communications
+
+    - id: office
+      kind: router
+      label: Office
+      sublabel: eero Max 7
+      model: eero Max 7 · Router / firewall · 10G WAN · 10G LAN
+      ip: 192.168.4.1
+      parent: internet
+      link: { medium: 10G, measure: crs304/ether1, side: downstream, approx: true } # no WAN counters on eero; core uplink is a close proxy
+
+    - id: crs304
+      kind: switch
+      label: MikroTik CRS304
+      sublabel: Core switch · closet
+      model: MikroTik CRS304 · 4 × 10G · 1G mgmt
+      ip: 192.168.7.250
+      parent: office
+      link: { medium: 10G, measure: crs304/ether1, port: CRS304 · ether1 }
+
+    - id: flex-a
+      kind: switch
+      label: Flex A (closet)
+      sublabel: UniFi 2.5G-8 · lab
+      model: UniFi Flex 2.5G-8
+      parent: crs304
+      link: { medium: 10G, measure: crs304/ether2, port: CRS304 · ether2 }
+
+    - id: flex-b
+      kind: switch
+      label: Flex B (house)
+      sublabel: UniFi 2.5G-8 · house
+      model: UniFi Flex 2.5G-8
+      parent: crs304
+      link: { medium: 10G, measure: crs304/ether3, port: CRS304 · ether3 }
+
+    # --- Flex A (closet / lab) ---
+    - id: nichnas
+      kind: nas
+      label: NichNas-674
+      sublabel: QNAP TVS-h674
+      model: QNAP TVS-h674
+      ip: 192.168.4.79
+      tag: VOL
+      parent: flex-a
+      link: { medium: 2.5G, measure: flex-a/1, port: Flex A · port 1 }
+    - id: nichnas-bond
+      kind: device
+      label: NichNas-674 (bond)
+      sublabel: LACP member
+      bondOf: nichnas
+      parent: flex-a
+      link: { medium: 2.5G, bonded: true, measure: flex-a/2, port: Flex A · port 2 }
+    - id: switchyard
+      kind: host
+      label: Switchyard
+      sublabel: Container host
+      role: containers
+      tag: APP
+      parent: flex-a
+      link: { medium: 2.5G, measure: flex-a/3, port: Flex A · port 3 }
+    - id: switchyard-bond
+      kind: device
+      label: Switchyard (bond)
+      sublabel: LACP member
+      bondOf: switchyard
+      parent: flex-a
+      link: { medium: 2.5G, bonded: true, measure: flex-a/4, port: Flex A · port 4 }
+    - id: foundry
+      kind: host
+      label: Foundry
+      sublabel: General host
+      role: HLC
+      tag: VOL
+      parent: flex-a
+      link: { medium: 1G, measure: flex-a/5, port: Flex A · port 5 }
+    - id: s380hb
+      kind: hub
+      label: s380hb
+      sublabel: Eufy HomeBase
+      parent: flex-a
+      link: { medium: 100M, measure: flex-a/6, port: Flex A · port 6 }
+
+    # --- Flex B (house) ---
+    - id: caldigit
+      kind: dock
+      label: Caldigit TS3-plus - work
+      sublabel: CalDigit TS3 Plus
+      parent: flex-b
+      link: { medium: 1G, measure: flex-b/1, port: Flex B · port 1 }
+    - id: macbook
+      kind: laptop
+      label: MacBook-Pro-2
+      sublabel: Anker Prime TB5
+      parent: flex-b
+      link: { medium: 2.5G, measure: flex-b/2, port: Flex B · port 2 }
+    - id: printer
+      kind: printer
+      label: HPF8EDFC7F22BD
+      sublabel: HP Color Laser
+      parent: flex-b
+      link: { medium: 1G, measure: flex-b/3, port: Flex B · port 3 }
+
+    # --- eero mesh (wireless backhaul to the Office router) ---
+    - id: backyard
+      kind: mesh
+      label: Back yard
+      sublabel: eero Outdoor 7
+      parent: office
+      link: { medium: wifi }
+    - id: bedroom
+      kind: mesh
+      label: Bedroom
+      sublabel: eero Max 7
+      parent: office
+      link: { medium: wifi }
+    - id: garage
+      kind: mesh
+      label: Garage
+      sublabel: eero Pro 6
+      parent: office
+      link: { medium: wifi }
+    - id: livingroom
+      kind: mesh
+      label: Living Room
+      sublabel: eero Max 7
+      parent: office
+      link: { medium: wifi }
+
+# ---------------------------------------------------------------------------
+# Services: one tile each. `expect: manual|paused` keeps a stopped/paused app from raising incidents.
+# `vpn: true` = routed through the Gluetun namespace. `app` tells collectors/simulator what it is.
+# ---------------------------------------------------------------------------
+services:
+  - { id: plex, label: Plex, host: nichnas, app: plex }
+  - { id: seerr, label: Seerr, host: switchyard, vpn: true, app: seerr }
+  - { id: sonarr, label: Sonarr, host: switchyard, vpn: true, app: sonarr }
+  - { id: radarr, label: Radarr, host: switchyard, vpn: true, app: radarr }
+  - { id: bazarr, label: Bazarr, host: switchyard, vpn: true, expect: manual }
+  - { id: prowlarr, label: Prowlarr, host: switchyard, vpn: true }
+  - { id: jackett, label: Jackett, host: switchyard, vpn: true }
+  - { id: sabnzbd, label: SABnzbd, host: switchyard, vpn: true, app: sabnzbd }
+  - { id: qbittorrent, label: qBittorrent, host: switchyard, vpn: true, app: qbittorrent }
+  - { id: readmeabook, label: ReadMeABook, host: switchyard, vpn: true }
+  - { id: audiobookshelf, label: Audiobookshelf, host: switchyard, vpn: true }
+  - { id: calibre, label: Calibre, host: switchyard, vpn: true }
+  - { id: calibre-web, label: Calibre-Web, host: switchyard, vpn: true }
+  - { id: bindery, label: Bindery, host: foundry, expect: paused }
+  - { id: lidarr, label: Lidarr, host: switchyard, vpn: true, app: lidarr }
+  - { id: hearr, label: Hearr, host: switchyard, vpn: true }
+  - { id: soulseek, label: Soulseek, host: switchyard, vpn: true, app: slskd }
+  - { id: tdarr, label: Tdarr, host: switchyard, vpn: true }
+
+# ---------------------------------------------------------------------------
+# Collectors. In demo mode only `simulator` runs; flip `enabled` and set mode: mixed/live to go real.
+# ---------------------------------------------------------------------------
+collectors:
+  - id: sim
+    kind: simulator
+    wanDownMbps: 940 # the plan the simulated internet is capped at
+    wanUpMbps: 35
+
+  - id: crs304
+    kind: snmp
+    enabled: false
+    device: crs304 # iface keys become crs304/<ifName>
+    host: 192.168.7.250
+    # port: 161
+    version: 3 # 3 | 2c | 1 — 2c/v1 use `community: public` instead of the user/keys below; v1 has no 64-bit counters
+    user: ${SNMP_USER}
+    authProtocol: sha # md5 | sha | sha224 | sha256 | sha384 | sha512
+    authKey: ${SNMP_AUTH_KEY}
+    privProtocol: aes # des | aes (AES-128) | aes256b | aes256r
+    privKey: ${SNMP_PRIV_KEY}
+    # ports: [ether1, ether2, ether3] # optional ifName filter; default is every interface
+    interval: 5
+
+  - id: unifi
+    kind: unifi
+    enabled: false
+    url: https://192.168.4.2 # UniFi OS console / Network application
+    username: ${UNIFI_USER}
+    password: ${UNIFI_PASS}
+    site: default
+    insecure: true # self-signed cert on the console
+    # legacy: true # force the pre-UniFi OS controller API (/api/login); auto-detected when omitted
+    # Use a local, view-only admin without MFA; failed logins back off (30s, doubling to 10 min).
+    devices: # switch MAC (quoted) -> node id; iface keys become <node>/<port_idx>
+      "00:00:00:00:00:0a": flex-a
+      "00:00:00:00:00:0b": flex-b
+    interval: 10
+
+  - id: ping
+    kind: ping
+    enabled: false
+    targets: { internet: 1.1.1.1, router: 192.168.4.1 }
+    # count: 3 # echo requests per target per poll
+    # bin: ping # system ping (iputils or BusyBox); needs NET_RAW or net.ipv4.ping_group_range
+    interval: 5
+
+  - id: docker-switchyard
+    kind: docker
+    enabled: false
+    host: switchyard
+    url: http://switchyard:2375 # docker-socket-proxy (GET /containers only), or `socket: /var/run/docker.sock`
+    interval: 15
+
+  - id: glances-switchyard
+    kind: glances
+    enabled: false
+    host: switchyard
+    url: http://switchyard:61208 # Glances in web-server mode (glances -w)
+    # apiVersion: 4 # 3 for Glances 3.x
+    # username: glances # only if Glances runs with --password
+    # password: ${GLANCES_PASS}
+    interval: 10
+
+  - id: sabnzbd
+    kind: sabnzbd
+    enabled: false
+    host: switchyard
+    url: http://switchyard:8080
+    apiKey: ${SABNZBD_API_KEY}
+    interval: 5
+
+  - id: qbittorrent
+    kind: qbittorrent
+    enabled: false
+    host: switchyard
+    url: http://switchyard:8081
+    username: ${QBIT_USER:-admin}
+    password: ${QBIT_PASS}
+    interval: 5
+
+  - id: sonarr
+    kind: sonarr
+    enabled: false
+    url: http://switchyard:8989
+    apiKey: ${SONARR_API_KEY}
+    interval: 15
+
+  - id: radarr
+    kind: radarr
+    enabled: false
+    url: http://switchyard:7878
+    apiKey: ${RADARR_API_KEY}
+    interval: 15
+
+  - id: plex
+    kind: plex
+    enabled: false
+    host: nichnas
+    url: http://192.168.4.79:32400
+    token: ${PLEX_TOKEN}
+    clients: {} # player IP -> node id, e.g. "192.168.4.120": livingroom
+    interval: 10
+
+  - id: gluetun
+    kind: gluetun
+    enabled: false
+    host: switchyard
+    url: http://switchyard:8000 # control server (HTTP_CONTROL_SERVER_ADDRESS)
+    apiKey: ${GLUETUN_API_KEY:-} # sent as X-API-Key; or username/password for basic auth
+    # provider: Mullvad # label shown on the VPN tile; defaults to the exit IP's organization
+    interval: 15

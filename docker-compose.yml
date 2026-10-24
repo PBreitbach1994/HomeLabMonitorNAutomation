@@ -1,0 +1,34 @@
+# Run on a host that is NOT inside the Gluetun network namespace — the dashboard needs LAN reach.
+services:
+  homelab-control:
+    build: .
+    image: homelab-control:local
+    container_name: homelab-control
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    env_file: .env
+    environment:
+      LAB_CONFIG: /app/config/lab.yaml
+      TZ: ${TZ:-America/Chicago}
+    volumes:
+      - ./config/lab.yaml:/app/config/lab.yaml:ro
+    read_only: true
+    tmpfs:
+      - /tmp # tsx's compile cache
+    security_opt:
+      - no-new-privileges:true
+
+  # Optional: give the `docker` collector read-only container listings without mounting the raw
+  # socket into the dashboard. Run one per host you want container status from, and point the
+  # collector's `url` at it (e.g. http://switchyard:2375). Pin the image tag you've vetted.
+  # docker-socket-proxy:
+  #   image: tecnativa/docker-socket-proxy
+  #   restart: unless-stopped
+  #   environment:
+  #     CONTAINERS: 1
+  #     POST: 0
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   ports:
+  #     - "2375:2375"
