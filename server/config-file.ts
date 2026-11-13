@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { parseConfig, type LabConfig } from './config.ts';
 
 export function loadConfig(path?: string): { config: LabConfig; path: string } {
-  const candidates = [path, process.env.LAB_CONFIG, 'config/lab.yaml', 'config/lab.example.yaml'].filter(
+  const candidates = [path, process.env.LAB_CONFIG, 'config/lab.yaml', 'config/demo.yaml'].filter(
     (p): p is string => !!p,
   );
   const found = candidates.map((p) => resolve(p)).find((p) => existsSync(p));

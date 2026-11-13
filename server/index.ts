@@ -4,6 +4,7 @@ import { SnapshotBuilder } from './snapshot.ts';
 import { startCollectors } from './collectors/runner.ts';
 import { Simulator } from './collectors/simulator.ts';
 import { startHttp } from './http.ts';
+import { NetboxSource } from './netbox/source.ts';
 import type { Logger } from './collectors/types.ts';
 import type { Snapshot } from '../shared/model.ts';
 
@@ -18,21 +19,34 @@ const log: Logger = {
 };
 
 const { config, path } = loadConfig();
-log.info(`config ${path} · mode ${config.mode}`);
+log.info(`config ${path} · mode ${config.mode}${config.netbox ? ` · topology from NetBox ${config.netbox.url}` : ''}`);
 
 const facts = new FactStore();
-const builder = new SnapshotBuilder(config, facts);
+let sim: Simulator | undefined;
+let builder: SnapshotBuilder | undefined;
+
+// NetBox first: it supplies the devices, cabling, services and the collectors to start.
+const netbox = config.netbox
+  ? new NetboxSource(config, facts, log, () => {
+      builder?.reloadTopology();
+      sim?.reloadTopology();
+    })
+  : undefined;
+await netbox?.start();
+
+builder = new SnapshotBuilder(config, facts);
+const snapshots = builder;
 let latest: Snapshot | null = null;
 
 const running = startCollectors(config, facts, log, (collectors) => {
+  sim = collectors.find((c): c is Simulator => c instanceof Simulator);
   // Fast-forward the simulator through the last hour so charts start full.
-  const sim = collectors.find((c): c is Simulator => c instanceof Simulator);
   if (!sim || config.mode !== 'demo') return;
   const t0 = Date.now();
   const end = t0 - TICK_MS;
   for (let t = end - WARMUP_MS; t <= end; t += 10_000) {
     sim.tick(t);
-    builder.build(t);
+    snapshots.build(t);
   }
   log.info(`simulator warmed up 1h of history in ${Date.now() - t0} ms`);
 });
@@ -43,13 +57,13 @@ const api = startHttp({
   token: config.server.token,
   staticDir: process.env.STATIC_DIR ?? 'dist/web',
   latest: () => latest,
-  history: builder.history,
+  history: snapshots.history,
   log: log.info,
 });
 
 const tick = () => {
   try {
-    latest = builder.build(Date.now());
+    latest = snapshots.build(Date.now());
     api.broadcast(latest);
   } catch (err) {
     log.error(`snapshot failed: ${(err as Error).stack ?? err}`);
@@ -60,6 +74,7 @@ const timer = setInterval(tick, TICK_MS);
 
 const shutdown = () => {
   clearInterval(timer);
+  netbox?.stop();
   running.stop();
   api.close();
   process.exit(0);

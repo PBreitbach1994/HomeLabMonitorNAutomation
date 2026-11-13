@@ -16,8 +16,11 @@ const total = (l?: TopoLink) => (l?.measured ? (l.downBps ?? 0) + (l.upBps ?? 0)
 
 export function NetworkView({ snap, selected, onSelect }: { snap: Snapshot; selected: string | null; onSelect: (id: string) => void }) {
   const sel = selected && snap.nodes.some((n) => n.id === selected) ? selected : snap.nodes.find((n) => n.kind === 'nas')?.id ?? snap.nodes[0].id;
+  const netbox = snap.sources.find((s) => s.kind === 'netbox');
   return (
     <div className="grid" style={{ gap: 'var(--gap)' }}>
+      {netbox && !netbox.ok && <div className="banner">Can't read NetBox — showing the last topology it gave us. {netbox.error}</div>}
+      {netbox?.ok && netbox.note && <div className="banner">NetBox: {netbox.note}</div>}
       <Kpis snap={snap} />
       <div className="grid net-main" style={{ gridTemplateColumns: 'minmax(0, 1.75fr) minmax(320px, 1fr)' }}>
         <section className="panel">
@@ -25,7 +28,7 @@ export function NetworkView({ snap, selected, onSelect }: { snap: Snapshot; sele
         </section>
         <div className="grid" style={{ alignContent: 'start' }}>
           <DevicePanel snap={snap} nodeId={sel} />
-          <VpnCard snap={snap} />
+          {(snap.vpn.up != null || snap.services.some((s) => s.vpn)) && <VpnCard snap={snap} />}
         </div>
       </div>
       <div className="grid three">
@@ -147,7 +150,8 @@ function TopologyTree({ snap, sel, onSel }: { snap: Snapshot; sel: string; onSel
   const columns = fanKids.filter((n) => kids(n.id).length);
   const direct = fanKids.filter((n) => !kids(n.id).length);
   const router = chain.find((n) => n.kind === 'router');
-  const mesh = snap.nodes.filter((n) => n.kind === 'mesh');
+  // Wired access points already show under their switch; this column is for wireless backhaul.
+  const mesh = snap.nodes.filter((n) => n.kind === 'mesh' && upLink(n.id)?.medium === 'wifi');
   const colCount = columns.length + (direct.length ? 1 : 0) + (mesh.length ? 1 : 0);
   const coreSwitch = chain.find((n) => n.kind === 'switch');
   const coreLinks = coreSwitch ? snap.links.filter((l) => l.from === coreSwitch.id) : [];
@@ -181,7 +185,7 @@ function TopologyTree({ snap, sel, onSel }: { snap: Snapshot; sel: string; onSel
         <div className="tree-side hide-narrow">
           <div className="info-card">
             <div className="t">WAN</div>
-            <div className="muted">Your ISP connection into the {router?.sublabel ?? 'router'}. Traffic shown is internet in / out.</div>
+            <div className="muted">Your ISP connection into {router?.label ?? 'the router'}. Traffic shown is internet in / out.</div>
             <div className="r" style={{ marginTop: 4 }}><span>↓ {fmtBps(snap.internet.downBps)}</span><b>↑ {fmtBps(snap.internet.upBps)}</b></div>
           </div>
           {coreSwitch && (
@@ -255,7 +259,7 @@ function TopologyTree({ snap, sel, onSel }: { snap: Snapshot; sel: string; onSel
         )}
         {mesh.length > 0 && (
           <div>
-            <div className="muted" style={{ fontSize: 11, margin: '0 0 6px 4px', letterSpacing: '0.12em' }}>WI-FI · {router?.sublabel?.split(' ')[0]?.toUpperCase() ?? 'MESH'} MESH</div>
+            <div className="muted" style={{ fontSize: 11, margin: '0 0 6px 4px', letterSpacing: '0.12em' }}>WI-FI BACKHAUL</div>
             <div className="tports" style={{ marginTop: 0, marginLeft: 0, paddingLeft: 0 }}>
               {router && (
                 <div className={`tport ${sel === router.id ? 'sel' : ''}`} onClick={() => onSel(router.id)} role="button" tabIndex={0}>
@@ -309,6 +313,11 @@ function DevicePanel({ snap, nodeId }: { snap: Snapshot; nodeId: string }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13 }}>
             <i className="sdot" style={{ background: HEALTH_COLOR[node.health] }} />
             <span className="dim">{node.health === 'ok' ? 'Online' : HEALTH_LABEL[node.health]}</span>
+            {node.href && (
+              <a className="nb-link" href={node.href} target="_blank" rel="noreferrer">
+                Open in NetBox ↗
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -425,7 +434,7 @@ function DevicePanel({ snap, nodeId }: { snap: Snapshot; nodeId: string }) {
 function VpnCard({ snap }: { snap: Snapshot }) {
   const v = snap.vpn;
   const host = snap.nodes.find((n) => n.id === v.host)?.label ?? v.host ?? '—';
-  const apps = snap.services.filter((s) => s.vpn && ['sabnzbd', 'qbittorrent', 'soulseek'].includes(s.id)).map((s) => s.label);
+  const routed = snap.services.filter((s) => s.vpn).map((s) => s.label);
   return (
     <section className="panel">
       <div className="h2">VPN tunnel</div>
@@ -433,7 +442,7 @@ function VpnCard({ snap }: { snap: Snapshot }) {
         {v.up == null ? 'No data' : v.up ? 'Sealed' : 'Down'}
       </div>
       <div className="dim" style={{ marginTop: 4 }}>
-        {apps.length ? `${apps.join(', ')} run inside Gluetun on ${host}` : `${v.services.length} services route through Gluetun on ${host}`}
+        {routed.length <= 3 ? `${routed.join(', ')} ${routed.length === 1 ? 'goes' : 'go'} out through the VPN on ${host}` : `${routed.length} services go out through the VPN on ${host}`}
         {v.throughputBps != null ? ` · ${fmtBps(v.throughputBps)}` : ''}
       </div>
       {(v.publicIp || v.country) && (

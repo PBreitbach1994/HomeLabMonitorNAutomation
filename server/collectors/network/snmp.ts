@@ -1,5 +1,5 @@
 // SNMP IF-MIB collector: per-port octet counters, speed and oper status → facts.ifaces.
-// Keys are "<device>/<ifName>", matching `measure: crs304/ether1` in lab.yaml.
+// Keys are "<device>/<ifName>" (e.g. "sw-core/ether1"), matching NetBox device + interface names.
 
 import { createRequire } from 'node:module';
 import type { CollectorConfig } from '../../config.ts';

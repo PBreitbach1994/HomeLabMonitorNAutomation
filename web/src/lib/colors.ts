@@ -12,7 +12,11 @@ export const PROTOCOL_COLOR: Record<Protocol, string> = {
 export const PROTOCOL_STACK: Protocol[] = ['torrent', 'usenet', 'soulseek', 'plex', 'other'];
 
 export const MEDIUM_COLOR: Record<Medium, string> = {
+  '100G': '#f0abfc',
+  '40G': '#5eead4',
+  '25G': '#5eead4',
   '10G': '#2dd4bf',
+  '5G': '#7dd3fc',
   '2.5G': '#60a5fa',
   '1G': '#a78bfa',
   '100M': '#94a3b8',
@@ -22,7 +26,11 @@ export const MEDIUM_COLOR: Record<Medium, string> = {
 };
 
 export const MEDIUM_WIDTH: Record<Medium, number> = {
+  '100G': 4.2,
+  '40G': 3.8,
+  '25G': 3.5,
   '10G': 3.2,
+  '5G': 2.6,
   '2.5G': 2.2,
   '1G': 1.6,
   '100M': 1.2,

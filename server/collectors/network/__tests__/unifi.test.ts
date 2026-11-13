@@ -79,6 +79,8 @@ describe('unifi collector', () => {
     const c = createUnifi(cfg('unifi', { url: `${srv.url}/`, username: 'viewer', password: 's3cret', devices }), ctx);
     await c.poll(1_000);
     expect(ctx.facts.ifaces.get('flex-a/1')).toMatchObject({ inOctets: 912_334_556_771, outOctets: 7_120_998_331_002 });
+    // Also keyed by the controller's port name, which is what NetBox interfaces are usually called.
+    expect(ctx.facts.ifaces.get('flex-a/Port 1')).toMatchObject({ inOctets: 912_334_556_771, outOctets: 7_120_998_331_002 });
     expect(srv.requests[1].headers['x-csrf-token']).toBe('csrf1');
 
     expireNext = true; // session expired server-side

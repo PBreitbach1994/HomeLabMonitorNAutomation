@@ -3,7 +3,7 @@
 // over the configured topology, and increments port counters — the same facts SNMP,
 // SABnzbd, Sonarr, Plex… would produce. Everything downstream is the real derivation code.
 
-import type { CollectorConfig, LabConfig, NodeConfig } from '../config.ts';
+import { parseSpeed, type CollectorConfig, type LabConfig, type NodeConfig } from '../config.ts';
 import type {
   ArrEventFact, ArrQueueFact, DiskFact, Domain, DownloadItemFact, FactStore, PlexSessionFact,
 } from '../facts.ts';
@@ -91,6 +91,10 @@ const CAMERAS = ['Front Door', 'Driveway', 'Back Yard', 'Garage'];
 
 export interface SimOptions {
   seed?: number;
+  /** Panels with no topology to derive them from are only simulated when asked (demo config). */
+  storage?: boolean;
+  cameras?: boolean;
+  tailscale?: boolean;
 }
 
 export class Simulator implements Collector {
@@ -103,7 +107,7 @@ export class Simulator implements Collector {
 
   private rnd: () => number;
   private w: Walks;
-  private topo: Topology;
+  private topo!: Topology;
   private facts: FactStore;
   private lab: LabConfig;
   private skip: Set<Domain>;
@@ -114,7 +118,7 @@ export class Simulator implements Collector {
   private media: Media[] = [];
   private arrEvents: Record<'sonarr' | 'radarr', ArrEventFact[]> = { sonarr: [], radarr: [] };
   private nextGrabAt = 0;
-  private regrabs: { mediaKey: string; at: number }[] = [];
+  private regrabs: { mediaKey: string; client: Job['client']; at: number }[] = [];
   private spawned = 0;
   private sessions: (PlexSessionFact & { endsAt: number })[] = [];
   private nextSessionAt = 0;
@@ -126,30 +130,34 @@ export class Simulator implements Collector {
   private bootAt: Record<string, number> = {};
 
   // Where things run, resolved from config (null when the lab has no such app).
-  private sabHost: string | null;
-  private qbitHost: string | null;
-  private slskdHost: string | null;
-  private plexHost: string | null;
-  private nasHost: string | null;
-  private hasRadarr: boolean;
-  private wanDownBps: number;
-  private wanUpBps: number;
+  private sabHost: string | null = null;
+  private qbitHost: string | null = null;
+  private slskdHost: string | null = null;
+  private plexHost: string | null = null;
+  private nasHost: string | null = null;
+  private hasRadarr = false;
+  private vpnHost: string | null = null;
+  private wanDownBps = 1e9;
+  private wanUpBps = 5e7;
   private wanScale = 1;
 
   constructor(
     readonly id: string,
     ctx: CollectorContext,
-    opts: SimOptions & { intervalMs?: number; wanDownMbps?: number; wanUpMbps?: number } = {},
+    private opts: SimOptions & { intervalMs?: number; wanDownMbps?: number; wanUpMbps?: number } = {},
   ) {
-    this.wanDownBps = (opts.wanDownMbps ?? 940) * MBPS;
-    this.wanUpBps = (opts.wanUpMbps ?? 35) * MBPS;
     this.lab = ctx.lab;
     this.facts = ctx.facts;
     this.skip = new Set(ctx.covered);
     this.intervalMs = opts.intervalMs ?? 1000;
     this.rnd = mulberry32(opts.seed ?? Date.now());
     this.w = new Walks(this.rnd);
-    this.topo = buildTopology(ctx.lab);
+    this.reloadTopology();
+  }
+
+  /** Re-reads the lab's topology and services (call after a NetBox refresh). */
+  reloadTopology(): void {
+    this.topo = buildTopology(this.lab);
     const hostOf = (app: string) => this.lab.services.find((s) => s.app === app || s.id === app)?.host ?? null;
     this.sabHost = hostOf('sabnzbd');
     this.qbitHost = hostOf('qbittorrent');
@@ -157,6 +165,17 @@ export class Simulator implements Collector {
     this.plexHost = hostOf('plex');
     this.nasHost = this.lab.topology.nodes.find((n) => n.kind === 'nas')?.id ?? this.plexHost;
     this.hasRadarr = this.lab.services.some((s) => s.app === 'radarr' || s.id === 'radarr');
+    this.vpnHost = this.lab.services.find((s) => s.vpn)?.host ?? null;
+    // The internet plan caps simulated WAN traffic: explicit option, else the uplink's configured speed, else 1 Gb/s.
+    const uplink = this.lab.topology.nodes.find((n) => n.parent === this.topo.internetId)?.link;
+    const planned = uplink?.speed != null ? parseSpeed(uplink.speed, uplink.medium) : 1e9;
+    this.wanDownBps = this.opts.wanDownMbps != null ? this.opts.wanDownMbps * MBPS : planned;
+    this.wanUpBps = this.opts.wanUpMbps != null ? this.opts.wanUpMbps * MBPS : this.wanDownBps / 20;
+    for (const n of this.lab.topology.nodes) {
+      if ((n.kind === 'host' || n.kind === 'nas') && this.started && !this.bootAt[n.id]) {
+        this.bootAt[n.id] = this.started - this.between(9, 15) * 86400_000;
+      }
+    }
   }
 
   private chance(perSecond: number, dt: number): boolean {
@@ -210,11 +229,13 @@ export class Simulator implements Collector {
     if (this.on('hosts')) this.writeHosts(now, dt, sabBps, extracting);
     if (this.on('containers')) this.writeContainers(now);
     if (this.on('ping')) this.writePing(now, dt);
-    if (this.on('storage')) this.writeStorage(now);
+    if (this.on('storage') && this.opts.storage) this.writeStorage(now);
     if (this.on('wifi')) this.writeWifi(now, dt);
-    if (this.on('vpn')) this.facts.vpn = { up: true, host: this.sabHost ?? undefined, provider: 'WireGuard', publicIp: '203.0.113.42', country: 'Switzerland', at: now };
-    if (this.on('tailscale')) this.facts.tailscale = { up: true, peersOnline: 6, at: now };
-    if (this.on('cameras')) this.stepCameras(now);
+    if (this.on('vpn') && this.vpnHost) {
+      this.facts.vpn = { up: true, host: this.vpnHost, provider: 'WireGuard', publicIp: '203.0.113.42', at: now };
+    }
+    if (this.on('tailscale') && this.opts.tailscale) this.facts.tailscale = { up: true, peersOnline: 4, at: now };
+    if (this.on('cameras') && this.opts.cameras) this.stepCameras(now);
   }
 
   // ---------------------------------------------------------------- setup
@@ -246,8 +267,9 @@ export class Simulator implements Collector {
     const dayStart = new Date(now);
     dayStart.setHours(0, 0, 0, 0);
     const frac = (now - dayStart.getTime()) / 86400_000;
-    this.facts.wanToday = { downBytes: frac * 2.4e12, upBytes: frac * 1.1e11, at: now };
-    if (this.on('cameras')) {
+    // Today's totals so far, as if the line averaged a fifth of its plan.
+    this.facts.wanToday = { downBytes: frac * (this.wanDownBps / 8) * 86400 * 0.2, upBytes: frac * (this.wanUpBps / 8) * 86400 * 0.2, at: now };
+    if (this.on('cameras') && this.opts.cameras) {
       this.facts.addCameraEvent({ id: 'cam-seed-1', camera: 'Driveway', kind: 'vehicle', ts: now - 42 * 60_000 });
     }
   }
@@ -307,8 +329,8 @@ export class Simulator implements Collector {
     this.regrabs = this.regrabs.filter((r) => r.at > now);
     for (const r of due) {
       const m = this.media.find((x) => r.mediaKey.startsWith(x.key));
-      if (!m || !this.sabHost) continue;
-      const job = this.newJob(now, m, 'sabnzbd');
+      if (!m || !(r.client === 'sabnzbd' ? this.sabHost : this.qbitHost)) continue;
+      const job = this.newJob(now, m, r.client);
       job.mediaKey = r.mediaKey;
       job.title = job.title.replace(/\.S0\d(E\d\d)?(\.Complete)?\./, `.${r.mediaKey.split(':').pop()!.toUpperCase()}.`);
       this.grab(now, job);
@@ -365,7 +387,7 @@ export class Simulator implements Collector {
           downloadId: j.id, eventType: 'failed', title: j.title, mediaKey: j.mediaKey, kind: j.kind, date: now,
           message: 'Aborted, cannot be completed',
         });
-        this.regrabs.push({ mediaKey: j.mediaKey, at: now + this.between(40, 90) * 1000 });
+        this.regrabs.push({ mediaKey: j.mediaKey, client: j.client, at: now + this.between(40, 90) * 1000 });
       } else if (j.done >= j.size) {
         j.state = client === 'sabnzbd' ? 'extracting' : 'completed';
         j.updatedAt = now;
@@ -401,8 +423,11 @@ export class Simulator implements Collector {
   private stepOutage(now: number) {
     if (this.outage && now > this.outage.until) this.outage = null;
     if (!this.outage && now >= this.nextOutageAt) {
-      const candidates = this.lab.services.filter((s) => !s.expect && s.app !== 'plex' && s.app !== 'sabnzbd');
-      const svc = candidates.find((s) => s.id === 'tdarr') ?? candidates[candidates.length - 1];
+      // Prefer a container on a server; a NAS file share "crashing" every half hour isn't realistic.
+      const eligible = this.lab.services.filter((s) => !s.expect && s.app !== 'plex' && s.app !== 'sabnzbd');
+      const onHosts = eligible.filter((s) => this.topo.nodes.get(s.host)?.kind === 'host');
+      const candidates = onHosts.length ? onHosts : eligible;
+      const svc = candidates.length ? this.pick(candidates) : undefined;
       if (svc) this.outage = { service: svc.id, until: now + this.between(45, 120) * 1000 };
       this.nextOutageAt = now + this.between(15, 35) * 60_000;
     }
@@ -439,7 +464,8 @@ export class Simulator implements Collector {
       const unpack = a.extracting ? this.w.walk('unpack', 0.75e9, 0.12e9, dt, 0.4, 0.4e9, 1.2e9) : 0;
       add(this.sabHost, this.nasHost, a.sabBps + unpack);
       add(this.nasHost, this.sabHost, unpack * 0.6);
-      const tdarr = this.outage?.service === 'tdarr' ? 0 : this.w.walk('tdarr', 120 * MBPS, 40 * MBPS, dt, 0.1, 0);
+      const transcoder = this.lab.services.find((s) => s.app === 'tdarr');
+      const tdarr = !transcoder || this.outage?.service === transcoder.id ? 0 : this.w.walk('tdarr', 120 * MBPS, 40 * MBPS, dt, 0.1, 0);
       add(this.nasHost, this.sabHost, tdarr);
       add(this.sabHost, this.nasHost, tdarr * 0.55);
     }
@@ -468,17 +494,6 @@ export class Simulator implements Collector {
       else if (f.to === net) f.bps *= kOut;
     }
     this.wanScale = kIn;
-
-    // LACP: hash a share of each bonded host's flows onto its member port.
-    for (const n of this.lab.topology.nodes) {
-      if (!n.bondOf) continue;
-      for (const f of [...flows]) {
-        if (f.to !== n.bondOf && f.from !== n.bondOf) continue;
-        const share = f.bps * 0.3;
-        f.bps -= share;
-        flows.push({ from: f.from === n.bondOf ? n.id : f.from, to: f.to === n.bondOf ? n.id : f.to, bps: share });
-      }
-    }
 
     // Route flows and accumulate per-link rates.
     const linkRates = new Map<string, { down: number; up: number }>();
@@ -659,50 +674,39 @@ export class Simulator implements Collector {
   }
 
   private writeStorage(now: number) {
-    if (!this.nasHost) return;
-    const hdd = (prefix: string, n: number, model: string): DiskFact[] =>
-      Array.from({ length: n }, (_, i) => ({ id: `${prefix}-${i + 1}`, slot: `${i + 1}`, model, health: 'ok', tempC: 34 + i }));
-    const vols = [
-      { id: 'data-volume', label: 'Data-Volume', total: 72.4e12, used: 0.478, disks: hdd('bay', 6, 'WD Red Pro 18TB') },
-      {
-        id: 'easystore', label: 'easystore', total: 17.8e12, used: 0.77, enclosure: 'expansion-33-3',
-        disks: [{ id: 'exp-1', slot: 'E1', model: 'WD easystore 264D (NL-SAS)', health: 'warn' as const, tempC: 41 }],
-      },
-      {
-        id: 'wdssd-vol', label: 'WDSSD-Vol', total: 0.705e12, used: 0.142,
-        disks: [1, 2].map((i) => ({ id: `ssd-${i}`, slot: `M.2-${i}`, model: 'WD Red SN700 1TB', health: 'ok' as const, tempC: 39, ssd: true })),
-      },
-    ];
-    for (const v of vols) {
-      const extra = v.id === 'data-volume' ? this.dataUsed : 0;
-      this.facts.volumes.set(v.id, {
-        id: v.id,
-        label: v.label,
-        host: this.nasHost,
-        enclosure: v.enclosure,
-        usedBytes: v.total * v.used + extra,
-        totalBytes: v.total,
-        health: 'ok',
-        disks: v.disks,
-        at: now,
-      });
+    for (const nas of this.lab.topology.nodes.filter((n) => n.kind === 'nas')) {
+      const hdd: DiskFact[] = Array.from({ length: 4 }, (_, i) => ({
+        id: `${nas.id}-bay${i + 1}`, slot: `${i + 1}`, model: 'HDD 8TB', tempC: 33 + i,
+        // One tired disk so the demo shows the disk-health path; real data comes from your NAS.
+        health: i === 2 ? 'warn' : 'ok',
+      }));
+      const ssd: DiskFact[] = [1, 2].map((i) => ({ id: `${nas.id}-m2-${i}`, slot: `M.2-${i}`, model: 'NVMe 1TB', health: 'ok', tempC: 41, ssd: true }));
+      const vols = [
+        { id: `${nas.id}-pool1`, label: 'Pool 1', total: 24e12, used: 0.52, disks: hdd },
+        { id: `${nas.id}-ssd`, label: 'SSD cache', total: 1e12, used: 0.31, disks: ssd },
+      ];
+      for (const v of vols) {
+        this.facts.volumes.set(v.id, {
+          id: v.id, label: v.label, host: nas.id, usedBytes: v.total * v.used + (v.disks === hdd ? this.dataUsed : 0),
+          totalBytes: v.total, health: 'ok', disks: v.disks, at: now,
+        });
+      }
     }
-    this.facts.enclosures.set('expansion-33-3', { id: 'expansion-33-3', label: 'Expansion 33-3', health: 'warn', note: 'Abnormal', at: now });
   }
 
   private writeWifi(now: number, dt: number) {
     const mesh = this.lab.topology.nodes.filter((n) => n.kind === 'mesh');
-    const preset = [1, 5, 12, 9];
     let total = 0;
-    mesh.forEach((n, i) => {
-      const cur = this.facts.mesh.get(n.id)?.clients ?? preset[i] ?? 3;
+    mesh.forEach((n) => {
+      const cur = this.facts.mesh.get(n.id)?.clients ?? 2 + Math.floor(this.rnd() * 7);
       const next = this.chance(1 / 300, dt) ? Math.max(0, cur + (this.rnd() < 0.5 ? -1 : 1)) : cur;
       total += next;
       this.facts.mesh.set(n.id, { nodeId: n.id, online: true, clients: next, at: now });
     });
-    const routerClients = 4;
-    const wired = this.topo.leaves.size - mesh.length;
-    this.facts.wifi = { devices: total + routerClients + wired, wired, updateAvailable: true, routerClients, at: now };
+    if (!mesh.length) return;
+    const routerClients = this.lab.topology.nodes.some((n) => n.kind === 'router') ? 3 : 0;
+    const wired = [...this.topo.leaves].filter((id) => this.topo.nodes.get(id)?.kind !== 'mesh').length;
+    this.facts.wifi = { devices: total + routerClients + wired, wired, updateAvailable: false, routerClients, at: now };
   }
 }
 
@@ -712,5 +716,8 @@ export function createSimulator(cfg: CollectorConfig, ctx: CollectorContext): Si
     intervalMs: cfg.interval ? Number(cfg.interval) * 1000 : 1000,
     wanDownMbps: typeof cfg.wanDownMbps === 'number' ? cfg.wanDownMbps : undefined,
     wanUpMbps: typeof cfg.wanUpMbps === 'number' ? cfg.wanUpMbps : undefined,
+    storage: cfg.storage === true,
+    cameras: cfg.cameras === true,
+    tailscale: cfg.tailscale === true,
   });
 }

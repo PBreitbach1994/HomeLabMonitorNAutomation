@@ -25,7 +25,7 @@ interface Release {
 
 const BLOCKED_STATES = new Set(['importBlocked', 'importPending', 'failedPending']);
 
-export function correlate(facts: FactStore, now: number): { items: PipelineItem[]; tracked: number } {
+export function correlate(facts: FactStore, now: number, opts: { hasArr?: boolean } = {}): { items: PipelineItem[]; tracked: number } {
   const rels = new Map<string, Release>();
   const get = (id: string, seed: Partial<Release>): Release => {
     const key = id.toUpperCase();
@@ -114,7 +114,7 @@ export function correlate(facts: FactStore, now: number): { items: PipelineItem[
         case 'completed':
           stages.downloading = 'verified';
           stages.downloaded = 'verified';
-          status = 'Waiting for import';
+          status = opts.hasArr === false ? 'Completed' : 'Waiting for import';
           break;
         case 'failed':
           stages.downloading = 'verified';

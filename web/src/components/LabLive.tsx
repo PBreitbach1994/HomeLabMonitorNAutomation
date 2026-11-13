@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react';
 import type { HostState, Snapshot } from '../../../shared/model.ts';
+import { PROTOCOL_LABEL, PROTOCOLS } from '../../../shared/model.ts';
 import { HEALTH_COLOR, MEDIUM_COLOR, PROTOCOL_COLOR, STATUS } from '../lib/colors.ts';
 import { fmtBps, fmtMs } from '../lib/format.ts';
 import { curvePath, sampleCurve, vCurve, type Curve } from '../lib/geometry.ts';
@@ -12,22 +13,28 @@ const NET = { x: 600, y: 64 };
 const ROUTER = { x: 600, y: 178 };
 const HOST_Y = 318;
 const PLEX = { x: 1030, y: 178 };
+const MAX_HOSTS = 5;
 
-/** Schematic: internet → router → hosts, with the containers grouped by VPN namespace under each host. */
+/** Schematic: internet → router → hosts, with each host's services (grouped by VPN) underneath. */
 export function LabLive({ snap }: { snap: Snapshot }) {
+  // The hosts that run the most services, then the busiest; more than five won't fit legibly.
   const hosts = useMemo(() => {
-    const vpnHosts = new Set(snap.services.filter((s) => s.vpn).map((s) => s.host));
-    const rank = (h: HostState) => (vpnHosts.has(h.id) ? 0 : snap.nodes.find((n) => n.id === h.id)?.kind === 'nas' ? 2 : 1);
-    return [...snap.hosts].sort((a, b) => rank(a) - rank(b));
-  }, [snap.hosts, snap.services, snap.nodes]);
+    const services = (h: HostState) => snap.services.filter((s) => s.host === h.id).length;
+    const traffic = (h: HostState) => {
+      const l = snap.links.find((x) => x.to === h.id);
+      return (l?.downBps ?? 0) + (l?.upBps ?? 0);
+    };
+    return [...snap.hosts].sort((a, b) => services(b) - services(a) || traffic(b) - traffic(a)).slice(0, MAX_HOSTS);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [snap.hosts.map((h) => h.id).join('|'), snap.services.length]);
+  const hiddenHosts = snap.hosts.length - hosts.length;
 
   const xs = hosts.map((_, i) => (hosts.length === 1 ? 600 : 230 + (i * 740) / (hosts.length - 1)));
   const hostLink = (id: string) => snap.links.find((l) => l.to === id);
   const wan = snap.links.find((l) => snap.nodes.find((n) => n.id === l.from)?.kind === 'internet');
-  const plexHost = snap.services.find((s) => s.id === 'plex' || s.label === 'Plex')?.host;
+  const plexHost = snap.services.find((s) => s.app === 'plex')?.host;
   const plexBps = snap.plex.sessions.reduce((a, s) => a + s.bandwidthBps, 0);
-  const sabHost = snap.vpn.host ?? hosts[0]?.id;
-  const nasHost = hosts.find((h) => snap.nodes.find((n) => n.id === h.id)?.kind === 'nas')?.id;
+  const router = snap.nodes.find((n) => n.parent && snap.nodes.find((p) => p.id === n.parent)?.kind === 'internet');
 
   const curves = useMemo(() => {
     const m = new Map<string, Curve>();
@@ -66,8 +73,6 @@ export function LabLive({ snap }: { snap: Snapshot }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   useParticles(canvas, W, H, streams);
 
-  const sabX = xs[hosts.findIndex((h) => h.id === sabHost)];
-  const nasX = xs[hosts.findIndex((h) => h.id === nasHost)];
   const sessions = snap.plex.sessions.length;
   const core = snap.nodes.find((n) => n.kind === 'switch' && snap.nodes.find((p) => p.id === n.parent)?.kind === 'router');
 
@@ -92,11 +97,6 @@ export function LabLive({ snap }: { snap: Snapshot }) {
             {[...curves].map(([k, c]) => (
               <path key={k} d={curvePath(c)} fill="none" stroke={k === 'plex' ? PROTOCOL_COLOR.plex : '#cbd5e1'} strokeOpacity={k === 'plex' ? (plexBps ? 0.35 : 0.12) : 0.22} strokeWidth={k === 'wan' ? 4 : 2} strokeDasharray={k === 'plex' && !plexBps ? '2 5' : undefined} />
             ))}
-            {sabX != null && nasX != null && sabHost !== nasHost && (
-              <g>
-                <path d={`M${sabX + 20},${HOST_Y + 34} Q${(sabX + nasX) / 2},${HOST_Y + 96} ${nasX - 20},${HOST_Y + 34}`} fill="none" stroke="#94a3b8" strokeOpacity={0.4} strokeDasharray="1.5 5" strokeWidth={1.6} strokeLinecap="round" />
-              </g>
-            )}
 
             {/* internet */}
             <circle cx={NET.x} cy={NET.y} r={30} fill="#10b981" opacity={0.18} />
@@ -110,7 +110,7 @@ export function LabLive({ snap }: { snap: Snapshot }) {
 
             {/* router */}
             <rect x={ROUTER.x - 12} y={ROUTER.y - 12} width={24} height={24} rx={3} transform={`rotate(45 ${ROUTER.x} ${ROUTER.y})`} fill="#34d399" />
-            <text className="svg-sub" x={ROUTER.x - 26} y={ROUTER.y - 4} textAnchor="end" fontSize={11}>Router</text>
+            <text className="svg-sub" x={ROUTER.x - 26} y={ROUTER.y - 4} textAnchor="end" fontSize={11}>{router?.label ?? 'Router'}</text>
             <text className="svg-sub" x={ROUTER.x - 26} y={ROUTER.y + 10} textAnchor="end" fontSize={10}>{fmtMs(snap.internet.routerRttMs)} ms</text>
             {core && (
               <>
@@ -126,12 +126,16 @@ export function LabLive({ snap }: { snap: Snapshot }) {
               </>
             )}
 
-            {/* plex clients */}
-            <circle cx={PLEX.x} cy={PLEX.y} r={16} fill={sessions ? PROTOCOL_COLOR.plex : '#334155'} opacity={sessions ? 0.9 : 0.6} />
-            <text className="svg-label" x={PLEX.x} y={PLEX.y - 26} textAnchor="middle" fontSize={14} fontWeight={600}>Plex clients</text>
-            <text className="svg-sub" x={PLEX.x} y={PLEX.y + 34} textAnchor="middle" fontSize={11}>
-              {sessions ? `${sessions} streaming · ${fmtBps(plexBps)}` : 'nothing playing'}
-            </text>
+            {/* plex clients, only when Plex is one of the services */}
+            {plexHost && (
+              <>
+                <circle cx={PLEX.x} cy={PLEX.y} r={16} fill={sessions ? PROTOCOL_COLOR.plex : '#334155'} opacity={sessions ? 0.9 : 0.6} />
+                <text className="svg-label" x={PLEX.x} y={PLEX.y - 26} textAnchor="middle" fontSize={14} fontWeight={600}>Plex clients</text>
+                <text className="svg-sub" x={PLEX.x} y={PLEX.y + 34} textAnchor="middle" fontSize={11}>
+                  {sessions ? `${sessions} streaming · ${fmtBps(plexBps)}` : 'nothing playing'}
+                </text>
+              </>
+            )}
 
             {/* hosts */}
             {hosts.map((h, i) => {
@@ -169,12 +173,8 @@ export function LabLive({ snap }: { snap: Snapshot }) {
         </div>
       </div>
       <div className="legend" style={{ marginTop: 4 }}>
-        <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.usenet }} />Usenet · SABnzbd</span>
-        <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.torrent }} />Torrent · via VPN</span>
-        <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.soulseek }} />Soulseek</span>
-        <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.plex }} />Plex streams</span>
-        <span className="k"><i className="sw" style={{ background: MEDIUM_COLOR['2.5G'] }} />Host uplink</span>
-        <span className="k"><i className="line dotted" style={{ color: '#94a3b8' }} />NFS · logical link</span>
+        <ProtocolLegend snap={snap} />
+        {hiddenHosts > 0 && <span className="k muted">+{hiddenHosts} more host{hiddenHosts > 1 ? 's' : ''} on the Network page</span>}
         <span className="k muted" style={{ marginLeft: 'auto' }}>particle density follows measured throughput</span>
       </div>
     </div>
@@ -184,6 +184,19 @@ export function LabLive({ snap }: { snap: Snapshot }) {
 function fmtGB(b: number | null) {
   if (b == null) return '—';
   return b >= 1e12 ? `${(b / 1e12).toFixed(1)} TB` : `${Math.round(b / 1e9)} GB`;
+}
+
+/** Legend entries for the app traffic actually present, plus everything else. */
+export function ProtocolLegend({ snap }: { snap: Snapshot }) {
+  const present = PROTOCOLS.filter((p) => p !== 'other' && (snap.traffic.protocolNow[p] > 0 || snap.traffic.byProtocol[p].some((v) => v > 0)));
+  return (
+    <>
+      {present.map((p) => (
+        <span className="k" key={p}><i className="sw" style={{ background: PROTOCOL_COLOR[p] }} />{PROTOCOL_LABEL[p]}</span>
+      ))}
+      <span className="k"><i className="sw" style={{ background: MEDIUM_COLOR['2.5G'] }} />{present.length ? 'other traffic' : 'traffic'}</span>
+    </>
+  );
 }
 
 function HostChips({ snap, hostId, x }: { snap: Snapshot; hostId: string; x: number }) {
@@ -198,13 +211,13 @@ function HostChips({ snap, hostId, x }: { snap: Snapshot; hostId: string; x: num
       {label}
     </span>
   );
-  const short = (l: string) => ({ ReadMeABook: 'RMAB', Audiobookshelf: 'ABS', qBittorrent: 'qBit', 'Calibre-Web': 'Cal-Web' })[l] ?? l;
+  const short = (l: string) => (l.length > 16 ? `${l.slice(0, 15)}…` : l);
   return (
     <div className="lab-chips" style={{ left: `${(x / W) * 100}%`, top: `${((HOST_Y + 112) / H) * 100}%` }}>
       {vpn.length > 0 && (
         <div className="ns-box">
           <div className="ns-title">
-            Gluetun namespace ·{' '}
+            Through the VPN ·{' '}
             <span style={{ color: snap.vpn.up ? '#4ade80' : snap.vpn.up === false ? '#f87171' : undefined }}>
               {snap.vpn.up ? 'VPN up' : snap.vpn.up === false ? 'VPN down' : 'VPN unknown'}
             </span>
@@ -215,7 +228,7 @@ function HostChips({ snap, hostId, x }: { snap: Snapshot; hostId: string; x: num
       {plain.length > 0 && (
         <div className="ns-box plain">
           {vpn.length > 0 && <div className="ns-title">Outside VPN</div>}
-          <div className="ns-grid" style={{ gridTemplateColumns: `repeat(${Math.min(2, plain.length)}, auto)` }}>
+          <div className="ns-grid" style={{ gridTemplateColumns: `repeat(${Math.min(3, plain.length)}, auto)` }}>
             {plain.map((s) => chip(s.id, short(s.label), HEALTH_COLOR[s.health]))}
           </div>
         </div>

@@ -1,5 +1,6 @@
 // UniFi Network collector: switch port counters from `stat/device` → facts.ifaces.
-// Keys are "<node>/<port_idx>", matching `measure: flex-a/3` in lab.yaml.
+// Each port is written as "<node>/<port_idx>" and, when the controller names it, also as
+// "<node>/<name>" (e.g. "sw-rack/Port 3"), so it lines up with NetBox interface names.
 //
 // UniFi OS consoles (UDM, UCG, Cloud Key Gen2+, UniFi OS Server):
 //   POST /api/auth/login → TOKEN cookie + x-csrf-token header
@@ -219,7 +220,10 @@ export function createUnifi(cfg: CollectorConfig, ctx: CollectorContext): Collec
         once('warn', `collector "${cfg.id}": switches not found or offline on the controller: ${names}`);
       }
       if (!ports.length) throw new Error('no port data for any configured switch (check MACs in "devices")');
-      for (const p of ports) ctx.facts.setIface(p.key, p.sample, now);
+      for (const p of ports) {
+        ctx.facts.setIface(p.key, p.sample, now);
+        if (p.name && p.key !== `${p.node}/${p.name}`) ctx.facts.setIface(`${p.node}/${p.name}`, p.sample, now);
+      }
     },
   };
 }

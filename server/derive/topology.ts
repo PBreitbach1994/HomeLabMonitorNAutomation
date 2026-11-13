@@ -16,7 +16,13 @@ export interface LinkDef {
   bonded: boolean;
   approx: boolean;
   port?: string;
-  measure?: { key: string; side: 'upstream' | 'downstream' };
+  /** One entry per physical cable (a bond has several); each is read at `measure`, else at `alt`. */
+  members: { measure: PortRef; alt?: PortRef }[];
+}
+
+export interface PortRef {
+  key: string;
+  side: 'upstream' | 'downstream';
 }
 
 export interface Topology {
@@ -41,12 +47,11 @@ export function buildTopology(lab: LabConfig): Topology {
     if (!n.parent || !n.link) continue;
     children.set(n.parent, [...(children.get(n.parent) ?? []), n.id]);
     const l = n.link;
-    let measure: LinkDef['measure'];
-    if (l.measure) {
-      const device = l.measure.split('/')[0];
-      const side = l.side ?? (device === n.id ? 'downstream' : 'upstream');
-      measure = { key: l.measure, side };
-    }
+    // The port's device tells us which end of the cable it is on ("device/ifName").
+    const ref = (key: string): PortRef => ({ key, side: l.side ?? (key.split('/')[0] === n.id ? 'downstream' : 'upstream') });
+    const list = (v?: string | string[]) => (v == null ? [] : Array.isArray(v) ? v : [v]);
+    const alts = list(l.alt).map((key) => ({ key, side: key.split('/')[0] === n.id ? 'downstream' : 'upstream' }) as PortRef);
+    const members = list(l.measure).map((key, i) => ({ measure: ref(key), alt: alts[i] }));
     const def: LinkDef = {
       id: linkIdFor(n.id),
       from: n.parent,
@@ -56,7 +61,7 @@ export function buildTopology(lab: LabConfig): Topology {
       bonded: !!l.bonded,
       approx: !!l.approx,
       port: l.port,
-      measure,
+      members,
     };
     links.set(def.id, def);
     linkByChild.set(n.id, def);
@@ -111,16 +116,30 @@ interface Rates {
   measured: boolean;
 }
 
-/** Reads a link's rates: its real port if fresh, else the simulator's key, else nothing. */
+function readPort(ref: PortRef | undefined, facts: FactStore, now: number): { down: number; up: number } | null {
+  if (!ref) return null;
+  const f = facts.ifaces.get(ref.key);
+  if (!f || now - f.at >= STALE_MS || f.inBps == null || f.outBps == null) return null;
+  // A port on the downstream device receives what flows down; on the upstream device it sends it.
+  return ref.side === 'downstream' ? { down: f.inBps, up: f.outBps } : { down: f.outBps, up: f.inBps };
+}
+
+/**
+ * Reads a link's rates: the sum over its cables of each cable's measuring port (or the far end
+ * when that port has no data), else the simulator's key, else nothing.
+ */
 export function measureLink(def: LinkDef, facts: FactStore, now: number): Rates {
-  if (def.measure) {
-    const f = facts.ifaces.get(def.measure.key);
-    if (f && now - f.at < STALE_MS && f.inBps != null && f.outBps != null) {
-      return def.measure.side === 'downstream'
-        ? { downBps: f.inBps, upBps: f.outBps, measured: true }
-        : { downBps: f.outBps, upBps: f.inBps, measured: true };
-    }
+  let down = 0;
+  let up = 0;
+  let seen = 0;
+  for (const m of def.members) {
+    const r = readPort(m.measure, facts, now) ?? readPort(m.alt, facts, now);
+    if (!r) continue;
+    down += r.down;
+    up += r.up;
+    seen++;
   }
+  if (seen > 0) return { downBps: down, upBps: up, measured: true };
   const sim = facts.ifaces.get(simKeyFor(def.id));
   if (sim && now - sim.at < STALE_MS && sim.inBps != null && sim.outBps != null) {
     // The simulator always writes as if measured on the downstream device.
@@ -214,6 +233,7 @@ export function toTopoLink(
     to: def.to,
     medium: def.medium,
     bonded: def.bonded || undefined,
+    cables: def.members.length > 1 ? def.members.length : undefined,
     speedBps: def.speedBps,
     measured: r.measured,
     approx: def.approx || undefined,

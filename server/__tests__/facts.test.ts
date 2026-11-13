@@ -34,3 +34,16 @@ describe('FactStore.setIface', () => {
     expect(f.ifaces.get('k')!.at).toBe(0);
   });
 });
+
+describe('FactStore.container', () => {
+  it('matches container names loosely, preferring the right host', () => {
+    const f = new FactStore();
+    f.containers.set('homeassistant', { name: 'homeassistant', host: 'srv-01', state: 'running', at: 0 });
+    f.containers.set('grafana', { name: 'grafana', host: 'srv-02', state: 'exited', at: 0 });
+    f.containers.set('Grafana_1', { name: 'Grafana_1', host: 'srv-01', state: 'running', at: 0 });
+    expect(f.container('Home Assistant')?.name).toBe('homeassistant');
+    expect(f.container('grafana')?.host).toBe('srv-02'); // exact name wins
+    expect(f.container('Grafana 1', 'srv-01')?.state).toBe('running');
+    expect(f.container('Pi-hole')).toBeUndefined();
+  });
+});

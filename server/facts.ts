@@ -203,6 +203,8 @@ export interface SourceFact {
   ok: boolean;
   lastOk: number | null;
   lastError?: string;
+  /** Non-fatal advice from the source (e.g. NetBox modelling gaps). */
+  note?: string;
   domains: Domain[];
 }
 
@@ -267,6 +269,24 @@ export class FactStore {
   sourceError(id: string, error: string): void {
     const s = this.sources.get(id);
     if (s) Object.assign(s, { ok: false, lastError: error });
+  }
+
+  /**
+   * A container by name: exact first, then ignoring case and punctuation, so a NetBox name like
+   * "Home Assistant" still finds the `home-assistant` or `homeassistant` container.
+   */
+  container(name: string, host?: string): ContainerFact | undefined {
+    const exact = this.containers.get(name);
+    if (exact) return exact;
+    const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const want = norm(name);
+    let fallback: ContainerFact | undefined;
+    for (const c of this.containers.values()) {
+      if (norm(c.name) !== want) continue;
+      if (!host || c.host === host) return c;
+      fallback ??= c;
+    }
+    return fallback;
   }
 
   addCameraEvent(e: CameraEvent): void {

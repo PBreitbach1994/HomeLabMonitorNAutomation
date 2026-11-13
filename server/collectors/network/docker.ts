@@ -46,7 +46,7 @@ export function parseDockerContainers(json: unknown, host?: string): Omit<Contai
 export function createDocker(cfg: CollectorConfig, ctx: CollectorContext): Collector {
   const url = optStr(cfg, 'url');
   const socket = optStr(cfg, 'socket');
-  if (!url && !socket) throw new Error('docker: set "url" (e.g. http://switchyard:2375) or "socket" (e.g. /var/run/docker.sock)');
+  if (!url && !socket) throw new Error('docker: set "url" (e.g. http://docker-host:2375) or "socket" (e.g. /var/run/docker.sock)');
   if (url && socket) throw new Error('docker: set either "url" or "socket", not both');
   const host = optStr(cfg, 'host');
   const endpoint = url ? `${stripSlash(url)}/containers/json?all=1` : 'http://localhost/containers/json?all=1';

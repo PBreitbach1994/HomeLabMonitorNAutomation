@@ -1,5 +1,5 @@
 // The full server pipeline (simulator → facts → derivations → snapshot) running in the page.
-import exampleYaml from '../../../config/lab.example.yaml?raw';
+import exampleYaml from '../../../config/demo.yaml?raw';
 import { parseConfig } from '../../../server/config.ts';
 import { FactStore } from '../../../server/facts.ts';
 import { SnapshotBuilder } from '../../../server/snapshot.ts';

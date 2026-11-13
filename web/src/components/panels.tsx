@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import type { CameraEvent, Evidence, Incident, PipelineItem, Snapshot } from '../../../shared/model.ts';
-import { STAGE_LABEL, STAGES } from '../../../shared/model.ts';
+import type { CameraEvent, Evidence, Incident, PipelineItem, Snapshot, StageKey } from '../../../shared/model.ts';
+import { STAGE_LABEL } from '../../../shared/model.ts';
 import { HEALTH_COLOR, HEALTH_LABEL, STATUS } from '../lib/colors.ts';
 import { fmtAgo, fmtBps, fmtBytes, fmtMs, fmtPct, fmtUptime } from '../lib/format.ts';
 import { Ring } from './charts/Ring.tsx';
@@ -41,10 +41,10 @@ const EVIDENCE_TEXT: Record<Evidence, string> = {
   blocked: 'blocked',
 };
 
-function PipelineRow({ item, now }: { item: PipelineItem; now: number }) {
+function PipelineRow({ item, now, stages }: { item: PipelineItem; now: number; stages: StageKey[] }) {
   const cur = item.stages[item.current];
   const statusClass = cur === 'failed' && !item.status.includes('replaced') ? 'failed' : cur === 'blocked' ? 'blocked' : '';
-  const furthest = Math.max(...STAGES.map((s, i) => (item.stages[s] !== 'none' ? i : -1)));
+  const furthest = Math.max(...stages.map((s, i) => (item.stages[s] !== 'none' ? i : -1)));
   return (
     <div className="pipe-row">
       <div className="pipe-top">
@@ -55,8 +55,8 @@ function PipelineRow({ item, now }: { item: PipelineItem; now: number }) {
           {item.progress != null && cur === 'active' ? ` ${Math.round(item.progress * 100)}%` : ''} · {fmtAgo(item.updatedAt, now)}
         </span>
       </div>
-      <div className="stages" role="list" aria-label={`${item.title} pipeline`}>
-        {STAGES.map((s, i) => (
+      <div className="stages" role="list" aria-label={`${item.title} pipeline`} style={{ gridTemplateColumns: `repeat(${stages.length}, 1fr)` }}>
+        {stages.map((s, i) => (
           <div key={s} className={`stage ${i <= furthest && i > 0 ? 'lit' : ''}`} role="listitem" title={`${STAGE_LABEL[s]}: ${EVIDENCE_TEXT[item.stages[s]]}`}>
             <span className={`d ${item.stages[s]}`} />
           </div>
@@ -69,13 +69,16 @@ function PipelineRow({ item, now }: { item: PipelineItem; now: number }) {
 export function MediaPipeline({ snap, now, limit = 4 }: { snap: Snapshot; now: number; limit?: number }) {
   const items = snap.pipeline.slice(0, limit);
   return (
-    <Panel title="Media pipeline" right={<span className="panel-note">{snap.pipelineTracked} tracked</span>}>
+    <Panel
+      title={snap.pipelineStages.includes('imported') ? 'Media pipeline' : 'Downloads'}
+      right={<span className="panel-note">{snap.pipelineTracked} tracked</span>}
+    >
       {items.length ? (
         <>
-          <div className="stage-labels" aria-hidden>
-            {STAGES.map((s) => <span key={s}>{STAGE_LABEL[s]}</span>)}
+          <div className="stage-labels" aria-hidden style={{ gridTemplateColumns: `repeat(${snap.pipelineStages.length}, 1fr)` }}>
+            {snap.pipelineStages.map((s) => <span key={s}>{STAGE_LABEL[s]}</span>)}
           </div>
-          {items.map((i) => <PipelineRow key={i.id} item={i} now={now} />)}
+          {items.map((i) => <PipelineRow key={i.id} item={i} now={now} stages={snap.pipelineStages} />)}
         </>
       ) : (
         <div className="empty">Nothing in flight.</div>
@@ -298,16 +301,20 @@ export function NetworkSummary({ snap }: { snap: Snapshot }) {
       </div>
       <div className="chips">
         <StatusChip ok={net.health === 'unknown' ? null : net.health === 'ok'} label="Internet" />
-        <StatusChip ok={snap.vpn.up} label={snap.vpn.up === false ? 'VPN down' : 'VPN up'} />
-        <StatusChip ok={snap.tailscale.up} label="Tailscale" />
+        {(snap.vpn.up != null || snap.services.some((s) => s.vpn)) && (
+          <StatusChip ok={snap.vpn.up} label={snap.vpn.up === false ? 'VPN down' : 'VPN up'} />
+        )}
+        {snap.tailscale.up != null && <StatusChip ok={snap.tailscale.up} label="Tailscale" />}
       </div>
-      <div className="net-foot">
-        <span>eero mesh</span>
-        <span className="muted">
-          {w.nodesOnline ?? '—'}/{w.nodesTotal} online · {w.devices ?? '—'} devices · {w.wired ?? '—'} wired
-          {w.updateAvailable ? ' · update waiting' : ''}
-        </span>
-      </div>
+      {w.nodesTotal > 1 && (
+        <div className="net-foot">
+          <span>Wi-Fi</span>
+          <span className="muted">
+            {w.nodesOnline ?? '—'}/{w.nodesTotal} access points online · {w.devices ?? '—'} devices · {w.wired ?? '—'} wired
+            {w.updateAvailable ? ' · update waiting' : ''}
+          </span>
+        </div>
+      )}
     </Panel>
   );
 }

@@ -31,7 +31,7 @@ export function parseGluetun(raw: GluetunRaw, opts: { provider?: string } = {}):
 }
 
 export function createGluetun(cfg: CollectorConfig, ctx: CollectorContext): Collector {
-  const url = stripSlash(reqStr(cfg, 'url', 'control server, e.g. http://switchyard:8000'));
+  const url = stripSlash(reqStr(cfg, 'url', 'control server, e.g. http://vpn-host:8000'));
   const host = optStr(cfg, 'host');
   const provider = optStr(cfg, 'provider');
   const apiKey = optStr(cfg, 'apiKey');

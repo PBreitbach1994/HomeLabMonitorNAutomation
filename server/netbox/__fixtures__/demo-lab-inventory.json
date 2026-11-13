@@ -1,0 +1,1897 @@
+{
+ "netboxVersion": "4.7.5",
+ "fetchedAt": 1794553561898,
+ "devices": [
+  {
+   "id": 6,
+   "name": "ap-garage",
+   "display_url": "http://localhost:8000/dcim/devices/6/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": null,
+   "role": {
+    "id": 3,
+    "name": "Access Point",
+    "display": "Access Point",
+    "slug": "access-point"
+   },
+   "device_type": {
+    "model": "Wi-Fi 7 AP",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  },
+  {
+   "id": 5,
+   "name": "ap-hall",
+   "display_url": "http://localhost:8000/dcim/devices/5/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": null,
+   "role": {
+    "id": 3,
+    "name": "Access Point",
+    "display": "Access Point",
+    "slug": "access-point"
+   },
+   "device_type": {
+    "model": "Wi-Fi 7 AP",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  },
+  {
+   "id": 1,
+   "name": "gw-01",
+   "display_url": "http://localhost:8000/dcim/devices/1/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.10/24"
+   },
+   "role": {
+    "id": 1,
+    "name": "Router",
+    "display": "Router",
+    "slug": "router"
+   },
+   "device_type": {
+    "model": "Router 10G",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  },
+  {
+   "id": 9,
+   "name": "nas-01",
+   "display_url": "http://localhost:8000/dcim/devices/9/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.16/24"
+   },
+   "role": {
+    "id": 5,
+    "name": "NAS",
+    "display": "NAS",
+    "slug": "nas"
+   },
+   "device_type": {
+    "model": "NAS 6-bay",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  },
+  {
+   "id": 12,
+   "name": "pp-01",
+   "display_url": "http://localhost:8000/dcim/devices/12/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": null,
+   "role": {
+    "id": 8,
+    "name": "Patch Panel",
+    "display": "Patch Panel",
+    "slug": "patch-panel"
+   },
+   "device_type": {
+    "model": "12-port Patch Panel",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  },
+  {
+   "id": 11,
+   "name": "printer-01",
+   "display_url": "http://localhost:8000/dcim/devices/11/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": null,
+   "role": {
+    "id": 7,
+    "name": "Printer",
+    "display": "Printer",
+    "slug": "printer"
+   },
+   "device_type": {
+    "model": "Laser Printer",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  },
+  {
+   "id": 7,
+   "name": "srv-01",
+   "display_url": "http://localhost:8000/dcim/devices/7/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.14/24"
+   },
+   "role": {
+    "id": 4,
+    "name": "Server",
+    "display": "Server",
+    "slug": "server"
+   },
+   "device_type": {
+    "model": "Mini Server",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "glances"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "srv-02",
+   "display_url": "http://localhost:8000/dcim/devices/8/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.15/24"
+   },
+   "role": {
+    "id": 4,
+    "name": "Server",
+    "display": "Server",
+    "slug": "server"
+   },
+   "device_type": {
+    "model": "Mini Server",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": [
+    {
+     "slug": "glances"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "sw-core",
+   "display_url": "http://localhost:8000/dcim/devices/2/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.11/24"
+   },
+   "role": {
+    "id": 2,
+    "name": "Switch",
+    "display": "Switch",
+    "slug": "switch"
+   },
+   "device_type": {
+    "model": "Switch 4x10G",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": [
+    {
+     "slug": "snmp"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "sw-desk",
+   "display_url": "http://localhost:8000/dcim/devices/4/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.13/24"
+   },
+   "role": {
+    "id": 2,
+    "name": "Switch",
+    "display": "Switch",
+    "slug": "switch"
+   },
+   "device_type": {
+    "model": "Switch 8x1G",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": [
+    {
+     "slug": "snmp"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "sw-rack",
+   "display_url": "http://localhost:8000/dcim/devices/3/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": {
+    "address": "10.20.0.12/24"
+   },
+   "role": {
+    "id": 2,
+    "name": "Switch",
+    "display": "Switch",
+    "slug": "switch"
+   },
+   "device_type": {
+    "model": "Switch 8x2.5G",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": [
+    {
+     "slug": "snmp"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "ws-01",
+   "display_url": "http://localhost:8000/dcim/devices/10/",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "primary_ip": null,
+   "role": {
+    "id": 6,
+    "name": "Workstation",
+    "display": "Workstation",
+    "slug": "workstation"
+   },
+   "device_type": {
+    "model": "Desktop",
+    "manufacturer": {
+     "id": 1,
+     "name": "Generic",
+     "display": "Generic",
+     "slug": "generic"
+    }
+   },
+   "site": {
+    "id": 1,
+    "name": "Demo Lab",
+    "display": "Demo Lab",
+    "slug": "demo-lab"
+   },
+   "cluster": null,
+   "tags": []
+  }
+ ],
+ "interfaces": [
+  {
+   "id": 29,
+   "name": "wlan0",
+   "type": {
+    "value": "ieee802.11be",
+    "label": "IEEE 802.11be (Wi-Fi 7)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 6,
+    "name": "ap-garage",
+    "display": "ap-garage"
+   },
+   "lag": null,
+   "wireless_link": {
+    "id": 1,
+    "display": "demo-backhaul"
+   },
+   "link_peers": [
+    {
+     "id": 28
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 28,
+     "name": "wlan0",
+     "device": {
+      "id": 5,
+      "name": "ap-hall",
+      "display": "ap-hall"
+     }
+    }
+   ]
+  },
+  {
+   "id": 27,
+   "name": "eth0",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 5,
+    "name": "ap-hall",
+    "display": "ap-hall"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 24
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 24,
+     "name": "port7",
+     "device": {
+      "id": 4,
+      "name": "sw-desk",
+      "display": "sw-desk"
+     }
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "name": "wlan0",
+   "type": {
+    "value": "ieee802.11be",
+    "label": "IEEE 802.11be (Wi-Fi 7)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 5,
+    "name": "ap-hall",
+    "display": "ap-hall"
+   },
+   "lag": null,
+   "wireless_link": {
+    "id": 1,
+    "display": "demo-backhaul"
+   },
+   "link_peers": [
+    {
+     "id": 29
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 29,
+     "name": "wlan0",
+     "device": {
+      "id": 6,
+      "name": "ap-garage",
+      "display": "ap-garage"
+     }
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "lan0",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 1,
+    "name": "gw-01",
+    "display": "gw-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 4
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 4,
+     "name": "sfp1",
+     "device": {
+      "id": 2,
+      "name": "sw-core",
+      "display": "sw-core"
+     }
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "name": "wan0",
+   "type": {
+    "value": "10gbase-t",
+    "label": "10GBASE-T (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "circuits.circuittermination",
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 1,
+    "name": "gw-01",
+    "display": "gw-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 1,
+     "circuit": {
+      "id": 1,
+      "cid": "EX-1000",
+      "provider": {
+       "id": 1,
+       "name": "Example ISP",
+       "display": "Example ISP",
+       "slug": "example-isp"
+      }
+     }
+    }
+   ],
+   "connected_endpoints": []
+  },
+  {
+   "id": 3,
+   "name": "wlan0",
+   "type": {
+    "value": "ieee802.11be",
+    "label": "IEEE 802.11be (Wi-Fi 7)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 1,
+    "name": "gw-01",
+    "display": "gw-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 34,
+   "name": "eth0",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 9,
+    "name": "nas-01",
+    "display": "nas-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 12
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 12,
+     "name": "port4",
+     "device": {
+      "id": 3,
+      "name": "sw-rack",
+      "display": "sw-rack"
+     }
+    }
+   ]
+  },
+  {
+   "id": 36,
+   "name": "eth0",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.rearport",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 11,
+    "name": "printer-01",
+    "display": "printer-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 1
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 19,
+     "name": "port2",
+     "device": {
+      "id": 4,
+      "name": "sw-desk",
+      "display": "sw-desk"
+     }
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "name": "bond0",
+   "type": {
+    "value": "lag",
+    "label": "Link Aggregation Group (LAG)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 31,
+   "name": "eth0",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "lag": {
+    "id": 30,
+    "name": "bond0",
+    "display": "bond0"
+   },
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 9
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 9,
+     "name": "port1",
+     "device": {
+      "id": 3,
+      "name": "sw-rack",
+      "display": "sw-rack"
+     }
+    }
+   ]
+  },
+  {
+   "id": 32,
+   "name": "eth1",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "lag": {
+    "id": 30,
+    "name": "bond0",
+    "display": "bond0"
+   },
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 10
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 10,
+     "name": "port2",
+     "device": {
+      "id": 3,
+      "name": "sw-rack",
+      "display": "sw-rack"
+     }
+    }
+   ]
+  },
+  {
+   "id": 33,
+   "name": "eth0",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 8,
+    "name": "srv-02",
+    "display": "srv-02"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 11
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 11,
+     "name": "port3",
+     "device": {
+      "id": 3,
+      "name": "sw-rack",
+      "display": "sw-rack"
+     }
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "mgmt",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": true,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 2,
+    "name": "sw-core",
+    "display": "sw-core"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 4,
+   "name": "sfp1",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 2,
+    "name": "sw-core",
+    "display": "sw-core"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 2
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 2,
+     "name": "lan0",
+     "device": {
+      "id": 1,
+      "name": "gw-01",
+      "display": "gw-01"
+     }
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "sfp2",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 2,
+    "name": "sw-core",
+    "display": "sw-core"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 17
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 17,
+     "name": "sfp1",
+     "device": {
+      "id": 3,
+      "name": "sw-rack",
+      "display": "sw-rack"
+     }
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "sfp3",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 2,
+    "name": "sw-core",
+    "display": "sw-core"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 26
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 26,
+     "name": "sfp1",
+     "device": {
+      "id": 4,
+      "name": "sw-desk",
+      "display": "sw-desk"
+     }
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "sfp4",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 2,
+    "name": "sw-core",
+    "display": "sw-core"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 18,
+   "name": "port1",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 35
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 35,
+     "name": "eth0",
+     "device": {
+      "id": 10,
+      "name": "ws-01",
+      "display": "ws-01"
+     }
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "name": "port2",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.frontport",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 1
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 36,
+     "name": "eth0",
+     "device": {
+      "id": 11,
+      "name": "printer-01",
+      "display": "printer-01"
+     }
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "name": "port3",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 21,
+   "name": "port4",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 22,
+   "name": "port5",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 23,
+   "name": "port6",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 24,
+   "name": "port7",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 27
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 27,
+     "name": "eth0",
+     "device": {
+      "id": 5,
+      "name": "ap-hall",
+      "display": "ap-hall"
+     }
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "name": "port8",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 26,
+   "name": "sfp1",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 4,
+    "name": "sw-desk",
+    "display": "sw-desk"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 6
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 6,
+     "name": "sfp3",
+     "device": {
+      "id": 2,
+      "name": "sw-core",
+      "display": "sw-core"
+     }
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "port1",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 31
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 31,
+     "name": "eth0",
+     "device": {
+      "id": 7,
+      "name": "srv-01",
+      "display": "srv-01"
+     }
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "port2",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 32
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 32,
+     "name": "eth1",
+     "device": {
+      "id": 7,
+      "name": "srv-01",
+      "display": "srv-01"
+     }
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "port3",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 33
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 33,
+     "name": "eth0",
+     "device": {
+      "id": 8,
+      "name": "srv-02",
+      "display": "srv-02"
+     }
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "port4",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 34
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 34,
+     "name": "eth0",
+     "device": {
+      "id": 9,
+      "name": "nas-01",
+      "display": "nas-01"
+     }
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "name": "port5",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 14,
+   "name": "port6",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 15,
+   "name": "port7",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 16,
+   "name": "port8",
+   "type": {
+    "value": "2.5gbase-t",
+    "label": "2.5GBASE-T (2.5GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": null,
+   "connected_endpoints_type": null,
+   "connected_endpoints_reachable": false,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [],
+   "connected_endpoints": []
+  },
+  {
+   "id": 17,
+   "name": "sfp1",
+   "type": {
+    "value": "10gbase-x-sfpp",
+    "label": "SFP+ (10GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 3,
+    "name": "sw-rack",
+    "display": "sw-rack"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 5
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 5,
+     "name": "sfp2",
+     "device": {
+      "id": 2,
+      "name": "sw-core",
+      "display": "sw-core"
+     }
+    }
+   ]
+  },
+  {
+   "id": 35,
+   "name": "eth0",
+   "type": {
+    "value": "1000base-t",
+    "label": "1000BASE-T (1GE)"
+   },
+   "enabled": true,
+   "mgmt_only": false,
+   "speed": null,
+   "link_peers_type": "dcim.interface",
+   "connected_endpoints_type": "dcim.interface",
+   "connected_endpoints_reachable": true,
+   "device": {
+    "id": 10,
+    "name": "ws-01",
+    "display": "ws-01"
+   },
+   "lag": null,
+   "wireless_link": null,
+   "link_peers": [
+    {
+     "id": 18
+    }
+   ],
+   "connected_endpoints": [
+    {
+     "id": 18,
+     "name": "port1",
+     "device": {
+      "id": 4,
+      "name": "sw-desk",
+      "display": "sw-desk"
+     }
+    }
+   ]
+  }
+ ],
+ "circuits": [
+  {
+   "id": 1,
+   "cid": "EX-1000",
+   "commit_rate": 1000000,
+   "provider": {
+    "id": 1,
+    "name": "Example ISP",
+    "display": "Example ISP",
+    "slug": "example-isp"
+   },
+   "termination_a": {
+    "id": 1,
+    "port_speed": 1000000,
+    "upstream_speed": 50000
+   },
+   "termination_z": null
+  }
+ ],
+ "vms": [
+  {
+   "id": 2,
+   "name": "Grafana",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "grafana",
+    "dashboard_container": null,
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "name": "Home Assistant",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "home-assistant",
+    "dashboard_container": "homeassistant",
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "Jellyfin",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "jellyfin",
+    "dashboard_container": null,
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "Nextcloud",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "nextcloud",
+    "dashboard_container": null,
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "Pi-hole",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "pihole",
+    "dashboard_container": null,
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "qBittorrent",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "qbittorrent",
+    "dashboard_container": null,
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    },
+    {
+     "slug": "vpn"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "Uptime Kuma",
+   "status": {
+    "value": "active",
+    "label": "Active"
+   },
+   "custom_fields": {
+    "dashboard_app": "uptime-kuma",
+    "dashboard_container": null,
+    "dashboard_expect": {
+     "value": "manual",
+     "label": "Manual start"
+    },
+    "dashboard_health_url": null
+   },
+   "device": {
+    "id": 7,
+    "name": "srv-01",
+    "display": "srv-01"
+   },
+   "cluster": {
+    "id": 1,
+    "name": "docker@srv-01",
+    "display": "docker@srv-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  }
+ ],
+ "services": [
+  {
+   "id": 2,
+   "name": "Backups",
+   "protocol": {
+    "value": "tcp",
+    "label": "TCP"
+   },
+   "ports": [
+    8200
+   ],
+   "parent_object_type": "dcim.device",
+   "custom_fields": {
+    "dashboard_app": "duplicati",
+    "dashboard_container": null,
+    "dashboard_expect": {
+     "value": "paused",
+     "label": "Paused"
+    },
+    "dashboard_health_url": null
+   },
+   "parent": {
+    "id": 8,
+    "name": "srv-02",
+    "display": "srv-02"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  },
+  {
+   "id": 1,
+   "name": "SMB shares",
+   "protocol": {
+    "value": "tcp",
+    "label": "TCP"
+   },
+   "ports": [
+    445
+   ],
+   "parent_object_type": "dcim.device",
+   "custom_fields": {
+    "dashboard_app": "smb",
+    "dashboard_container": null,
+    "dashboard_expect": null,
+    "dashboard_health_url": null
+   },
+   "parent": {
+    "id": 9,
+    "name": "nas-01",
+    "display": "nas-01"
+   },
+   "tags": [
+    {
+     "slug": "dashboard"
+    }
+   ]
+  }
+ ]
+}

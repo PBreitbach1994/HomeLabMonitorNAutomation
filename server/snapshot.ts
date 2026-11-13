@@ -10,7 +10,7 @@ import type {
   BusyFlow, Health, HostState, InternetState, Protocol, ServiceState, Snapshot, TopoLink, TopoNode,
   TrafficState, VolumeState, VpnState,
 } from '../shared/model.ts';
-import { PROTOCOLS } from '../shared/model.ts';
+import { PROTOCOLS, STAGES } from '../shared/model.ts';
 
 const HEALTH_RANK: Record<Health, number> = { crit: 4, warn: 3, unknown: 2, off: 1, ok: 0 };
 const worst = (...hs: Health[]): Health => hs.reduce((a, b) => (HEALTH_RANK[b] > HEALTH_RANK[a] ? b : a), 'ok');
@@ -19,7 +19,7 @@ const sum = (xs: (number | null | undefined)[]) => xs.reduce<number>((a, b) => a
 
 export class SnapshotBuilder {
   readonly history = new History(10_000, 360);
-  readonly topo: Topology;
+  topo: Topology;
   private rev = 0;
   private incidents = new IncidentEngine();
   private today: { day: string; down: number; up: number; at: number } | null = null;
@@ -29,6 +29,11 @@ export class SnapshotBuilder {
     private facts: FactStore,
   ) {
     this.topo = buildTopology(lab);
+  }
+
+  /** Call after `lab.topology` changes (e.g. a NetBox refresh). History is kept per link id. */
+  reloadTopology(): void {
+    this.topo = buildTopology(this.lab);
   }
 
   build(now = Date.now()): Snapshot {
@@ -129,6 +134,7 @@ export class SnapshotBuilder {
         location: n.location,
         wifiClients,
         tag: n.tag,
+        href: n.href,
       };
     });
 
@@ -152,9 +158,9 @@ export class SnapshotBuilder {
 
     // --- services ----------------------------------------------------------
     const services: ServiceState[] = lab.services.map((s) => {
-      const c = facts.containers.get(s.container ?? s.id);
+      const c = facts.container(s.container ?? s.id, s.host);
       const http = facts.http.get(s.id);
-      const base = { id: s.id, label: s.label, host: s.host, vpn: !!s.vpn, url: s.url };
+      const base = { id: s.id, label: s.label, host: s.host, vpn: !!s.vpn, app: s.app, url: s.url };
       const httpDown = http && fresh(http.at, now) && !http.up;
       if (!c || !fresh(c.at, now, STALE_MS * 2)) {
         if (http && fresh(http.at, now)) return { ...base, state: http.up ? 'running' : 'stopped', health: http.up ? 'ok' : 'crit' };
@@ -274,7 +280,17 @@ export class SnapshotBuilder {
     };
 
     // --- pipeline + incidents ---------------------------------------------
-    const { items: pipeline, tracked } = correlate(facts, now);
+    // Only the stages something in this lab can evidence.
+    const apps = new Set<string>([...lab.services.map((s) => s.app ?? ''), ...[...facts.sources.values()].map((s) => s.kind)]);
+    const has = (...xs: string[]) => xs.some((x) => apps.has(x));
+    const hasArr = facts.arr.size > 0 || has('sonarr', 'radarr', 'lidarr');
+    const pipelineStages = STAGES.filter((st) =>
+      st === 'requested' ? facts.requests.length > 0 || has('seerr', 'overseerr', 'jellyseerr')
+      : st === 'grabbed' || st === 'imported' ? hasArr
+      : st === 'available' ? !!facts.plex || has('plex')
+      : true,
+    );
+    const { items: pipeline, tracked } = correlate(facts, now, { hasArr });
     const incidents = this.incidents.evaluate({
       now,
       facts,
@@ -293,7 +309,7 @@ export class SnapshotBuilder {
       rev: ++this.rev,
       ts: now,
       mode: lab.mode,
-      lab: { name: lab.lab.name },
+      lab: { name: lab.lab.name, topologySource: lab.netbox ? 'netbox' : 'config' },
       attention: incidents.filter((i) => i.state === 'open' && i.severity !== 'info').length,
       nodes,
       links,
@@ -303,6 +319,7 @@ export class SnapshotBuilder {
       storage,
       pipeline,
       pipelineTracked: tracked,
+      pipelineStages,
       incidents,
       cameras: facts.cameras.filter((c) => now - c.ts < 24 * 3600_000).slice(0, 8),
       vpn,
@@ -312,7 +329,7 @@ export class SnapshotBuilder {
       wifi,
       plex: { sessions: facts.plex && fresh(facts.plex.at, now) ? facts.plex.sessions : [] },
       traffic,
-      sources: [...facts.sources.values()].map((s) => ({ id: s.id, kind: s.kind, ok: s.ok, lastOk: s.lastOk, error: s.lastError })),
+      sources: [...facts.sources.values()].map((s) => ({ id: s.id, kind: s.kind, ok: s.ok, lastOk: s.lastOk, error: s.lastError, note: s.note })),
     };
   }
 

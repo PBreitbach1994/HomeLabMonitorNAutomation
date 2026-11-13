@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import type { Snapshot } from '../../../shared/model.ts';
-import { MEDIUM_COLOR, PROTOCOL_COLOR } from '../lib/colors.ts';
-import { LabLive } from './LabLive.tsx';
+import type { Medium } from '../../../shared/model.ts';
+import { MEDIUM_COLOR } from '../lib/colors.ts';
+import { LabLive, ProtocolLegend } from './LabLive.tsx';
 import { NetworkMap } from './NetworkMap.tsx';
 
 const SLIDES = [
-  { id: 'map', title: 'Network map', sub: 'Every cable, port and Wi-Fi client, with live traffic measured at the switch ports' },
-  { id: 'lab', title: 'Lab · Live', sub: 'Schematic with measured traffic — particle density follows real throughput' },
+  { id: 'map', title: 'Network map' },
+  { id: 'lab', title: 'Lab · Live' },
 ] as const;
+
+const WIRED: Medium[] = ['100G', '40G', '25G', '10G', '5G', '2.5G', '1G', '100M'];
 
 export function Hero({ snap, kiosk, onSelect }: { snap: Snapshot; kiosk: boolean; onSelect: (id: string) => void }) {
   const [idx, setIdx] = useState(() => {
@@ -30,6 +33,12 @@ export function Hero({ snap, kiosk, onSelect }: { snap: Snapshot; kiosk: boolean
     return () => clearInterval(t);
   }, [kiosk]);
   const slide = SLIDES[idx];
+  const sub =
+    slide.id === 'map'
+      ? `Every device and cable${snap.lab.topologySource === 'netbox' ? ' from NetBox' : ''}, with traffic measured at the switch ports`
+      : 'Hosts and their services — particle density follows measured throughput';
+  const media = WIRED.filter((m) => snap.links.some((l) => l.medium === m));
+  const hasVpn = snap.vpn.up != null || snap.services.some((s) => s.vpn);
 
   return (
     <section className="panel hero">
@@ -42,20 +51,17 @@ export function Hero({ snap, kiosk, onSelect }: { snap: Snapshot; kiosk: boolean
             </button>
           ))}
         </div>
-        <span className="hero-sub">{slide.sub}</span>
+        <span className="hero-sub">{sub}</span>
       </div>
       {slide.id === 'map' && (
         <div className="legend">
-          {(['10G', '2.5G', '1G'] as const).map((m) => (
-            <span className="k" key={m}><i className="line" style={{ background: MEDIUM_COLOR[m] }} />{m}</span>
+          {media.map((m) => (
+            <span className="k" key={m}><i className="line" style={{ background: MEDIUM_COLOR[m] }} />{m === '100M' ? '≤100M' : m}</span>
           ))}
-          <span className="k"><i className="line dashed" style={{ color: PROTOCOL_COLOR.soulseek }} />bonded</span>
-          <span className="k"><i className="line dotted" style={{ color: MEDIUM_COLOR.wifi }} />Wi-Fi</span>
-          <span className="k"><i className="line dashed" style={{ color: MEDIUM_COLOR.vpn }} />VPN tunnel</span>
-          <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.usenet }} />Usenet</span>
-          <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.torrent }} />Torrent</span>
-          <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.soulseek }} />Soulseek</span>
-          <span className="k"><i className="sw" style={{ background: PROTOCOL_COLOR.plex }} />Plex</span>
+          {snap.links.some((l) => l.bonded) && <span className="k"><i className="line bond" style={{ color: MEDIUM_COLOR['2.5G'] }} />bonded</span>}
+          {snap.links.some((l) => l.medium === 'wifi') && <span className="k"><i className="line dotted" style={{ color: MEDIUM_COLOR.wifi }} />Wi-Fi</span>}
+          {hasVpn && <span className="k"><i className="line dashed" style={{ color: MEDIUM_COLOR.vpn }} />VPN tunnel</span>}
+          <ProtocolLegend snap={snap} />
         </div>
       )}
       <div style={{ marginTop: 6 }}>

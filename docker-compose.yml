@@ -13,6 +13,7 @@ services:
       TZ: ${TZ:-America/Chicago}
     volumes:
       - ./config/lab.yaml:/app/config/lab.yaml:ro
+      - ./data:/app/data # last good NetBox topology, so the map survives NetBox being down
     read_only: true
     tmpfs:
       - /tmp # tsx's compile cache

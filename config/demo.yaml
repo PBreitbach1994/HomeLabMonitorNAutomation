@@ -1,0 +1,225 @@
+# Demo lab — a fictional network used when no config/lab.yaml exists, for development and the
+# browser demo. It is exported from the "Demo Lab" site that scripts/netbox-seed-demo.ts puts
+# into a test NetBox, so the YAML and NetBox paths render the same thing.
+# Your own lab comes from NetBox: see config/lab.example.yaml and docs/NETBOX.md.
+mode: demo
+
+lab:
+  name: Home Lab Control
+
+collectors:
+  - id: sim
+    kind: simulator
+    # Demo-only extras with no topology to derive them from.
+    storage: true
+    cameras: true
+    tailscale: true
+
+topology:
+  nodes:
+    - id: internet
+      label: Internet
+      sublabel: Example ISP
+      kind: internet
+    - id: gw-01
+      label: gw-01
+      sublabel: Router 10G
+      kind: router
+      role: Router
+      model: Generic Router 10G
+      ip: 10.20.0.10
+      parent: internet
+      link:
+        medium: 10G
+        speed: 1000000000
+        measure: gw-01/wan0
+        port: gw-01 · wan0 (EX-1000)
+    - id: sw-core
+      label: sw-core
+      sublabel: Switch 4x10G
+      kind: switch
+      role: Switch
+      model: Generic Switch 4x10G
+      ip: 10.20.0.11
+      parent: gw-01
+      link:
+        medium: 10G
+        speed: 10000000000
+        measure: gw-01/lan0
+        alt: sw-core/sfp1
+        port: gw-01 · lan0
+    - id: sw-rack
+      label: sw-rack
+      sublabel: Switch 8x2.5G
+      kind: switch
+      role: Switch
+      model: Generic Switch 8x2.5G
+      ip: 10.20.0.12
+      parent: sw-core
+      link:
+        medium: 10G
+        speed: 10000000000
+        measure: sw-core/sfp2
+        alt: sw-rack/sfp1
+        port: sw-core · sfp2
+    - id: sw-desk
+      label: sw-desk
+      sublabel: Switch 8x1G
+      kind: switch
+      role: Switch
+      model: Generic Switch 8x1G
+      ip: 10.20.0.13
+      parent: sw-core
+      link:
+        medium: 10G
+        speed: 10000000000
+        measure: sw-core/sfp3
+        alt: sw-desk/sfp1
+        port: sw-core · sfp3
+    - id: srv-01
+      label: srv-01
+      sublabel: Mini Server
+      kind: host
+      role: Server
+      model: Generic Mini Server
+      ip: 10.20.0.14
+      parent: sw-rack
+      link:
+        medium: 2.5G
+        speed: 5000000000
+        bonded: true
+        measure:
+          - sw-rack/port1
+          - sw-rack/port2
+        alt:
+          - srv-01/eth0
+          - srv-01/eth1
+        port: sw-rack · port1 + port2
+    - id: ws-01
+      label: ws-01
+      sublabel: Desktop
+      kind: laptop
+      role: Workstation
+      model: Generic Desktop
+      parent: sw-desk
+      link:
+        medium: 1G
+        speed: 1000000000
+        measure: sw-desk/port1
+        alt: ws-01/eth0
+        port: sw-desk · port1
+    - id: printer-01
+      label: printer-01
+      sublabel: Laser Printer
+      kind: printer
+      role: Printer
+      model: Generic Laser Printer
+      parent: sw-desk
+      link:
+        medium: 1G
+        speed: 1000000000
+        measure: sw-desk/port2
+        alt: printer-01/eth0
+        port: sw-desk · port2
+    - id: srv-02
+      label: srv-02
+      sublabel: Mini Server
+      kind: host
+      role: Server
+      model: Generic Mini Server
+      ip: 10.20.0.15
+      parent: sw-rack
+      link:
+        medium: 2.5G
+        speed: 2500000000
+        measure: sw-rack/port3
+        alt: srv-02/eth0
+        port: sw-rack · port3
+    - id: nas-01
+      label: nas-01
+      sublabel: NAS 6-bay
+      kind: nas
+      role: NAS
+      model: Generic NAS 6-bay
+      ip: 10.20.0.16
+      parent: sw-rack
+      link:
+        medium: 2.5G
+        speed: 2500000000
+        measure: sw-rack/port4
+        alt: nas-01/eth0
+        port: sw-rack · port4
+    - id: ap-hall
+      label: ap-hall
+      sublabel: Wi-Fi 7 AP
+      kind: mesh
+      role: Access Point
+      model: Generic Wi-Fi 7 AP
+      parent: sw-desk
+      link:
+        medium: 1G
+        speed: 1000000000
+        measure: sw-desk/port7
+        alt: ap-hall/eth0
+        port: sw-desk · port7
+    - id: ap-garage
+      label: ap-garage
+      sublabel: Wi-Fi 7 AP
+      kind: mesh
+      role: Access Point
+      model: Generic Wi-Fi 7 AP
+      parent: ap-hall
+      link:
+        medium: wifi
+        measure: ap-hall/wlan0
+        alt: ap-garage/wlan0
+        port: ap-hall · wlan0
+services:
+  - id: grafana
+    label: Grafana
+    host: srv-01
+    app: grafana
+    container: Grafana
+  - id: home-assistant
+    label: Home Assistant
+    host: srv-01
+    app: home-assistant
+    container: homeassistant
+  - id: jellyfin
+    label: Jellyfin
+    host: srv-01
+    app: jellyfin
+    container: Jellyfin
+  - id: nextcloud
+    label: Nextcloud
+    host: srv-01
+    app: nextcloud
+    container: Nextcloud
+  - id: pi-hole
+    label: Pi-hole
+    host: srv-01
+    app: pihole
+    container: Pi-hole
+  - id: qbittorrent
+    label: qBittorrent
+    host: srv-01
+    app: qbittorrent
+    container: qBittorrent
+    vpn: true
+  - id: uptime-kuma
+    label: Uptime Kuma
+    host: srv-01
+    app: uptime-kuma
+    container: Uptime Kuma
+    expect: manual
+  - id: backups
+    label: Backups
+    host: srv-02
+    app: duplicati
+    container: Backups
+    expect: paused
+  - id: smb-shares
+    label: SMB shares
+    host: nas-01
+    app: smb
+    container: SMB shares

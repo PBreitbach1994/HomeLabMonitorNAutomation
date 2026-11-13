@@ -2,7 +2,7 @@
 // null means "no evidence", and the UI renders it as an em dash.
 
 export type Health = 'ok' | 'warn' | 'crit' | 'unknown' | 'off';
-export type Medium = '10G' | '2.5G' | '1G' | '100M' | 'wifi' | 'vpn' | 'logical';
+export type Medium = '100G' | '40G' | '25G' | '10G' | '5G' | '2.5G' | '1G' | '100M' | 'wifi' | 'vpn' | 'logical';
 export type NodeKind =
   | 'internet' | 'router' | 'switch' | 'mesh' | 'host' | 'nas'
   | 'device' | 'laptop' | 'printer' | 'dock' | 'hub';
@@ -29,7 +29,8 @@ export interface TopoNode {
   model?: string;
   location?: string;
   wifiClients?: number | null;
-  tag?: string; // e.g. VOL / APP badge on the Network page
+  tag?: string;
+  href?: string; // the device's page in NetBox
 }
 
 export interface TopoLink {
@@ -38,6 +39,7 @@ export interface TopoLink {
   to: string; // downstream node
   medium: Medium;
   bonded?: boolean;
+  cables?: number; // member cables of a bond
   speedBps: number;
   measured: boolean;
   approx?: boolean;
@@ -88,6 +90,7 @@ export interface ServiceState {
   health: Health;
   state: ServiceRunState;
   vpn: boolean;
+  app?: string;
   note?: string;
   url?: string;
 }
@@ -212,13 +215,14 @@ export interface SourceState {
   ok: boolean;
   lastOk: number | null;
   error?: string;
+  note?: string;
 }
 
 export interface Snapshot {
   rev: number;
   ts: number;
   mode: 'demo' | 'live' | 'mixed';
-  lab: { name: string };
+  lab: { name: string; topologySource: 'netbox' | 'config' };
   attention: number;
   nodes: TopoNode[];
   links: TopoLink[];
@@ -228,6 +232,8 @@ export interface Snapshot {
   storage: VolumeState[];
   pipeline: PipelineItem[];
   pipelineTracked: number;
+  /** The stages this lab can produce evidence for (no *arr → no grabbed/imported, no Plex → no "In Plex"…). */
+  pipelineStages: StageKey[];
   incidents: Incident[];
   cameras: CameraEvent[];
   vpn: VpnState;

@@ -230,16 +230,20 @@ export function NetworkMap({ snap, onSelect }: { snap: Snapshot; onSelect?: (nod
               const active = l.measured && linkTotal(l) > 5e3;
               return (
                 <g key={l.id}>
-                  {!wifi && active && <path d={d} stroke={color} strokeWidth={w * 3.2} opacity={0.08} fill="none" />}
-                  <path
-                    d={d}
-                    fill="none"
-                    stroke={l.bonded ? PROTOCOL_COLOR.soulseek : color}
-                    strokeWidth={l.bonded ? 1.2 : w}
-                    strokeOpacity={wifi ? 0.5 : active ? 0.55 : 0.25}
-                    strokeDasharray={wifi ? '1.5 6' : l.bonded ? '3 4' : !l.measured ? '2 5' : undefined}
-                    strokeLinecap="round"
-                  />
+                  {!wifi && active && <path d={d} stroke={color} strokeWidth={w * (l.bonded ? 4.5 : 3.2)} opacity={0.08} fill="none" />}
+                  {/* A bond is drawn as parallel strands, one per side of the curve. */}
+                  {(l.bonded ? [-1.7, 1.7] : [0]).map((off) => (
+                    <path
+                      key={off}
+                      d={off ? curvePath(offsetCurve(c, 0, off)) : d}
+                      fill="none"
+                      stroke={color}
+                      strokeWidth={l.bonded ? Math.max(1.2, w * 0.6) : w}
+                      strokeOpacity={wifi ? 0.5 : active ? 0.55 : 0.25}
+                      strokeDasharray={wifi ? '1.5 6' : !l.measured ? '2 5' : undefined}
+                      strokeLinecap="round"
+                    />
+                  ))}
                   <path
                     className="hit"
                     d={d}
@@ -253,8 +257,8 @@ export function NetworkMap({ snap, onSelect }: { snap: Snapshot; onSelect?: (nod
               );
             })}
 
-            {/* VPN tunnel rides along the WAN */}
-            {layout.wanCurve && (
+            {/* VPN tunnel rides along the WAN, when anything uses one */}
+            {layout.wanCurve && (snap.vpn.up != null || snap.services.some((s) => s.vpn)) && (
               <g>
                 <path
                   d={curvePath(offsetCurve(layout.wanCurve, 0, 11))}
@@ -272,7 +276,7 @@ export function NetworkMap({ snap, onSelect }: { snap: Snapshot; onSelect?: (nod
                   fill={snap.vpn.up === false ? '#f87171' : '#34d399'}
                   opacity={0.85}
                 >
-                  {snap.vpn.up === false ? 'VPN tunnel down' : snap.vpn.up ? 'Sealed VPN tunnel · Gluetun' : 'VPN · no data'}
+                  {snap.vpn.up === false ? 'VPN tunnel down' : snap.vpn.up ? 'VPN tunnel up' : 'VPN · no data'}
                 </text>
               </g>
             )}
@@ -403,7 +407,7 @@ function NodeGlyph({
                 width={9}
                 height={4}
                 rx={1.5}
-                fill={lit ? (l.bonded ? PROTOCOL_COLOR.soulseek : MEDIUM_COLOR[l.medium]) : '#2a3549'}
+                fill={lit ? MEDIUM_COLOR[l.medium] : '#2a3549'}
                 opacity={lit ? 0.95 : 1}
               />
             );
@@ -445,8 +449,9 @@ function NodeGlyph({
           </text>
           {link && (
             <>
-              <text x={left + LEAF_W - 9} y={y - 3} textAnchor="end" fontSize={9} fontWeight={700} fill={link.bonded ? PROTOCOL_COLOR.soulseek : MEDIUM_COLOR[link.medium]}>
+              <text x={left + LEAF_W - 9} y={y - 3} textAnchor="end" fontSize={9} fontWeight={700} fill={MEDIUM_COLOR[link.medium]}>
                 {link.medium === '100M' ? '<1G' : link.medium}
+                {link.cables && link.cables > 1 ? `×${link.cables}` : ''}
               </text>
               <text className="svg-mono" x={left + LEAF_W - 9} y={y + 10} textAnchor="end" fontSize={8.5} fill="#8b97ab">
                 {total != null && total >= 1e5 ? fmtBps(total) : ''}

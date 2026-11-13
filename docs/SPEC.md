@@ -2,7 +2,8 @@
 
 A single live screen that answers two questions at a glance — **"is everything OK?"** and
 **"what is the lab doing right now?"** — plus a drill-down Network page and, later,
-guarded automation. Built from the three reference screenshots (Overview, Lab Live, Network).
+guarded automation. The look takes its cue from three reference screenshots (Overview, Lab Live,
+Network); the lab itself is whatever NetBox says it is.
 
 ---
 
@@ -25,23 +26,18 @@ guarded automation. Built from the three reference screenshots (Overview, Lab Li
 
 ---
 
-## 2. The lab (as seen in the screenshots)
+## 2. Source of truth: NetBox
 
-| Layer | Thing | Model / notes | Best data source |
-|---|---|---|---|
-| WAN | Internet | Frontier, ~940/30 Mbps | eero API, ICMP ping |
-| Router | Office | eero Max 7 (10G WAN/LAN), mesh root | eero (unofficial cloud API) |
-| Mesh | Back yard, Bedroom, Garage, Living Room | eero Outdoor 7 / Max 7 / Pro 6 | eero API |
-| Core | MikroTik CRS304 | 4×10G + 1G mgmt, `192.168.7.250` | SNMPv3 (IF-MIB) or RouterOS REST |
-| Access | Flex A (closet/lab), Flex B (house) | UniFi Flex 2.5G-8 | UniFi Network controller API |
-| Hosts | Switchyard | container host, runs Gluetun + *arr stack | Docker API, Glances / node_exporter |
-| | Foundry | 1G, general host (Bindery lives here, outside VPN) | Docker API, Glances |
-| | NichNas-674 | QNAP TVS-h674, 2.5G + bond, Plex, volumes | QNAP SNMP (NAS-MIB) / QTS API, Docker |
-| Devices | s380hb (Eufy HomeBase), CalDigit TS3, MacBook-Pro-2, HP Color Laser | | switch ports only |
-| Apps | Plex, Seerr, Sonarr, Radarr, Lidarr, Bazarr, Prowlarr, Jackett, SABnzbd, qBittorrent, Soulseek (slskd), Tdarr, Audiobookshelf, Calibre, Calibre-Web, ReadMeABook, Bindery, Hearr | | each app's API + Docker state |
-| Tunnels | Gluetun (Usenet/Torrent/Soulseek egress), Tailscale | | Gluetun control server, `tailscale status --json` |
-| Storage | Data-Volume, easystore (in Expansion 33-3), WDSSD-Vol | | QNAP SNMP |
-| Cameras | Eufy via HomeBase | | eufy-security-ws |
+The dashboard knows nothing about a particular network. **NetBox** supplies the devices, how
+they're cabled (traced through patch panels), LAG bonds, wireless backhaul, the internet circuit
+and its plan speed, and which services get a tile. Tags on devices (`snmp`, `glances`) create the
+collectors that measure them. `lab.yaml` keeps only credentials, collectors NetBox can't infer, and
+optional overrides. NetBox is re-read every few minutes and the map updates in place; the last
+good result is cached for when NetBox is down. The modelling conventions are in
+[NETBOX.md](NETBOX.md).
+
+Panels exist only for what the lab actually has: no storage source, no storage panel; no *arr
+apps, no "imported" stage; no VPN-tagged service, no VPN chip.
 
 ---
 
@@ -52,22 +48,22 @@ guarded automation. Built from the three reference screenshots (Overview, Lab Li
 | Region | Shows | Derived from |
 |---|---|---|
 | **Header** | title, `N attention` pill, `Live · 1s ago`, date, big clock, view menu | open incidents, SSE freshness |
-| **Status strip** | host pills, `VPN up`, LAN ↓↑ | hosts, Gluetun, sum of core switch ports |
+| **Status strip** | host pills, `VPN up` (when a service uses one), LAN ↓↑ | hosts, VPN collector, edge switch ports |
 | **Hero carousel** | dots switch between *Network Map* and *Lab Live*; auto-rotates in kiosk mode | topology + link rates |
-| **Network Map** | left→right tree: Internet → router → core → access switches → device column; mesh nodes under the router. Cable colour = medium (10G/2.5G/1G/bonded/Wi-Fi/VPN), particle density = measured throughput, particle colour = protocol mix. Footer: busiest cables | §6.1, §6.2 |
-| **Media pipeline** | one row per tracked release, 6 stage dots: requested → grabbed → downloading → downloaded → imported → in Plex; dot style = verified / inferred / no evidence / failed | §6.3 |
-| **Hosts** | CPU gauge, memory bar, temp, uptime | Glances / node_exporter / QNAP SNMP |
-| **Services** | `16/16` grid, dot per app, tags like `MANUAL START`, `PAUSED` | Docker state + HTTP check |
-| **Storage** | per volume: % used, free, one pip per disk coloured by health, enclosure warnings | QNAP |
+| **Network Map** | left→right tree from NetBox: Internet → router → core → access switches → device column; access points along the bottom. Cable colour = medium, bonds as twin strands, Wi-Fi dotted; particle density = measured throughput, particle colour = protocol mix. Footer: busiest cables | §6.1, §6.2 |
+| **Media pipeline** (only with download clients) | one row per release; stage dots for what the lab can evidence (requested → grabbed → downloading → downloaded → imported → in Plex, minus stages with no source); dot style = verified / inferred / no evidence / failed | §6.3 |
+| **Hosts** | CPU gauge, memory bar, temp, uptime | Glances |
+| **Services** | `7/7` grid of NetBox-tagged services, dot per app, tags like `MANUAL START`, `PAUSED` | Docker state + HTTP check |
+| **Storage** (only with a storage source) | per volume: % used, free, one pip per disk coloured by health | NAS collector (phase 2) |
 | **Incidents** | open first, then recently recovered | §6.4 |
-| **Cameras** | recent motion/person events | Eufy |
-| **Network** | internet RTT + sparkline, router RTT, avg ↓↑ this hour, today's totals, Internet/VPN/Tailscale chips, mesh summary | ping, eero |
+| **Cameras** (only with a camera source) | recent motion/person events | camera collector (phase 3) |
+| **Network** | internet RTT + sparkline, router RTT, avg ↓↑ this hour, today's totals, Internet/VPN/Tailscale chips, Wi-Fi summary | ping, collectors |
 
 ### 3.2 Lab Live (hero slide)
 
-Schematic: Internet on top, router, then the hosts on an arc, Plex clients to the side.
+Schematic: Internet on top, router, then the hosts on an arc (Plex clients to the side when Plex is a service).
 Beams carry particles proportional to throughput. Under each host: its containers, grouped into
-*Gluetun namespace (VPN up)* vs *Outside VPN*; under the NAS: its volumes.
+*through the VPN* vs *outside it*; under a NAS: its volumes. Up to five hosts, those running the most services.
 
 ### 3.3 Network (`#/network`)
 
@@ -85,8 +81,8 @@ Beams carry particles proportional to throughput. Under each host: its container
 
 ```
  ┌──────────────── collectors (one per source, own interval) ────────────────┐
- │ snmp · unifi · eero · ping · docker · glances · qnap · sabnzbd · qbittorrent │
- │ sonarr/radarr/lidarr · seerr · plex · gluetun · tailscale · eufy · simulator │
+ │ snmp · unifi · ping · docker · glances · sabnzbd · qbittorrent · slskd      │
+ │ sonarr/radarr/lidarr · seerr · plex · gluetun · tailscale · simulator         │
  └──────────────┬─────────────────────────────────────────────────────────────┘
                 │  normalized FACTS (counters, queues, history, health…)
                 ▼
@@ -94,7 +90,8 @@ Beams carry particles proportional to throughput. Under each host: its container
         │  Fact store  │ ────────────────────────────────▶ │  Derivations  │
         └──────────────┘   ring-buffer history (10s, 1h)   │ links·mix·    │
                 ▲                                          │ pipeline·     │
-   config/lab.yaml (topology, services, collectors)        │ incidents     │
+   NetBox (devices, cables, circuit, tagged services)     │ incidents     │
+   + lab.yaml (credentials, overrides, extra collectors)
                                                            └──────┬────────┘
                                                                   ▼
                                                         Snapshot (every 2s)
@@ -111,9 +108,10 @@ Beams carry particles proportional to throughput. Under each host: its container
    into what the UI renders. The **simulator writes facts too** — it routes synthetic flows over the
    configured topology and increments the same port counters SNMP would. So demo mode exercises rate
    math, protocol attribution, pipeline correlation and incident rules for real.
-2. **Topology is declared first, discovered later.** v0/v1: `lab.yaml` lists nodes, parents, link
-   medium and *which switch port measures each link*. v3: discovery from LLDP / MAC tables / eero
-   client list, with the config as overrides.
+2. **NetBox is the topology.** Devices, traced cable paths, LAGs, wireless links and the internet
+   circuit become nodes and links; the switch-side interface of each cable is the port that measures
+   it, with the far end as fallback. The YAML can override by id. (Pure YAML topology still works
+   for the demo.)
 3. **One Node/TypeScript process**, no framework on the server (plain `http`), SSE instead of
    WebSockets (one-way, auto-reconnect, proxy-friendly). Shared types in `shared/model.ts`.
 4. **History**: in-memory ring buffers (10s resolution, 1h) in v0; SQLite with rollups
@@ -122,8 +120,8 @@ Beams carry particles proportional to throughput. Under each host: its container
    its own health in `sources`, and a failing source raises an info incident instead of silently
    freezing numbers.
 
-**Deployment**: one container (`docker compose up -d`) on a host that is **not** inside the Gluetun
-network namespace (it needs LAN reach). `network_mode: host` (or `NET_RAW`) for ICMP/SNMP.
+**Deployment**: one container (`docker compose up -d`) on a host with LAN reach (not inside a VPN
+container's network namespace). `network_mode: host` (or `NET_RAW`) for ICMP/SNMP.
 Mount `/var/run/docker.sock` read-only per host, or point the Docker collector at a socket proxy.
 
 ---
@@ -132,13 +130,13 @@ Mount `/var/run/docker.sock` read-only per host, or point the Docker collector a
 
 | Source | Protocol / endpoint | Gives us | Auth | Interval | Phase |
 |---|---|---|---|---|---|
-| MikroTik CRS304 | SNMPv3 IF-MIB `ifHCInOctets/ifHCOutOctets/ifHighSpeed/ifOperStatus` | per-port counters → link rates | SNMPv3 authPriv read-only user | 5s | 1 |
-| UniFi Flex ×2 | Network app `GET /proxy/network/api/s/default/stat/device` | `port_table[]` rx/tx bytes, speed, up | local admin (read-only) | 10s | 1 |
-| eero | unofficial `api-user.e2ro.com/2.2` (`/networks/{id}`, `/eeros`, `/devices`) | mesh nodes, clients per node, WAN, updates | one-time SMS/email login → session cookie | 60s | 2 |
+| NetBox | REST `dcim/devices`, `dcim/interfaces` (traced `connected_endpoints`), `circuits/circuits`, `virtualization/virtual-machines`, `ipam/services` | topology, services, collector targets | read-only API token | 5 min | ✓ |
+| Switches (any SNMP) | SNMP IF-MIB `ifHCInOctets/ifHCOutOctets/ifHighSpeed/ifOperStatus` | per-port counters → link rates | SNMPv3 read-only user | 5s | ✓ |
+| UniFi switches | Network app `GET /proxy/network/api/s/default/stat/device` | `port_table[]` rx/tx bytes, speed, up | local admin (read-only) | 10s | ✓ |
 | Ping | ICMP to `1.1.1.1` + gateway | RTT, jitter, loss | — | 5s | 1 |
 | Docker | Engine API `GET /containers/json?all=1` (socket or socket-proxy) | container state/health per service | socket access | 15s | 1 |
 | Glances | `GET /api/4/{cpu,mem,sensors,uptime}` | host CPU/mem/temp/uptime | — | 10s | 1 |
-| QNAP | SNMP `NAS-MIB` (`.1.3.6.1.4.1.24681`) / QTS API | volumes, disks, SMART/health, temps, enclosures | SNMPv3 | 60s | 2 |
+| NAS / storage | depends on the NAS (SNMP, its API, or a host agent) | volumes, disks, health | — | 60s | 2 |
 | SABnzbd | `api?mode=queue|history&output=json` | queue, speed, history (failed/completed) | API key | 5s | 1 |
 | qBittorrent | `/api/v2/transfer/info`, `/api/v2/torrents/info` | speeds, torrents | cookie login | 5s | 1 |
 | Sonarr/Radarr/Lidarr | `/api/v3/queue`, `/api/v3/history`, `/api/v3/health` | grab/import events w/ `downloadId`, stuck items, health | API key | 15s | 1 |
@@ -147,7 +145,7 @@ Mount `/var/run/docker.sock` read-only per host, or point the Docker collector a
 | slskd | `/api/v0/transfers/downloads` | Soulseek rates | API key | 10s | 2 |
 | Gluetun | control server `/v1/publicip/ip`, `/v1/vpn/status` | tunnel up, exit IP/country | optional | 15s | 1 |
 | Tailscale | `tailscale status --json` / local API | up, peers online | — | 30s | 2 |
-| Eufy | `eufy-security-ws` WebSocket | motion/person events | account | push | 3 |
+| Cameras | depends on the system | motion/person events | — | push | 3 |
 
 ---
 
@@ -160,7 +158,7 @@ Mount `/var/run/docker.sock` read-only per host, or point the Docker collector a
 - Rate = Δoctets·8 / Δt with 64-bit counters; negative deltas (reset/wrap) drop that sample.
   Smoothed with an EWMA (α≈0.5) so particles don't strobe.
 - Utilization = max(down, up) / negotiated speed. Links with no counter render as dotted with `—`.
-- Internet: eero WAN when available, otherwise the core port facing the router (flagged *approx*).
+- Internet: the router interface cabled to the ISP circuit in NetBox; utilization is against the circuit's port speed (the plan), not the NIC.
 
 ### 6.2 Protocol attribution ("Usenet 47% of traffic")
 
@@ -229,19 +227,18 @@ the lifecycle: new key → **open** (optional "for N seconds" debounce), key gon
 
 | Phase | Scope |
 |---|---|
-| **0 — this build** | spec, shared model, fact store, rate math, protocol attribution, pipeline correlation, incident engine, topology-aware simulator, SSE API, Overview + Lab Live + Network UI, first real collectors with fixture tests, Docker packaging |
-| **1 — wire it up** | fill in `lab.yaml` for the real lab; SNMP (CRS304), UniFi, ping, Docker, Glances, SABnzbd, qBittorrent, *arrs, Plex, Gluetun; mixed mode (simulator only for sources not yet configured) |
-| **2 — depth** | eero, QNAP, Seerr, slskd, Tailscale, Tdarr; SQLite history + daily totals; 24h/7d charts |
-| **3 — automate** | notifications, actions, reactive rules, Eufy events, topology discovery (LLDP/MAC/eero) |
+| **0 — done** | spec, shared model, fact store, rate math, protocol attribution, pipeline correlation, incident engine, topology-aware simulator, SSE API, Overview + Lab Live + Network UI, collectors with fixture tests, Docker packaging |
+| **1 — NetBox (done)** | NetBox as source of truth: topology, LAGs, wireless, circuit, service tiles, collector targets from tags; refresh + cache; bootstrap/export scripts; tested against NetBox 4.7.5 |
+| **2 — wire it up** | model the lab in NetBox, tag devices, `mode: mixed`; verify each collector against the real gear; NAS/storage and Wi-Fi sources for whatever the lab actually uses; SQLite history + daily totals |
+| **3 — automate** | notifications, actions, reactive rules; optionally write back to NetBox (e.g. discovered LLDP neighbours as proposed cables) |
 | **4 — polish** | kiosk mode (auto-rotate hero, burn-in shift), light theme, mobile layout pass, PWA |
 
 ---
 
 ## 10. Open questions
 
-1. Which host should run the dashboard (Foundry looks like the natural home — not in the VPN namespace)?
-2. Are the Flex 2.5G switches adopted by a UniFi controller (UniFi OS console / self-hosted), or standalone?
-3. OK to use the unofficial eero API with your account (needs a one-time verification code)?
-4. Is SNMP enabled on the QNAP and the CRS304? (RouterOS REST is an alternative for the MikroTik.)
-5. What OS are Foundry and Switchyard (for Glances vs node_exporter)?
-6. Preferred notification channel (ntfy, Pushover, Discord, iMessage via Home Assistant…)?
+1. Is NetBox already running with the lab modelled, and which version?
+2. Which switches and access points are there, and how can their port counters be read (SNMP, UniFi, other)?
+3. Where should the dashboard run?
+4. Is there a NAS, cameras, or a VPN worth a panel — and how are they reachable?
+5. Preferred notification channel (ntfy, Pushover, Discord, Home Assistant…)?

@@ -1,14 +1,25 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { interpolateEnv, parseConfig, parseSpeed, validateConfig } from '../config.ts';
 import { exampleConfig } from './helpers.ts';
 
 describe('config', () => {
-  it('parses and validates the example config', () => {
+  it('parses and validates the demo config', () => {
     const cfg = exampleConfig();
     expect(cfg.mode).toBe('demo');
     expect(cfg.topology.nodes.find((n) => n.kind === 'internet')?.id).toBe('internet');
-    expect(cfg.services).toHaveLength(18);
+    expect(cfg.services).toHaveLength(9);
     expect(validateConfig(cfg)).toEqual([]);
+  });
+
+  it('parses the NetBox example, deferring cross-checks until NetBox is merged in', () => {
+    const cfg = parseConfig(readFileSync(new URL('../../config/lab.example.yaml', import.meta.url), 'utf8'), {
+      NETBOX_URL: 'http://netbox.local', NETBOX_TOKEN: 't',
+    });
+    expect(cfg.netbox).toMatchObject({ url: 'http://netbox.local', token: 't' });
+    expect(cfg.topology.nodes).toEqual([]);
+    expect(validateConfig(cfg)).toEqual([]);
+    expect(validateConfig(cfg, { merged: true })).toContain('topology needs exactly one node of kind "internet"');
   });
 
   it('interpolates env vars with defaults, leaving no secrets in the file', () => {

@@ -17,7 +17,8 @@ RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /app/dist ./dist
 COPY server ./server
 COPY shared ./shared
-COPY config/lab.example.yaml ./config/lab.example.yaml
+COPY config/demo.yaml config/lab.example.yaml ./config/
+RUN mkdir -p /app/data && chown node:node /app/data
 USER node
 EXPOSE 8787
 HEALTHCHECK --interval=30s --timeout=5s CMD wget -qO- http://127.0.0.1:8787/api/health || exit 1

@@ -90,10 +90,10 @@ export function Header({
               <div className="sep" />
               <div className="muted" style={{ padding: '4px 10px' }}>Sources</div>
               {snap.sources.map((s) => (
-                <div key={s.id} className="muted" style={{ padding: '3px 10px', display: 'flex', gap: 8, alignItems: 'center' }} title={s.error}>
-                  <i className="sdot" style={{ background: s.ok ? HEALTH_COLOR.ok : HEALTH_COLOR.crit }} />
+                <div key={s.id} className="muted" style={{ padding: '3px 10px', display: 'flex', gap: 8, alignItems: 'center' }} title={s.error ?? s.note}>
+                  <i className="sdot" style={{ background: s.ok ? (s.note ? HEALTH_COLOR.warn : HEALTH_COLOR.ok) : HEALTH_COLOR.crit }} />
                   <span style={{ color: 'var(--text-1)' }}>{s.id}</span>
-                  <span style={{ marginLeft: 'auto' }}>{s.ok ? fmtAgo(s.lastOk, now) : 'failing'}</span>
+                  <span style={{ marginLeft: 'auto' }}>{s.ok ? (s.note ? 'has advice' : fmtAgo(s.lastOk, now)) : 'failing'}</span>
                 </div>
               ))}
               {failing.length > 0 && <div className="muted" style={{ padding: '4px 10px' }}>{failing.length} failing — hover for the error</div>}
@@ -108,9 +108,11 @@ export function Header({
             {h.label}
           </span>
         ))}
-        <span className={`chip ${snap.vpn.up == null ? 'unknown' : snap.vpn.up ? 'ok' : 'bad'}`}>
-          {snap.vpn.up == null ? '? VPN' : snap.vpn.up ? '✓ VPN up' : '✕ VPN down'}
-        </span>
+        {(snap.vpn.up != null || snap.services.some((s) => s.vpn)) && (
+          <span className={`chip ${snap.vpn.up == null ? 'unknown' : snap.vpn.up ? 'ok' : 'bad'}`}>
+            {snap.vpn.up == null ? '? VPN' : snap.vpn.up ? '✓ VPN up' : '✕ VPN down'}
+          </span>
+        )}
         <span className="muted num">
           LAN ↓ {fmtBps(snap.traffic.lanDownBps)} ↑ {fmtBps(snap.traffic.lanUpBps)}
         </span>

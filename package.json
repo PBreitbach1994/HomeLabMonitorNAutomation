@@ -11,7 +11,10 @@
     "build": "vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "netbox:bootstrap": "tsx scripts/netbox-bootstrap.ts",
+    "netbox:export": "tsx scripts/netbox-export.ts",
+    "netbox:seed-demo": "tsx scripts/netbox-seed-demo.ts"
   },
   "engines": {
     "node": ">=22"
