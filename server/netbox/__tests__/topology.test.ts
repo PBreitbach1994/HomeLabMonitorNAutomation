@@ -132,6 +132,15 @@ describe('buildFromInventory edge cases', () => {
     expect(lab.warnings).toEqual([]);
   });
 
+  it('ignores tagged VMs and services that belong to other sites', () => {
+    const inv = inventory();
+    inv.vms.push({ id: 9001, name: 'Elsewhere', device: { id: 777, name: 'branch-srv' }, tags: [{ slug: 'dashboard' }] });
+    inv.services.push({ id: 9002, name: 'Other', parent_object_type: 'dcim.device', parent: { id: 778, name: 'branch-nas' }, tags: [{ slug: 'dashboard' }] });
+    const lab = buildFromInventory(inv);
+    expect(lab.services.some((s) => s.label === 'Elsewhere' || s.label === 'Other')).toBe(false);
+    expect(lab.warnings).toEqual([]);
+  });
+
   it('honours role overrides', () => {
     const lab = buildFromInventory(inventory(), { roles: { workstation: 'host' } });
     expect(lab.nodes.find((n) => n.id === 'ws-01')!.kind).toBe('host');

@@ -14,7 +14,8 @@
     "test": "vitest run",
     "netbox:bootstrap": "tsx scripts/netbox-bootstrap.ts",
     "netbox:export": "tsx scripts/netbox-export.ts",
-    "netbox:seed-demo": "tsx scripts/netbox-seed-demo.ts"
+    "netbox:seed-demo": "tsx scripts/netbox-import.ts examples/demo-lab.inventory.yaml",
+    "netbox:import": "tsx scripts/netbox-import.ts"
   },
   "engines": {
     "node": ">=22"

@@ -271,6 +271,9 @@ export function buildFromInventory(inv: Inventory, cfg: Pick<NetboxConfig, 'role
   const vmHost = (vm: Pick<NbVirtualMachine, 'device' | 'cluster'>) => vm.device?.name ?? (vm.cluster ? clusterHost(vm.cluster.id) : undefined);
   const vmById = new Map(inv.vms.map((v) => [v.id, v]));
   const tile = (name: string, host: string | undefined, fields: Record<string, unknown> | undefined, tags: NbTag[] | undefined, what: string) => {
+    // Tagged objects are fetched across sites; one on a device outside this inventory (another
+    // site, or an excluded status) is simply out of scope.
+    if (host && !devices.has(host)) return;
     if (!host || !placed.has(host)) {
       warnings.push(`${what} "${name}" isn't on a device that's on the map, so it has no tile.`);
       return;

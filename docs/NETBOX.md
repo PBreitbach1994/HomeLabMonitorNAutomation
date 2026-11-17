@@ -10,7 +10,8 @@ and the map changes when NetBox does (it re-reads every 5 minutes).
    - a **read-only** token for the dashboard;
    - a token that may add tags and custom fields, used once for the bootstrap (or run it as an admin).
    Both v1 tokens and NetBox 4.5+ v2 tokens (`nbt_…`) work.
-2. **Bootstrap** the few objects the dashboard reads (safe to re-run; it never changes existing ones):
+2. **Bootstrap** the few objects the dashboard reads (safe to re-run; it never changes existing ones).
+   `deploy/netbox/setup.sh` already does this, and creates the read-only token, if you used it:
    ```bash
    NETBOX_URL=https://netbox.lan NETBOX_TOKEN=<write token> npm run netbox:bootstrap
    ```
@@ -75,8 +76,15 @@ The last good result is cached in `data/netbox-cache.json`, so the dashboard sti
 last known map and retries every 30 seconds. With Docker, mount `./data` and make it writable for
 the container user: `mkdir -p data && sudo chown 1000:1000 data`.
 
+## Getting your lab into NetBox
+
+Don't have NetBox yet? [deploy/netbox](../deploy/netbox/README.md) stands one up with a single
+script. Then describe the lab in one YAML file and load it with `npm run netbox:import`. The format
+is shown by example in [examples/demo-lab.inventory.yaml](../examples/demo-lab.inventory.yaml); use
+`--dry-run` to see the plan first.
+
 ## Trying it without touching your NetBox
 
-`scripts/netbox-seed-demo.ts --confirm` creates a fictional *Demo Lab* site (router, three
-switches, a LAG-bonded server, a patch panel, a wireless mesh AP, containers as VMs, an ISP circuit)
-in a throwaway NetBox. It's how this integration was tested against NetBox 4.7.5.
+`npm run netbox:seed-demo` loads that example (a fictional *Demo Lab* site: router, three
+switches, a LAG-bonded server, a patch panel, a wireless mesh AP, containers, an ISP circuit) into a
+throwaway NetBox. It's how this integration is tested against NetBox 4.7.5.

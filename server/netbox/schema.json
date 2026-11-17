@@ -1,0 +1,20 @@
+{
+  "tags": [
+    { "name": "dashboard", "slug": "dashboard", "color": "2196f3", "description": "Show this service or VM as a tile on the home lab dashboard" },
+    { "name": "vpn", "slug": "vpn", "color": "4caf50", "description": "Traffic for this service leaves through the VPN tunnel" },
+    { "name": "snmp", "slug": "snmp", "color": "00bcd4", "description": "Poll this device over SNMP for port counters" },
+    { "name": "glances", "slug": "glances", "color": "9c27b0", "description": "Read CPU, memory and temperature from Glances on this device" }
+  ],
+  "choiceSet": {
+    "name": "Dashboard expected state",
+    "description": "Whether the dashboard should expect this service to be running",
+    "extra_choices": [["running", "Running"], ["manual", "Manual start"], ["paused", "Paused"]]
+  },
+  "customFieldObjectTypes": ["ipam.service", "virtualization.virtualmachine"],
+  "customFields": [
+    { "name": "dashboard_app", "label": "Dashboard app", "type": "text", "description": "What the service is, e.g. plex, sabnzbd, sonarr — tells collectors how to read it" },
+    { "name": "dashboard_expect", "label": "Dashboard expected state", "type": "select", "description": "Manual start or paused services do not raise incidents when stopped" },
+    { "name": "dashboard_container", "label": "Docker container", "type": "text", "description": "Container name, when it differs from the NetBox name" },
+    { "name": "dashboard_health_url", "label": "Health check URL", "type": "url", "description": "Optional HTTP endpoint the dashboard probes" }
+  ]
+}

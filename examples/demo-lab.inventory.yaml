@@ -1,0 +1,147 @@
+# A lab described for `npm run netbox:import`. This one is fictional; copy it to start yours.
+# Re-running the import only adds what's missing, and `--dry-run` shows the plan without writing.
+
+site:
+  name: Demo Lab # slug defaults to "demo-lab"
+
+defaults:
+  manufacturer: Generic
+
+# The ISP circuit: provider and speeds, and the router port it plugs into.
+# The dashboard roots the map here and measures internet use against `download`.
+internet:
+  provider: Example ISP
+  cid: EX-1000
+  download: 1G
+  upload: 50M
+  connect: gw-01/wan0
+
+# Devices by name. `role` decides how the dashboard draws them (router, switch, access-point,
+# server, nas, workstation, printer, patch-panel…). Interface types are NetBox's values:
+# 1000base-t, 2.5gbase-t, 10gbase-t, 10gbase-x-sfpp, ieee802.11be, lag, virtual…
+# `port[1-8]` expands to port1…port8. Tags: `snmp` / `glances` make the dashboard poll it.
+devices:
+  gw-01:
+    role: router
+    model: Router 10G
+    ip: 10.20.0.10/24 on lan0
+    interfaces:
+      wan0: 10gbase-t
+      lan0: 10gbase-x-sfpp
+      wlan0: ieee802.11be
+
+  sw-core:
+    role: switch
+    model: Switch 4x10G
+    tags: [snmp]
+    ip: 10.20.0.11/24 on mgmt
+    interfaces:
+      sfp[1-4]: 10gbase-x-sfpp
+      mgmt: { type: 1000base-t, mgmt: true }
+
+  sw-rack:
+    role: switch
+    model: Switch 8x2.5G
+    tags: [snmp]
+    ip: 10.20.0.12/24 on port8
+    interfaces:
+      port[1-8]: 2.5gbase-t
+      sfp1: 10gbase-x-sfpp
+
+  sw-desk:
+    role: switch
+    model: Switch 8x1G
+    tags: [snmp]
+    ip: 10.20.0.13/24 on port8
+    interfaces:
+      port[1-8]: 1000base-t
+      sfp1: 10gbase-x-sfpp
+
+  ap-hall:
+    role: access-point
+    model: Wi-Fi 7 AP
+    interfaces:
+      eth0: 2.5gbase-t
+      wlan0: ieee802.11be
+
+  ap-garage:
+    role: access-point
+    model: Wi-Fi 7 AP
+    interfaces:
+      wlan0: ieee802.11be
+
+  srv-01:
+    role: server
+    model: Mini Server
+    tags: [glances]
+    ip: 10.20.0.14/24 on bond0
+    interfaces:
+      bond0: lag
+      eth0: { type: 2.5gbase-t, lag: bond0 }
+      eth1: { type: 2.5gbase-t, lag: bond0 }
+
+  srv-02:
+    role: server
+    model: Mini Server
+    tags: [glances]
+    ip: 10.20.0.15/24 on eth0
+    interfaces:
+      eth0: 2.5gbase-t
+
+  nas-01:
+    role: nas
+    model: NAS 6-bay
+    ip: 10.20.0.16/24 on eth0
+    interfaces:
+      eth0: 2.5gbase-t
+
+  ws-01:
+    role: workstation
+    model: Desktop
+    interfaces:
+      eth0: 1000base-t
+
+  printer-01:
+    role: printer
+    model: Laser Printer
+    interfaces:
+      eth0: 1000base-t
+
+  # A patch panel: `ports: 12` makes front ports F1–F12 and rear ports R1–R12.
+  pp-01:
+    role: patch-panel
+    model: 12-port Patch Panel
+    ports: 12
+
+# Cables, one per line. Paths through a patch panel are two cables (front, then rear).
+cables:
+  - gw-01/lan0 -- sw-core/sfp1
+  - sw-core/sfp2 -- sw-rack/sfp1
+  - sw-core/sfp3 -- sw-desk/sfp1
+  - sw-rack/port1 -- srv-01/eth0 # two cables into one LAG: one bonded link
+  - sw-rack/port2 -- srv-01/eth1
+  - sw-rack/port3 -- srv-02/eth0
+  - sw-rack/port4 -- nas-01/eth0
+  - sw-desk/port1 -- ws-01/eth0
+  - sw-desk/port2 -- pp-01/F1
+  - pp-01/R1 -- printer-01/eth0
+  - sw-desk/port7 -- ap-hall/eth0
+
+# Wireless backhaul between access points.
+wireless:
+  - link: ap-hall/wlan0 -- ap-garage/wlan0
+    ssid: demo-backhaul
+
+# Service tiles. Without `ports` it's a container (a VM in NetBox, pinned to its host);
+# with `ports` it's a service listening on the device itself.
+# app: what it is (plex, sabnzbd, qbittorrent…); expect: manual | paused; vpn: true.
+services:
+  - { name: Home Assistant, on: srv-01, app: home-assistant, container: homeassistant }
+  - { name: Grafana, on: srv-01, app: grafana }
+  - { name: Pi-hole, on: srv-01, app: pihole }
+  - { name: Jellyfin, on: srv-01, app: jellyfin }
+  - { name: Nextcloud, on: srv-01, app: nextcloud }
+  - { name: qBittorrent, on: srv-01, app: qbittorrent, vpn: true }
+  - { name: Uptime Kuma, on: srv-01, app: uptime-kuma, expect: manual }
+  - { name: SMB shares, on: nas-01, ports: [445], app: smb }
+  - { name: Backups, on: srv-02, ports: [8200], app: duplicati, expect: paused }

@@ -228,7 +228,7 @@ the lifecycle: new key → **open** (optional "for N seconds" debounce), key gon
 | Phase | Scope |
 |---|---|
 | **0 — done** | spec, shared model, fact store, rate math, protocol attribution, pipeline correlation, incident engine, topology-aware simulator, SSE API, Overview + Lab Live + Network UI, collectors with fixture tests, Docker packaging |
-| **1 — NetBox (done)** | NetBox as source of truth: topology, LAGs, wireless, circuit, service tiles, collector targets from tags; refresh + cache; bootstrap/export scripts; tested against NetBox 4.7.5 |
+| **1 — NetBox (done)** | NetBox as source of truth: topology, LAGs, wireless, circuit, service tiles, collector targets from tags; refresh + cache; bootstrap/export scripts; a pinned Docker deployment with one-command setup, backup and restore; a YAML inventory importer; tested against NetBox 4.7.5 |
 | **2 — wire it up** | model the lab in NetBox, tag devices, `mode: mixed`; verify each collector against the real gear; NAS/storage and Wi-Fi sources for whatever the lab actually uses; SQLite history + daily totals |
 | **3 — automate** | notifications, actions, reactive rules; optionally write back to NetBox (e.g. discovered LLDP neighbours as proposed cables) |
 | **4 — polish** | kiosk mode (auto-rotate hero, burn-in shift), light theme, mobile layout pass, PWA |

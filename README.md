@@ -23,6 +23,10 @@ the whole thing in the browser with no server.
 
 ## Your lab, from NetBox
 
+No NetBox yet? `deploy/netbox/setup.sh` stands one up in Docker with fresh secrets, the dashboard's
+tags and a read-only token. Then describe your lab in one YAML file and load it with
+`npm run netbox:import`. See [deploy/netbox/README.md](deploy/netbox/README.md).
+
 ```bash
 cp config/lab.example.yaml config/lab.yaml
 cp .env.example .env                       # NETBOX_URL, NETBOX_TOKEN (read-only), collector secrets
@@ -47,7 +51,9 @@ server/
   http.ts, index.ts        SSE stream, history API, static UI
 web/src/                   React UI (SVG + canvas particles)
 config/                    demo.yaml (fictional lab), lab.example.yaml (NetBox-driven)
-scripts/                   netbox-bootstrap, netbox-export, netbox-seed-demo
+scripts/                   netbox-import, netbox-bootstrap, netbox-export
+deploy/netbox/             NetBox stack: setup.sh, backup.sh, restore.sh
+examples/                  demo-lab.inventory.yaml (the inventory format, by example)
 ```
 
 ## API

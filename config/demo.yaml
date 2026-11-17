@@ -1,5 +1,5 @@
 # Demo lab — a fictional network used when no config/lab.yaml exists, for development and the
-# browser demo. It is exported from the "Demo Lab" site that scripts/netbox-seed-demo.ts puts
+# browser demo. It is exported from the "Demo Lab" site that `npm run netbox:seed-demo` puts
 # into a test NetBox, so the YAML and NetBox paths render the same thing.
 # Your own lab comes from NetBox: see config/lab.example.yaml and docs/NETBOX.md.
 mode: demo

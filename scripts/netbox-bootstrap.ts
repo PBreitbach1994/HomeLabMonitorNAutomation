@@ -10,7 +10,7 @@ try {
   const created: string[] = [];
   await ensureSchema(nb, (m) => created.push(m));
   console.log(created.length ? created.map((m) => `  ${m}`).join('\n') : '  everything already in place');
-  console.log(`\nTags: ${Object.values(TAGS).map((t) => t.slug).join(', ')}`);
+  console.log(`\nTags: ${TAGS.map((t) => t.slug).join(', ')}`);
   console.log(`Custom fields (on services and VMs): ${CUSTOM_FIELDS.map((f) => f.name).join(', ')}`);
 } catch (err) {
   console.error((err as Error).message);
